@@ -1,0 +1,14 @@
+{
+  "mysql": {
+    "server": "localhost",
+    "user_name": "root",
+    "pass_word": "root",
+    "database": "committee_vote",
+  },
+  "block": {
+    "enabled": true,
+    "rpc_host": "127.0.0.1:8334",
+    "rpc_username":"root",
+    "rpc_password": "root"
+  }
+}
