@@ -2,7 +2,8 @@ package common
 
 import (
 	"encoding/json"
-	"github.com/classzz/committee-vote/blocks"
+	"github.com/classzz/committee-vote/chains"
+	"github.com/classzz/committee-vote/scanning"
 	"github.com/classzz/committee-vote/storage"
 	"log"
 	"os"
@@ -10,8 +11,10 @@ import (
 )
 
 type Config struct {
-	Mysql storage.MysqlConfig `json:"mysql"`
-	Block blocks.Config       `json:"block"`
+	Mysql      storage.MysqlConfig `json:"mysql"`
+	Block      scanning.Config     `json:"block"`
+	Chains     chains.Config       `json:"chains"`
+	PrivateKey string              `json:"private_key"`
 }
 
 func LoadConfig(cfg *Config) {

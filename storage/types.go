@@ -7,7 +7,6 @@ type MysqlConfig struct {
 	Database1 string `json:"database"`
 }
 
-// ============= Mysql
 type CzzBlocks struct {
 	Id                int64   `json:"id"`
 	PreviousBlockHash string  `json:"previous_block_hash"`

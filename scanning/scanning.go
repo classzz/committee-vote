@@ -1,4 +1,4 @@
-package blocks
+package scanning
 
 import (
 	"fmt"
@@ -132,6 +132,7 @@ func (s *Scanning) ProcessConvert() error {
 
 		if s.MysqlClient.FindConvertItem(conv.MID) != nil {
 			//TODO: Handle COINS
+
 		}
 		s.MysqlClient.ConvertItemInstall(conv)
 	}

@@ -1,4 +1,4 @@
-package blocks
+package scanning
 
 type Config struct {
 	Enabled bool `json:"enabled"`

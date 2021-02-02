@@ -10,5 +10,11 @@
     "rpc_host": "127.0.0.1:8334",
     "rpc_username":"root",
     "rpc_password": "root"
-  }
+  },
+  "chains": {
+    "eth_rpc": "121.36.88.105:9223",
+    "trx_rpc": "api.shasta.trongrid.io",
+    "heco_rpc": "scan-testnet.hecochain.com"
+  },
+  "private_key": ""
 }

@@ -44,7 +44,7 @@ func (conn *MysqlClient) Stop() {
 
 func (c *MysqlClient) BlockInstall(block *CzzBlocks) int {
 
-	insertSQL := "insert into blocks (previous_block_hash, `hash`, height, `size`, confirmations, version, version_hex, merkleroot, c_time, nonce, bits, difficulty, is_main) values (?,?,?,?,?,?,?,?,?,?,?,?,?)"
+	insertSQL := "insert into scanning (previous_block_hash, `hash`, height, `size`, confirmations, version, version_hex, merkleroot, c_time, nonce, bits, difficulty, is_main) values (?,?,?,?,?,?,?,?,?,?,?,?,?)"
 	_, err := c.mysqlDB.Exec(insertSQL, block.PreviousBlockHash, block.Hash, block.Height, block.Size, block.Confirmations, block.Version, block.VersionHex, block.Merkleroot, block.CTime, block.Nonce, block.Bits, block.Difficulty, block.IsMain)
 	if err != nil {
 		fmt.Printf("Insert failed,err:%v", err)
@@ -82,7 +82,7 @@ func (conn *MysqlClient) FindConvertItem(mid *big.Int) *int64 {
 
 func (c *MysqlClient) BlockFindMaxHeight() int64 {
 
-	rows, err := c.mysqlDB.Query("select max(height)  from blocks")
+	rows, err := c.mysqlDB.Query("select max(height)  from scanning")
 	if err != nil {
 		fmt.Println(err)
 		return 0
