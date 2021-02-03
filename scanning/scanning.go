@@ -5,6 +5,7 @@ import (
 	"github.com/classzz/classzz/blockchain"
 	"github.com/classzz/classzz/chaincfg"
 	"github.com/classzz/classzz/rpcclient"
+	"github.com/classzz/committee-vote/chains"
 	"github.com/classzz/committee-vote/storage"
 	"log"
 	"math/big"
@@ -13,13 +14,14 @@ import (
 )
 
 var (
-	startInterval   = 1 * time.Minute
+	startInterval   = 1 * time.Second
 	storageInterval = int64(60)
 )
 
 type Scanning struct {
 	NodeClient  *rpcclient.Client
 	MysqlClient *storage.MysqlClient
+	EthClient   *chains.EthClient
 	CloseCh     chan struct{}
 }
 
@@ -129,10 +131,9 @@ func (s *Scanning) ProcessConvert() error {
 	}
 
 	for _, conv := range convs {
-
 		if s.MysqlClient.FindConvertItem(conv.MID) != nil {
 			//TODO: Handle COINS
-
+			s.EthClient.Casting(conv)
 		}
 		s.MysqlClient.ConvertItemInstall(conv)
 	}

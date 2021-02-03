@@ -23,4 +23,5 @@ func main() {
 		defer scanning.Stop()
 	}
 
+	select {}
 }

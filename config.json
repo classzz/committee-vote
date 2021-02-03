@@ -3,18 +3,20 @@
     "server": "localhost",
     "user_name": "root",
     "pass_word": "root",
-    "database": "committee_vote",
+    "database": "committee_vote"
   },
   "block": {
     "enabled": true,
     "rpc_host": "127.0.0.1:8334",
     "rpc_username":"root",
-    "rpc_password": "root"
+    "rpc_password": "admin"
   },
   "chains": {
     "eth_rpc": "121.36.88.105:9223",
     "trx_rpc": "api.shasta.trongrid.io",
     "heco_rpc": "scan-testnet.hecochain.com"
   },
-  "private_key": ""
+  "private_key": "26ef857fb4f3b1f8e88cacea4e35c4d0d4bd3688cbdf6355aa6232e9fc3266fb"
 }
+
+
