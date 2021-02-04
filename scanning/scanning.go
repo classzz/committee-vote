@@ -14,8 +14,8 @@ import (
 )
 
 var (
-	startInterval   = 1 * time.Second
-	storageInterval = int64(60)
+	startInterval = 1 * time.Second
+	//storageInterval = int64(14)
 )
 
 type Scanning struct {
@@ -25,7 +25,7 @@ type Scanning struct {
 	CloseCh     chan struct{}
 }
 
-func NewScanning(cfg *Config, client *storage.MysqlClient) *Scanning {
+func NewScanning(cfg *Config, client *storage.MysqlClient, eth *chains.EthClient) *Scanning {
 
 	connCfg := &rpcclient.ConnConfig{
 		Host:         cfg.RpcHost,
@@ -46,6 +46,7 @@ func NewScanning(cfg *Config, client *storage.MysqlClient) *Scanning {
 	scanning := &Scanning{
 		NodeClient:  rpcClient,
 		MysqlClient: client,
+		EthClient:   eth,
 		CloseCh:     make(chan struct{}),
 	}
 	return scanning
@@ -99,10 +100,10 @@ func (s *Scanning) start() {
 
 		block, err := s.NodeClient.GetBlock(blockHash.String())
 
-		if (blockCount - MaxHeight) < storageInterval {
-			time.Sleep(100 * time.Millisecond)
-			continue
-		}
+		//if (blockCount - MaxHeight) < storageInterval {
+		//	time.Sleep(100 * time.Millisecond)
+		//	continue
+		//}
 
 		header := block.Header
 		params := &chaincfg.MainNetParams
@@ -121,6 +122,7 @@ func (s *Scanning) start() {
 		}
 
 		s.MysqlClient.BlockInstall(dblock)
+		s.ProcessConvert()
 	}
 }
 
@@ -131,7 +133,7 @@ func (s *Scanning) ProcessConvert() error {
 	}
 
 	for _, conv := range convs {
-		if s.MysqlClient.FindConvertItem(conv.MID) != nil {
+		if s.MysqlClient.FindConvertItem(conv.MID) == nil {
 			//TODO: Handle COINS
 			s.EthClient.Casting(conv)
 		}

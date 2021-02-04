@@ -9,12 +9,27 @@ import (
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"golang.org/x/net/context"
+	"log"
 	"math/big"
 )
 
 type EthClient struct {
 	Client     *ethclient.Client
 	PrivateKey string
+}
+
+func NewEthClient(c *Config, private_key string) *EthClient {
+	client, err := ethclient.Dial(c.EthRpc)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	ec := &EthClient{
+		Client:     client,
+		PrivateKey: private_key,
+	}
+
+	return ec
 }
 
 //wif: KxXPxci7wiXyKphnQ2VryVhdD8fMYdto8cEUo5NS3gLNkcX59S9g
@@ -68,6 +83,7 @@ func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) error {
 	if err != nil {
 		return err
 	}
+	//fmt.Println(toaddress)
 	fmt.Printf("tx sent: %s", tx.Hash().Hex())
 	return nil
 }

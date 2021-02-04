@@ -2,6 +2,7 @@ package storage
 
 import (
 	"database/sql"
+	"encoding/hex"
 	"fmt"
 	"github.com/classzz/classzz/btcjson"
 	_ "github.com/go-sql-driver/mysql"
@@ -54,8 +55,8 @@ func (c *MysqlClient) BlockInstall(block *CzzBlocks) int {
 }
 
 func (c *MysqlClient) ConvertItemInstall(info *btcjson.ConvertItemsResult) int {
-	insertSQL := "insert into convert_items (mid, asset_type, convert_type, pubkey, `height`, exttxhash, `index`, `amount`) values (?,?,?,?,?,?,?,?)"
-	_, err := c.mysqlDB.Exec(insertSQL, info.MID, info.AssetType, info.ConvertType, info.PubKey, 0, info.ExtTxHash, 0, info.Amount)
+	insertSQL := "insert into convert_items (mid, asset_type, convert_type, pubkey, `height`, exttxhash, `index_`, `amount`) values (?,?,?,?,?,?,?,?)"
+	_, err := c.mysqlDB.Exec(insertSQL, info.MID.Int64(), info.AssetType, info.ConvertType, hex.EncodeToString(info.PubKey), 0, info.ExtTxHash, 0, info.Amount.Int64())
 	if err != nil {
 		fmt.Printf("Insert failed,err:%v", err)
 		return 1
