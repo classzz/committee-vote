@@ -9,13 +9,13 @@ import (
 )
 
 var (
-	cfg *common.Config
+	cfg common.Config
 )
 
 func main() {
 
 	// Load configuration file
-	common.LoadConfig(cfg)
+	common.LoadConfig(&cfg)
 	mysqlClient := storage.NewMysqlClient(cfg.Mysql)
 	eth := ethereum.NewClient(&cfg.Chains, cfg.PrivateKey)
 	heco := heco.NewClient(&cfg.Chains, cfg.PrivateKey)

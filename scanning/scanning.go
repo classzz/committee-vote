@@ -5,6 +5,7 @@ import (
 	"github.com/classzz/classzz/blockchain"
 	"github.com/classzz/classzz/btcjson"
 	"github.com/classzz/classzz/chaincfg"
+	"github.com/classzz/classzz/cross"
 	"github.com/classzz/classzz/rpcclient"
 	"github.com/classzz/committee-vote/chains/ethereum"
 	"github.com/classzz/committee-vote/chains/heco"
@@ -16,7 +17,7 @@ import (
 )
 
 var (
-	startInterval = 1 * time.Second
+	startInterval = 10 * time.Second
 	//storageInterval = int64(14)
 )
 
@@ -136,11 +137,20 @@ func (s *Scanning) ProcessConvert() error {
 
 	for _, conv := range convs {
 		if s.MysqlClient.FindConvertItem(conv.MID) == nil {
-			if txhash, err := s.EthClient.Casting(conv); err != nil {
-				return err
-			} else {
-				s.ConvertConfirm(txhash, conv)
+			if conv.ConvertType == cross.ExpandedTxConvert_ECzz {
+				if txhash, err := s.EthClient.Casting(conv); err != nil {
+					return err
+				} else {
+					s.ConvertConfirm(txhash, conv)
+				}
+			} else if conv.ConvertType == cross.ExpandedTxConvert_HCzz {
+				if txhash, err := s.HecoClient.Casting(conv); err != nil {
+					return err
+				} else {
+					s.ConvertConfirm(txhash, conv)
+				}
 			}
+
 		}
 		s.MysqlClient.ConvertItemInstall(conv)
 	}

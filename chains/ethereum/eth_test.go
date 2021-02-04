@@ -8,7 +8,7 @@ import (
 
 func TestEthClient_Casting(t *testing.T) {
 
-	client, err := ethclient.Dial("http://121.36.88.105:9223")
+	client, err := ethclient.Dial("http://192.168.152.2:8545")
 	if err != nil {
 		log.Fatal(err)
 	}
