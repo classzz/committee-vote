@@ -3,9 +3,11 @@ package scanning
 import (
 	"fmt"
 	"github.com/classzz/classzz/blockchain"
+	"github.com/classzz/classzz/btcjson"
 	"github.com/classzz/classzz/chaincfg"
 	"github.com/classzz/classzz/rpcclient"
-	"github.com/classzz/committee-vote/chains"
+	"github.com/classzz/committee-vote/chains/ethereum"
+	"github.com/classzz/committee-vote/chains/heco"
 	"github.com/classzz/committee-vote/storage"
 	"log"
 	"math/big"
@@ -21,11 +23,12 @@ var (
 type Scanning struct {
 	NodeClient  *rpcclient.Client
 	MysqlClient *storage.MysqlClient
-	EthClient   *chains.EthClient
+	EthClient   *ethereum.EthClient
+	HecoClient  *heco.HecoClient
 	CloseCh     chan struct{}
 }
 
-func NewScanning(cfg *Config, client *storage.MysqlClient, eth *chains.EthClient) *Scanning {
+func NewScanning(cfg *Config, client *storage.MysqlClient) *Scanning {
 
 	connCfg := &rpcclient.ConnConfig{
 		Host:         cfg.RpcHost,
@@ -46,7 +49,6 @@ func NewScanning(cfg *Config, client *storage.MysqlClient, eth *chains.EthClient
 	scanning := &Scanning{
 		NodeClient:  rpcClient,
 		MysqlClient: client,
-		EthClient:   eth,
 		CloseCh:     make(chan struct{}),
 	}
 	return scanning
@@ -134,13 +136,19 @@ func (s *Scanning) ProcessConvert() error {
 
 	for _, conv := range convs {
 		if s.MysqlClient.FindConvertItem(conv.MID) == nil {
-			//TODO: Handle COINS
-			s.EthClient.Casting(conv)
+			if txhash, err := s.EthClient.Casting(conv); err != nil {
+				return err
+			} else {
+				s.ConvertConfirm(txhash, conv)
+			}
 		}
 		s.MysqlClient.ConvertItemInstall(conv)
 	}
 
 	return nil
+}
+
+func (s *Scanning) ConvertConfirm(txhash string, items *btcjson.ConvertItemsResult) {
 }
 
 // getDifficultyRatio returns the proof-of-work difficulty as a multiple of the

@@ -1,4 +1,4 @@
-package chains
+package ethereum
 
 import (
 	"github.com/ethereum/go-ethereum/ethclient"

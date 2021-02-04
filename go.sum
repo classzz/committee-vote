@@ -49,6 +49,8 @@ github.com/classzz/classzz v3.3.0-test.0.20210202091050-f08b07812f92+incompatibl
 github.com/classzz/classzz v3.3.0-test.0.20210202091050-f08b07812f92+incompatible/go.mod h1:xNhB4SKAoUIDw5OlvCbsn0y80VhCN/OocbgAIZEfZaw=
 github.com/classzz/classzz v3.3.0-test.0.20210203083636-52e46b92dd7b+incompatible h1:W/bNdZsBGiblwjNAHEzP2SnkysGlIksxRNRYE0LmwLs=
 github.com/classzz/classzz v3.3.0-test.0.20210203083636-52e46b92dd7b+incompatible/go.mod h1:xNhB4SKAoUIDw5OlvCbsn0y80VhCN/OocbgAIZEfZaw=
+github.com/classzz/classzz v3.3.0-test.0.20210204065635-97afc71765c3+incompatible h1:F7iz/y6QFkX39AgmN3GL5QgE/lAjYLOXBa2gJkMBhNI=
+github.com/classzz/classzz v3.3.0-test.0.20210204065635-97afc71765c3+incompatible/go.mod h1:xNhB4SKAoUIDw5OlvCbsn0y80VhCN/OocbgAIZEfZaw=
 github.com/classzz/czzlog v0.0.0-20190701134521-659346cb927a h1:e41Y/x9AX3JUT3285Pyd+DD52k3161MY3s4+PyRb69M=
 github.com/classzz/czzlog v0.0.0-20190701134521-659346cb927a/go.mod h1:n7gXMvIOF9qH5iyYbEdIdJkbwBDk8jkm+/Ftpczy9ME=
 github.com/classzz/czzutil v0.0.0-20200714085554-7e5f543670fb h1:yVksZl/2NZpYWoHRueyIzOvKx3FV33ygP2ef11TrNaQ=
