@@ -102,12 +102,6 @@ func (s *Scanning) start() {
 		}
 
 		block, err := s.NodeClient.GetBlock(blockHash.String())
-
-		//if (blockCount - MaxHeight) < storageInterval {
-		//	time.Sleep(100 * time.Millisecond)
-		//	continue
-		//}
-
 		header := block.Header
 		params := &chaincfg.MainNetParams
 		dblock := &storage.CzzBlocks{
@@ -125,7 +119,10 @@ func (s *Scanning) start() {
 		}
 
 		s.MysqlClient.BlockInstall(dblock)
-		s.ProcessConvert()
+		if err := s.ProcessConvert(); err != nil {
+			log.Println(err)
+			return
+		}
 	}
 }
 
@@ -150,7 +147,6 @@ func (s *Scanning) ProcessConvert() error {
 					s.ConvertConfirm(txhash, conv)
 				}
 			}
-
 		}
 		s.MysqlClient.ConvertItemInstall(conv)
 	}
