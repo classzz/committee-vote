@@ -43,6 +43,27 @@ func (conn *MysqlClient) Stop() {
 	conn.mysqlDB.Close()
 }
 
+//create table blocks
+//(
+//    id                  int auto_increment
+//        primary key,
+//    previous_block_hash varchar(64)                        null comment '父块的hash',
+//    hash                varchar(64)                        null comment '块hash',
+//    height              bigint                             null comment '块高度',
+//    size                bigint                             null comment '块大小',
+//    confirmations       bigint                             null comment '确认数',
+//    version             int                                null comment '版本',
+//    version_hex         varchar(64)                        null comment '版本的16进制',
+//    merkleroot          varchar(64)                        null comment 'merkle根hash',
+//    c_time              int                                null comment '块创建时间',
+//    nonce               bigint(255) unsigned               null comment '挖矿随机数',
+//    bits                varchar(34)                        null comment '块难度',
+//    difficulty          decimal(64, 30)                    null comment '块难度是创始块的倍数',
+//    is_main             int                                null comment '是否是主链',
+//    update_time         datetime default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP,
+//    create_time         datetime default CURRENT_TIMESTAMP not null
+//);
+
 func (c *MysqlClient) BlockInstall(block *CzzBlocks) int {
 
 	insertSQL := "insert into blocks (previous_block_hash, `hash`, height, `size`, confirmations, version, version_hex, merkleroot, c_time, nonce, bits, difficulty, is_main) values (?,?,?,?,?,?,?,?,?,?,?,?,?)"
@@ -53,6 +74,22 @@ func (c *MysqlClient) BlockInstall(block *CzzBlocks) int {
 	}
 	return 0
 }
+
+//create table convert_items
+//(
+//id           int auto_increment
+//primary key,
+//mid          bigint                             null,
+//asset_type   int                                null,
+//convert_type int                                null,
+//pubkey       varchar(255)                       null,
+//height       bigint                             null,
+//exttxhash    varchar(255)                       null,
+//index_       int                                null,
+//amount       bigint(64)                         null,
+//update_time  datetime default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP,
+//create_time  datetime default CURRENT_TIMESTAMP not null
+//);
 
 func (c *MysqlClient) ConvertItemInstall(info *btcjson.ConvertItemsResult) int {
 	insertSQL := "insert into convert_items (mid, asset_type, convert_type, pubkey, `height`, exttxhash, `index_`, `amount`) values (?,?,?,?,?,?,?,?)"
