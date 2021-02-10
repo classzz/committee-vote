@@ -77,18 +77,18 @@ func (c *MysqlClient) BlockInstall(block *CzzBlocks) int {
 
 //create table convert_items
 //(
-//id           int auto_increment
-//primary key,
-//mid          bigint                             null,
-//asset_type   int                                null,
-//convert_type int                                null,
-//pubkey       varchar(255)                       null,
-//height       bigint                             null,
-//exttxhash    varchar(255)                       null,
-//index_       int                                null,
-//amount       bigint(64)                         null,
-//update_time  datetime default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP,
-//create_time  datetime default CURRENT_TIMESTAMP not null
+//    id           int auto_increment
+//        primary key,
+//    mid          bigint                             null,
+//    asset_type   int                                null,
+//    convert_type int                                null,
+//    pubkey       varchar(255)                       null,
+//    height       bigint                             null,
+//    exttxhash    varchar(255)                       null,
+//    index_       int                                null,
+//    amount       bigint(64)                         null,
+//    update_time  datetime default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP,
+//    create_time  datetime default CURRENT_TIMESTAMP not null
 //);
 
 func (c *MysqlClient) ConvertItemInstall(info *btcjson.ConvertItemsResult) int {
