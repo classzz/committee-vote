@@ -6,7 +6,7 @@ require (
 	github.com/btcsuite/go-socks v0.0.0-20170105172521-4720035b7bfd // indirect
 	github.com/btcsuite/goleveldb v1.0.0 // indirect
 	github.com/btcsuite/websocket v0.0.0-20150119174127-31079b680792 // indirect
-	github.com/classzz/classzz v3.3.0-test.0.20210204065635-97afc71765c3+incompatible
+	github.com/classzz/classzz v0.0.0-20210210101938-dd89295329b1
 	github.com/classzz/czzlog v0.0.0-20190701134521-659346cb927a // indirect
 	github.com/classzz/czzutil v0.0.0-20200714085554-7e5f543670fb // indirect
 	github.com/dchest/siphash v1.2.2 // indirect

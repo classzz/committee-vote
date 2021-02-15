@@ -36,8 +36,8 @@ func NewClient(c *chains.Config, private_key string) *HecoClient {
 // casting
 func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (string, error) {
 
-	address := common.HexToAddress("0x9a81F246Fb739387ca57fD06D454786Fe2338b21")
-	instance, err := NewChains(address, ec.Client)
+	address := common.HexToAddress("0xC91A3fEf5441142f7321c5e2df18457c2c99Dc04")
+	instance, err := NewHeco(address, ec.Client)
 	privateKey, err := crypto.HexToECDSA(ec.PrivateKey)
 	if err != nil {
 		return "", err
@@ -71,7 +71,8 @@ func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (string, error)
 	}
 
 	toaddress := crypto.PubkeyToAddress(*toaddresspuk)
-	tx, err := instance.Mint(auth, toaddress, items.Amount, items.MID)
+	toToken := common.HexToAddress(items.ToToken)
+	tx, err := instance.SwapAndmint(auth, toaddress, items.Amount, big.NewInt(7), toToken)
 	if err != nil {
 		return "", err
 	}
