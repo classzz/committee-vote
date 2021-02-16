@@ -134,6 +134,7 @@ func (s *Scanning) ProcessConvert() error {
 
 	for _, conv := range convs {
 		if s.MysqlClient.FindConvertItem(conv.MID) == nil {
+			s.MysqlClient.ConvertItemInstall(conv)
 			if conv.ConvertType == cross.ExpandedTxConvert_ECzz {
 				if txhash, err := s.EthClient.Casting(conv); err != nil {
 					return err
@@ -148,9 +149,7 @@ func (s *Scanning) ProcessConvert() error {
 				}
 			}
 		}
-		s.MysqlClient.ConvertItemInstall(conv)
 	}
-
 	return nil
 }
 

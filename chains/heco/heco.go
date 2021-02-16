@@ -36,7 +36,7 @@ func NewClient(c *chains.Config, private_key string) *HecoClient {
 // casting
 func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (string, error) {
 
-	address := common.HexToAddress("0xC91A3fEf5441142f7321c5e2df18457c2c99Dc04")
+	address := common.HexToAddress("0x03FE52D467cf9eAb3690467fD487Bae69ad516e7")
 	instance, err := NewHeco(address, ec.Client)
 	privateKey, err := crypto.HexToECDSA(ec.PrivateKey)
 	if err != nil {
@@ -59,7 +59,7 @@ func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (string, error)
 		return "", err
 	}
 
-	auth, _ := bind.NewKeyedTransactorWithChainID(privateKey, big.NewInt(8888))
+	auth, _ := bind.NewKeyedTransactorWithChainID(privateKey, big.NewInt(256))
 	auth.Nonce = big.NewInt(int64(nonce))
 	auth.Value = big.NewInt(0)     // in wei
 	auth.GasLimit = uint64(300000) // in units
@@ -67,16 +67,29 @@ func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (string, error)
 
 	toaddresspuk, err := crypto.DecompressPubkey(items.PubKey)
 	if err != nil || toaddresspuk == nil {
-		return "", err
+		toaddresspuk, err = crypto.UnmarshalPubkey(items.PubKey)
+		if err != nil || toaddresspuk == nil {
+			return "", err
+		}
 	}
 
 	toaddress := crypto.PubkeyToAddress(*toaddresspuk)
-	toToken := common.HexToAddress(items.ToToken)
-	tx, err := instance.SwapAndmint(auth, toaddress, items.Amount, big.NewInt(7), toToken)
+	//toToken := common.HexToAddress(items.ToToken)
+	Amount := big.NewInt(0).Mul(items.Amount, big.NewInt(10000000000))
+
+	//if items.AssetType == cross.ExpandedTxConvert_Czz {
+	tx, err := instance.Mint(auth, toaddress, Amount)
 	if err != nil {
 		return "", err
 	}
 
-	fmt.Printf("tx sent: %s", tx.Hash().Hex())
+	fmt.Printf("tx sent: %s toaddress %s fromaddress %s \r\n", tx.Hash().Hex(), toaddress, fromAddress)
 	return tx.Hash().Hex(), nil
+	//}
+	//
+	//tx, err := instance.SwapAndmint(auth, toaddress, Amount , items.MID, toToken)
+	//if err != nil {
+	//	return "", err
+	//}
+	//return tx.Hash().Hex(), nil
 }

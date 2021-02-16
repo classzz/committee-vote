@@ -4,6 +4,7 @@ import (
 	"crypto/ecdsa"
 	"fmt"
 	"github.com/classzz/classzz/btcjson"
+	"github.com/classzz/classzz/cross"
 	"github.com/classzz/committee-vote/chains"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
@@ -36,7 +37,7 @@ func NewClient(c *chains.Config, private_key string) *EthClient {
 // casting
 func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (string, error) {
 
-	address := common.HexToAddress("0xE405dbc3BdF42ab91D18Cf16E703b88CFDFb3670")
+	address := common.HexToAddress("0xeb848c8684A131Efd90ABC474010bA261e9dD90D")
 	instance, err := NewEthereum(address, ec.Client)
 	privateKey, err := crypto.HexToECDSA(ec.PrivateKey)
 	if err != nil {
@@ -71,8 +72,20 @@ func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 	}
 
 	toaddress := crypto.PubkeyToAddress(*toaddresspuk)
-	toToken := common.HexToAddress("0x060184BBc35930C45aab8d833fB2b96d1142FF56")
-	tx, err := instance.SwapAndmint(auth, toaddress, items.Amount, big.NewInt(11), toToken)
+	toToken := common.HexToAddress(items.ToToken)
+	Amount := big.NewInt(0).Mul(items.Amount, big.NewInt(10000000000))
+
+	if items.AssetType == cross.ExpandedTxConvert_Czz {
+		tx, err := instance.Mint(auth, toaddress, Amount)
+		if err != nil {
+			return "", err
+		}
+
+		fmt.Printf("tx sent: %s toaddress %s fromaddress %s \r\n", tx.Hash().Hex(), toaddress, fromAddress)
+		return tx.Hash().Hex(), nil
+	}
+
+	tx, err := instance.SwapAndmint(auth, toaddress, Amount, items.MID, toToken)
 	if err != nil {
 		return "", err
 	}

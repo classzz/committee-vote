@@ -6,7 +6,6 @@
     "database": "committee_vote"
   },
   "block": {
-    "enabled": true,
     "rpc_host": "127.0.0.1:8334",
     "rpc_username":"root",
     "rpc_password": "admin"
@@ -14,7 +13,7 @@
   "chains": {
     "eth_rpc": "http://127.0.0.1:9223",
     "trx_rpc": "api.shasta.trongrid.io",
-    "heco_rpc": "http://scan-testnet.hecochain.com"
+    "heco_rpc": "https://http-testnet.hecochain.com"
   },
   "private_key": "26ef857fb4f3b1f8e88cacea4e35c4d0d4bd3688cbdf6355aa6232e9fc3266fb"
 }
