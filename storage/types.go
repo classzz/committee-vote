@@ -1,10 +1,11 @@
 package storage
 
 type MysqlConfig struct {
-	Server    string `json:"server"`
-	UserName  string `json:"user_name"`
-	PassWord  string `json:"pass_word"`
-	Database1 string `json:"database"`
+	Server   string `json:"server"`
+	Prot     int    `json:"prot"`
+	UserName string `json:"user_name"`
+	PassWord string `json:"pass_word"`
+	Database string `json:"database"`
 }
 
 type CzzBlocks struct {

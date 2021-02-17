@@ -1,6 +1,7 @@
 {
   "mysql": {
     "server": "localhost",
+    "port": 3306,
     "user_name": "root",
     "pass_word": "root",
     "database": "committee_vote"
