@@ -118,10 +118,11 @@ func (s *Scanning) start() {
 			IsMain:            1,
 		}
 
-		s.MysqlClient.BlockInstall(dblock)
-		if err := s.ProcessConvert(); err != nil {
-			log.Println(err)
-			return
+		if e := s.MysqlClient.BlockInstall(dblock); e == 0 {
+			if err := s.ProcessConvert(); err != nil {
+				log.Println(err)
+				return
+			}
 		}
 	}
 }
