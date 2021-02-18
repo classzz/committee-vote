@@ -18,7 +18,6 @@ import (
 
 var (
 	startInterval = 10 * time.Second
-	//storageInterval = int64(14)
 )
 
 type Scanning struct {

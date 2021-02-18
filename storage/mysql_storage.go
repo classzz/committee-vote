@@ -20,7 +20,7 @@ type MysqlClient struct {
 
 func NewMysqlClient(cfg MysqlConfig) *MysqlClient {
 
-	dsn := fmt.Sprintf("%s:%s@%s(%s:%d)/%s", cfg.UserName, cfg.PassWord, NETWORK, cfg.Server, cfg.Prot, cfg.Database)
+	dsn := fmt.Sprintf("%s:%s@%s(%s:%d)/%s", cfg.UserName, cfg.PassWord, NETWORK, cfg.Server, cfg.Port, cfg.Database)
 	DB, err := sql.Open("mysql", dsn)
 	if err != nil {
 		fmt.Printf("Open mysql failed,err:%v\n", err)

@@ -2,7 +2,7 @@ package storage
 
 type MysqlConfig struct {
 	Server   string `json:"server"`
-	Prot     int    `json:"prot"`
+	Port     int    `json:"port"`
 	UserName string `json:"user_name"`
 	PassWord string `json:"pass_word"`
 	Database string `json:"database"`
