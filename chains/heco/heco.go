@@ -92,5 +92,6 @@ func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (string, error)
 	if err != nil {
 		return "", err
 	}
+	fmt.Printf("tx sent: %s toaddress %s fromaddress %s \r\n", tx.Hash().Hex(), toaddress, fromAddress)
 	return tx.Hash().Hex(), nil
 }
