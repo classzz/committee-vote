@@ -72,7 +72,7 @@ func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 	}
 
 	toaddress := crypto.PubkeyToAddress(*toaddresspuk)
-	//toToken := common.HexToAddress(items.ToToken)
+	toToken := common.HexToAddress(items.ToToken)
 	Amount := big.NewInt(0).Mul(items.Amount, big.NewInt(10000000000))
 
 	if items.AssetType == cross.ExpandedTxConvert_Czz {
@@ -85,7 +85,7 @@ func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 		return tx.Hash().Hex(), nil
 	}
 
-	tx, err := instance.SwapTokenForEth(auth, toaddress, Amount, items.MID)
+	tx, err := instance.SwapToken(auth, toaddress, Amount, items.MID, toToken)
 	if err != nil {
 		return "", err
 	}
