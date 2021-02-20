@@ -27,7 +27,7 @@ var (
 )
 
 // EthereumABI is the input ABI used to generate the binding from.
-const EthereumABI = "[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"ntype\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"toToken\",\"type\":\"string\"}],\"name\":\"BurnToken\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"mId\",\"type\":\"uint256\"}],\"name\":\"MintItemCreated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"MintToken\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"inAmount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"outAmount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"flag\",\"type\":\"string\"}],\"name\":\"SwapToken\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"TransferToken\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"manager\",\"type\":\"address\"}],\"name\":\"addManager\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_amountIn\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"ntype\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"toToken\",\"type\":\"string\"}],\"name\":\"burn\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"czzToken\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"fromToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amountIn\",\"type\":\"uint256\"}],\"name\":\"mint\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"manager\",\"type\":\"address\"}],\"name\":\"removeManager\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint8\",\"name\":\"value\",\"type\":\"uint8\"}],\"name\":\"setMinSignatures\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_amountIn\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_amountOutMin\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"fromToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"ntype\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"toToken\",\"type\":\"string\"}],\"name\":\"swapAndBurn\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amountIn\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"mid\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"toToken\",\"type\":\"address\"}],\"name\":\"swapAndmint\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amountIn\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"}],\"name\":\"swap_burn_get_amount\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"amounts\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amountIn\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"swap_mint_get_amount\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"amounts\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amountIn\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amountOutMin\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"}],\"name\":\"swap_test\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"stateMutability\":\"payable\",\"type\":\"receive\"}]"
+const EthereumABI = "[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"ntype\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"toToken\",\"type\":\"string\"}],\"name\":\"BurnToken\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"mId\",\"type\":\"uint256\"}],\"name\":\"MintItemCreated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"MintToken\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"inAmount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"outAmount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"flag\",\"type\":\"string\"}],\"name\":\"SwapToken\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"TransferToken\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"manager\",\"type\":\"address\"}],\"name\":\"addManager\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_amountIn\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"ntype\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"toToken\",\"type\":\"string\"}],\"name\":\"burn\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"czzToken\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"fromToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amountIn\",\"type\":\"uint256\"}],\"name\":\"mint\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"manager\",\"type\":\"address\"}],\"name\":\"removeManager\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint8\",\"name\":\"value\",\"type\":\"uint8\"}],\"name\":\"setMinSignatures\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_amountIn\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_amountOutMin\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"fromToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"ntype\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"toToken\",\"type\":\"string\"}],\"name\":\"swapAndBurn\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_amountInMin\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"ntype\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"toToken\",\"type\":\"string\"}],\"name\":\"swapAndBurnEth\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_amountIn\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_amountOutMin\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"fromToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"ntype\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"toToken\",\"type\":\"string\"}],\"name\":\"swapAndBurnT\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amountIn\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"mid\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"toToken\",\"type\":\"address\"}],\"name\":\"swapToken\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amountIn\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"mid\",\"type\":\"uint256\"}],\"name\":\"swapTokenForEth\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amountIn\",\"type\":\"uint256\"},{\"internalType\":\"address[]\",\"name\":\"path\",\"type\":\"address[]\"}],\"name\":\"swap_burn_get_amount\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"amounts\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amountIn\",\"type\":\"uint256\"}],\"name\":\"swap_burn_get_amountT\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"amounts\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"factory\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"tokenA\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"tokenB\",\"type\":\"address\"}],\"name\":\"swap_burn_get_getReserves\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"reserveA\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"reserveB\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amountOut\",\"type\":\"uint256\"},{\"internalType\":\"address[]\",\"name\":\"path\",\"type\":\"address[]\"}],\"name\":\"swap_mint_get_amount\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"amounts\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amountIn\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amountOutMin\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"}],\"name\":\"swap_test\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"stateMutability\":\"payable\",\"type\":\"receive\"}]"
 
 // Ethereum is an auto generated Go binding around an Ethereum contract.
 type Ethereum struct {
@@ -233,12 +233,12 @@ func (_Ethereum *EthereumCallerSession) Owner() (common.Address, error) {
 	return _Ethereum.Contract.Owner(&_Ethereum.CallOpts)
 }
 
-// SwapBurnGetAmount is a free data retrieval call binding the contract method 0x3bc5a841.
+// SwapBurnGetAmount is a free data retrieval call binding the contract method 0xd42c9503.
 //
-// Solidity: function swap_burn_get_amount(uint256 amountIn, address from) view returns(uint256[] amounts)
-func (_Ethereum *EthereumCaller) SwapBurnGetAmount(opts *bind.CallOpts, amountIn *big.Int, from common.Address) ([]*big.Int, error) {
+// Solidity: function swap_burn_get_amount(uint256 amountIn, address[] path) view returns(uint256[] amounts)
+func (_Ethereum *EthereumCaller) SwapBurnGetAmount(opts *bind.CallOpts, amountIn *big.Int, path []common.Address) ([]*big.Int, error) {
 	var out []interface{}
-	err := _Ethereum.contract.Call(opts, &out, "swap_burn_get_amount", amountIn, from)
+	err := _Ethereum.contract.Call(opts, &out, "swap_burn_get_amount", amountIn, path)
 
 	if err != nil {
 		return *new([]*big.Int), err
@@ -250,26 +250,26 @@ func (_Ethereum *EthereumCaller) SwapBurnGetAmount(opts *bind.CallOpts, amountIn
 
 }
 
-// SwapBurnGetAmount is a free data retrieval call binding the contract method 0x3bc5a841.
+// SwapBurnGetAmount is a free data retrieval call binding the contract method 0xd42c9503.
 //
-// Solidity: function swap_burn_get_amount(uint256 amountIn, address from) view returns(uint256[] amounts)
-func (_Ethereum *EthereumSession) SwapBurnGetAmount(amountIn *big.Int, from common.Address) ([]*big.Int, error) {
-	return _Ethereum.Contract.SwapBurnGetAmount(&_Ethereum.CallOpts, amountIn, from)
+// Solidity: function swap_burn_get_amount(uint256 amountIn, address[] path) view returns(uint256[] amounts)
+func (_Ethereum *EthereumSession) SwapBurnGetAmount(amountIn *big.Int, path []common.Address) ([]*big.Int, error) {
+	return _Ethereum.Contract.SwapBurnGetAmount(&_Ethereum.CallOpts, amountIn, path)
 }
 
-// SwapBurnGetAmount is a free data retrieval call binding the contract method 0x3bc5a841.
+// SwapBurnGetAmount is a free data retrieval call binding the contract method 0xd42c9503.
 //
-// Solidity: function swap_burn_get_amount(uint256 amountIn, address from) view returns(uint256[] amounts)
-func (_Ethereum *EthereumCallerSession) SwapBurnGetAmount(amountIn *big.Int, from common.Address) ([]*big.Int, error) {
-	return _Ethereum.Contract.SwapBurnGetAmount(&_Ethereum.CallOpts, amountIn, from)
+// Solidity: function swap_burn_get_amount(uint256 amountIn, address[] path) view returns(uint256[] amounts)
+func (_Ethereum *EthereumCallerSession) SwapBurnGetAmount(amountIn *big.Int, path []common.Address) ([]*big.Int, error) {
+	return _Ethereum.Contract.SwapBurnGetAmount(&_Ethereum.CallOpts, amountIn, path)
 }
 
-// SwapMintGetAmount is a free data retrieval call binding the contract method 0xa6baa82b.
+// SwapBurnGetAmountT is a free data retrieval call binding the contract method 0xdb6fba27.
 //
-// Solidity: function swap_mint_get_amount(uint256 amountIn, address to) view returns(uint256[] amounts)
-func (_Ethereum *EthereumCaller) SwapMintGetAmount(opts *bind.CallOpts, amountIn *big.Int, to common.Address) ([]*big.Int, error) {
+// Solidity: function swap_burn_get_amountT(uint256 amountIn) view returns(uint256[] amounts)
+func (_Ethereum *EthereumCaller) SwapBurnGetAmountT(opts *bind.CallOpts, amountIn *big.Int) ([]*big.Int, error) {
 	var out []interface{}
-	err := _Ethereum.contract.Call(opts, &out, "swap_mint_get_amount", amountIn, to)
+	err := _Ethereum.contract.Call(opts, &out, "swap_burn_get_amountT", amountIn)
 
 	if err != nil {
 		return *new([]*big.Int), err
@@ -281,18 +281,91 @@ func (_Ethereum *EthereumCaller) SwapMintGetAmount(opts *bind.CallOpts, amountIn
 
 }
 
-// SwapMintGetAmount is a free data retrieval call binding the contract method 0xa6baa82b.
+// SwapBurnGetAmountT is a free data retrieval call binding the contract method 0xdb6fba27.
 //
-// Solidity: function swap_mint_get_amount(uint256 amountIn, address to) view returns(uint256[] amounts)
-func (_Ethereum *EthereumSession) SwapMintGetAmount(amountIn *big.Int, to common.Address) ([]*big.Int, error) {
-	return _Ethereum.Contract.SwapMintGetAmount(&_Ethereum.CallOpts, amountIn, to)
+// Solidity: function swap_burn_get_amountT(uint256 amountIn) view returns(uint256[] amounts)
+func (_Ethereum *EthereumSession) SwapBurnGetAmountT(amountIn *big.Int) ([]*big.Int, error) {
+	return _Ethereum.Contract.SwapBurnGetAmountT(&_Ethereum.CallOpts, amountIn)
 }
 
-// SwapMintGetAmount is a free data retrieval call binding the contract method 0xa6baa82b.
+// SwapBurnGetAmountT is a free data retrieval call binding the contract method 0xdb6fba27.
 //
-// Solidity: function swap_mint_get_amount(uint256 amountIn, address to) view returns(uint256[] amounts)
-func (_Ethereum *EthereumCallerSession) SwapMintGetAmount(amountIn *big.Int, to common.Address) ([]*big.Int, error) {
-	return _Ethereum.Contract.SwapMintGetAmount(&_Ethereum.CallOpts, amountIn, to)
+// Solidity: function swap_burn_get_amountT(uint256 amountIn) view returns(uint256[] amounts)
+func (_Ethereum *EthereumCallerSession) SwapBurnGetAmountT(amountIn *big.Int) ([]*big.Int, error) {
+	return _Ethereum.Contract.SwapBurnGetAmountT(&_Ethereum.CallOpts, amountIn)
+}
+
+// SwapBurnGetGetReserves is a free data retrieval call binding the contract method 0x84ec7ee3.
+//
+// Solidity: function swap_burn_get_getReserves(address factory, address tokenA, address tokenB) view returns(uint256 reserveA, uint256 reserveB)
+func (_Ethereum *EthereumCaller) SwapBurnGetGetReserves(opts *bind.CallOpts, factory common.Address, tokenA common.Address, tokenB common.Address) (struct {
+	ReserveA *big.Int
+	ReserveB *big.Int
+}, error) {
+	var out []interface{}
+	err := _Ethereum.contract.Call(opts, &out, "swap_burn_get_getReserves", factory, tokenA, tokenB)
+
+	outstruct := new(struct {
+		ReserveA *big.Int
+		ReserveB *big.Int
+	})
+
+	outstruct.ReserveA = out[0].(*big.Int)
+	outstruct.ReserveB = out[1].(*big.Int)
+
+	return *outstruct, err
+
+}
+
+// SwapBurnGetGetReserves is a free data retrieval call binding the contract method 0x84ec7ee3.
+//
+// Solidity: function swap_burn_get_getReserves(address factory, address tokenA, address tokenB) view returns(uint256 reserveA, uint256 reserveB)
+func (_Ethereum *EthereumSession) SwapBurnGetGetReserves(factory common.Address, tokenA common.Address, tokenB common.Address) (struct {
+	ReserveA *big.Int
+	ReserveB *big.Int
+}, error) {
+	return _Ethereum.Contract.SwapBurnGetGetReserves(&_Ethereum.CallOpts, factory, tokenA, tokenB)
+}
+
+// SwapBurnGetGetReserves is a free data retrieval call binding the contract method 0x84ec7ee3.
+//
+// Solidity: function swap_burn_get_getReserves(address factory, address tokenA, address tokenB) view returns(uint256 reserveA, uint256 reserveB)
+func (_Ethereum *EthereumCallerSession) SwapBurnGetGetReserves(factory common.Address, tokenA common.Address, tokenB common.Address) (struct {
+	ReserveA *big.Int
+	ReserveB *big.Int
+}, error) {
+	return _Ethereum.Contract.SwapBurnGetGetReserves(&_Ethereum.CallOpts, factory, tokenA, tokenB)
+}
+
+// SwapMintGetAmount is a free data retrieval call binding the contract method 0x0a32eeca.
+//
+// Solidity: function swap_mint_get_amount(uint256 amountOut, address[] path) view returns(uint256[] amounts)
+func (_Ethereum *EthereumCaller) SwapMintGetAmount(opts *bind.CallOpts, amountOut *big.Int, path []common.Address) ([]*big.Int, error) {
+	var out []interface{}
+	err := _Ethereum.contract.Call(opts, &out, "swap_mint_get_amount", amountOut, path)
+
+	if err != nil {
+		return *new([]*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([]*big.Int)).(*[]*big.Int)
+
+	return out0, err
+
+}
+
+// SwapMintGetAmount is a free data retrieval call binding the contract method 0x0a32eeca.
+//
+// Solidity: function swap_mint_get_amount(uint256 amountOut, address[] path) view returns(uint256[] amounts)
+func (_Ethereum *EthereumSession) SwapMintGetAmount(amountOut *big.Int, path []common.Address) ([]*big.Int, error) {
+	return _Ethereum.Contract.SwapMintGetAmount(&_Ethereum.CallOpts, amountOut, path)
+}
+
+// SwapMintGetAmount is a free data retrieval call binding the contract method 0x0a32eeca.
+//
+// Solidity: function swap_mint_get_amount(uint256 amountOut, address[] path) view returns(uint256[] amounts)
+func (_Ethereum *EthereumCallerSession) SwapMintGetAmount(amountOut *big.Int, path []common.Address) ([]*big.Int, error) {
+	return _Ethereum.Contract.SwapMintGetAmount(&_Ethereum.CallOpts, amountOut, path)
 }
 
 // AddManager is a paid mutator transaction binding the contract method 0x2d06177a.
@@ -442,25 +515,88 @@ func (_Ethereum *EthereumTransactorSession) SwapAndBurn(_amountIn *big.Int, _amo
 	return _Ethereum.Contract.SwapAndBurn(&_Ethereum.TransactOpts, _amountIn, _amountOutMin, fromToken, ntype, toToken)
 }
 
-// SwapAndmint is a paid mutator transaction binding the contract method 0x5c7fa3f5.
+// SwapAndBurnEth is a paid mutator transaction binding the contract method 0xa0923160.
 //
-// Solidity: function swapAndmint(address _to, uint256 _amountIn, uint256 mid, address toToken) payable returns()
-func (_Ethereum *EthereumTransactor) SwapAndmint(opts *bind.TransactOpts, _to common.Address, _amountIn *big.Int, mid *big.Int, toToken common.Address) (*types.Transaction, error) {
-	return _Ethereum.contract.Transact(opts, "swapAndmint", _to, _amountIn, mid, toToken)
+// Solidity: function swapAndBurnEth(uint256 _amountInMin, uint256 ntype, string toToken) payable returns()
+func (_Ethereum *EthereumTransactor) SwapAndBurnEth(opts *bind.TransactOpts, _amountInMin *big.Int, ntype *big.Int, toToken string) (*types.Transaction, error) {
+	return _Ethereum.contract.Transact(opts, "swapAndBurnEth", _amountInMin, ntype, toToken)
 }
 
-// SwapAndmint is a paid mutator transaction binding the contract method 0x5c7fa3f5.
+// SwapAndBurnEth is a paid mutator transaction binding the contract method 0xa0923160.
 //
-// Solidity: function swapAndmint(address _to, uint256 _amountIn, uint256 mid, address toToken) payable returns()
-func (_Ethereum *EthereumSession) SwapAndmint(_to common.Address, _amountIn *big.Int, mid *big.Int, toToken common.Address) (*types.Transaction, error) {
-	return _Ethereum.Contract.SwapAndmint(&_Ethereum.TransactOpts, _to, _amountIn, mid, toToken)
+// Solidity: function swapAndBurnEth(uint256 _amountInMin, uint256 ntype, string toToken) payable returns()
+func (_Ethereum *EthereumSession) SwapAndBurnEth(_amountInMin *big.Int, ntype *big.Int, toToken string) (*types.Transaction, error) {
+	return _Ethereum.Contract.SwapAndBurnEth(&_Ethereum.TransactOpts, _amountInMin, ntype, toToken)
 }
 
-// SwapAndmint is a paid mutator transaction binding the contract method 0x5c7fa3f5.
+// SwapAndBurnEth is a paid mutator transaction binding the contract method 0xa0923160.
 //
-// Solidity: function swapAndmint(address _to, uint256 _amountIn, uint256 mid, address toToken) payable returns()
-func (_Ethereum *EthereumTransactorSession) SwapAndmint(_to common.Address, _amountIn *big.Int, mid *big.Int, toToken common.Address) (*types.Transaction, error) {
-	return _Ethereum.Contract.SwapAndmint(&_Ethereum.TransactOpts, _to, _amountIn, mid, toToken)
+// Solidity: function swapAndBurnEth(uint256 _amountInMin, uint256 ntype, string toToken) payable returns()
+func (_Ethereum *EthereumTransactorSession) SwapAndBurnEth(_amountInMin *big.Int, ntype *big.Int, toToken string) (*types.Transaction, error) {
+	return _Ethereum.Contract.SwapAndBurnEth(&_Ethereum.TransactOpts, _amountInMin, ntype, toToken)
+}
+
+// SwapAndBurnT is a paid mutator transaction binding the contract method 0xdbedb95d.
+//
+// Solidity: function swapAndBurnT(uint256 _amountIn, uint256 _amountOutMin, address fromToken, uint256 ntype, string toToken) payable returns()
+func (_Ethereum *EthereumTransactor) SwapAndBurnT(opts *bind.TransactOpts, _amountIn *big.Int, _amountOutMin *big.Int, fromToken common.Address, ntype *big.Int, toToken string) (*types.Transaction, error) {
+	return _Ethereum.contract.Transact(opts, "swapAndBurnT", _amountIn, _amountOutMin, fromToken, ntype, toToken)
+}
+
+// SwapAndBurnT is a paid mutator transaction binding the contract method 0xdbedb95d.
+//
+// Solidity: function swapAndBurnT(uint256 _amountIn, uint256 _amountOutMin, address fromToken, uint256 ntype, string toToken) payable returns()
+func (_Ethereum *EthereumSession) SwapAndBurnT(_amountIn *big.Int, _amountOutMin *big.Int, fromToken common.Address, ntype *big.Int, toToken string) (*types.Transaction, error) {
+	return _Ethereum.Contract.SwapAndBurnT(&_Ethereum.TransactOpts, _amountIn, _amountOutMin, fromToken, ntype, toToken)
+}
+
+// SwapAndBurnT is a paid mutator transaction binding the contract method 0xdbedb95d.
+//
+// Solidity: function swapAndBurnT(uint256 _amountIn, uint256 _amountOutMin, address fromToken, uint256 ntype, string toToken) payable returns()
+func (_Ethereum *EthereumTransactorSession) SwapAndBurnT(_amountIn *big.Int, _amountOutMin *big.Int, fromToken common.Address, ntype *big.Int, toToken string) (*types.Transaction, error) {
+	return _Ethereum.Contract.SwapAndBurnT(&_Ethereum.TransactOpts, _amountIn, _amountOutMin, fromToken, ntype, toToken)
+}
+
+// SwapToken is a paid mutator transaction binding the contract method 0x5a706197.
+//
+// Solidity: function swapToken(address _to, uint256 _amountIn, uint256 mid, address toToken) payable returns()
+func (_Ethereum *EthereumTransactor) SwapToken(opts *bind.TransactOpts, _to common.Address, _amountIn *big.Int, mid *big.Int, toToken common.Address) (*types.Transaction, error) {
+	return _Ethereum.contract.Transact(opts, "swapToken", _to, _amountIn, mid, toToken)
+}
+
+// SwapToken is a paid mutator transaction binding the contract method 0x5a706197.
+//
+// Solidity: function swapToken(address _to, uint256 _amountIn, uint256 mid, address toToken) payable returns()
+func (_Ethereum *EthereumSession) SwapToken(_to common.Address, _amountIn *big.Int, mid *big.Int, toToken common.Address) (*types.Transaction, error) {
+	return _Ethereum.Contract.SwapToken(&_Ethereum.TransactOpts, _to, _amountIn, mid, toToken)
+}
+
+// SwapToken is a paid mutator transaction binding the contract method 0x5a706197.
+//
+// Solidity: function swapToken(address _to, uint256 _amountIn, uint256 mid, address toToken) payable returns()
+func (_Ethereum *EthereumTransactorSession) SwapToken(_to common.Address, _amountIn *big.Int, mid *big.Int, toToken common.Address) (*types.Transaction, error) {
+	return _Ethereum.Contract.SwapToken(&_Ethereum.TransactOpts, _to, _amountIn, mid, toToken)
+}
+
+// SwapTokenForEth is a paid mutator transaction binding the contract method 0x2ac6ddbd.
+//
+// Solidity: function swapTokenForEth(address _to, uint256 _amountIn, uint256 mid) payable returns()
+func (_Ethereum *EthereumTransactor) SwapTokenForEth(opts *bind.TransactOpts, _to common.Address, _amountIn *big.Int, mid *big.Int) (*types.Transaction, error) {
+	return _Ethereum.contract.Transact(opts, "swapTokenForEth", _to, _amountIn, mid)
+}
+
+// SwapTokenForEth is a paid mutator transaction binding the contract method 0x2ac6ddbd.
+//
+// Solidity: function swapTokenForEth(address _to, uint256 _amountIn, uint256 mid) payable returns()
+func (_Ethereum *EthereumSession) SwapTokenForEth(_to common.Address, _amountIn *big.Int, mid *big.Int) (*types.Transaction, error) {
+	return _Ethereum.Contract.SwapTokenForEth(&_Ethereum.TransactOpts, _to, _amountIn, mid)
+}
+
+// SwapTokenForEth is a paid mutator transaction binding the contract method 0x2ac6ddbd.
+//
+// Solidity: function swapTokenForEth(address _to, uint256 _amountIn, uint256 mid) payable returns()
+func (_Ethereum *EthereumTransactorSession) SwapTokenForEth(_to common.Address, _amountIn *big.Int, mid *big.Int) (*types.Transaction, error) {
+	return _Ethereum.Contract.SwapTokenForEth(&_Ethereum.TransactOpts, _to, _amountIn, mid)
 }
 
 // SwapTest is a paid mutator transaction binding the contract method 0x064136f5.

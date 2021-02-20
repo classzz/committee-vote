@@ -27,7 +27,7 @@ var (
 )
 
 // HecoABI is the input ABI used to generate the binding from.
-const HecoABI = "[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"ntype\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"toToken\",\"type\":\"string\"}],\"name\":\"BurnToken\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"mId\",\"type\":\"uint256\"}],\"name\":\"MintItemCreated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"MintToken\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"inAmount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"outAmount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"flag\",\"type\":\"string\"}],\"name\":\"SwapToken\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"TransferToken\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"tokenA\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"tokenB\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amountADesired\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amountBDesired\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amountAMin\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amountBMin\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"addLiquidity\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"manager\",\"type\":\"address\"}],\"name\":\"addManager\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_amountIn\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"ntype\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"toToken\",\"type\":\"string\"}],\"name\":\"burn\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"czzToken\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"fromToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amountIn\",\"type\":\"uint256\"}],\"name\":\"mint\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"manager\",\"type\":\"address\"}],\"name\":\"removeManager\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint8\",\"name\":\"value\",\"type\":\"uint8\"}],\"name\":\"setMinSignatures\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_amountIn\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_amountOutMin\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"fromToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"ntype\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"toToken\",\"type\":\"string\"}],\"name\":\"swapAndBurn\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_amountIn\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_amountOutMin\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"fromToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"ntype\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"toToken\",\"type\":\"string\"}],\"name\":\"swapAndBurn1\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amountIn\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"mid\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"toToken\",\"type\":\"address\"}],\"name\":\"swapAndmint\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amountIn\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"}],\"name\":\"swap_burn_get_amount\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"amounts\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amountIn\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"swap_mint_get_amount\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"amounts\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amountIn\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amountOutMin\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"}],\"name\":\"swap_test\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"stateMutability\":\"payable\",\"type\":\"receive\"}]"
+const HecoABI = "[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"ntype\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"toToken\",\"type\":\"string\"}],\"name\":\"BurnToken\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"mId\",\"type\":\"uint256\"}],\"name\":\"MintItemCreated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"MintToken\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"inAmount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"outAmount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"flag\",\"type\":\"string\"}],\"name\":\"SwapToken\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"TransferToken\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"manager\",\"type\":\"address\"}],\"name\":\"addManager\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_amountIn\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"ntype\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"toToken\",\"type\":\"string\"}],\"name\":\"burn\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"czzToken\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"fromToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amountIn\",\"type\":\"uint256\"}],\"name\":\"mint\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"manager\",\"type\":\"address\"}],\"name\":\"removeManager\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint8\",\"name\":\"value\",\"type\":\"uint8\"}],\"name\":\"setMinSignatures\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_amountIn\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_amountOutMin\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"fromToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"ntype\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"toToken\",\"type\":\"string\"}],\"name\":\"swapAndBurn\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_amountInMin\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"ntype\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"toToken\",\"type\":\"string\"}],\"name\":\"swapAndBurnHt\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_amountIn\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_amountOutMin\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"fromToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"ntype\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"toToken\",\"type\":\"string\"}],\"name\":\"swapAndBurnT\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amountIn\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"mid\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"toToken\",\"type\":\"address\"}],\"name\":\"swapToken\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amountIn\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"mid\",\"type\":\"uint256\"}],\"name\":\"swapTokenForHt\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amountIn\",\"type\":\"uint256\"},{\"internalType\":\"address[]\",\"name\":\"path\",\"type\":\"address[]\"}],\"name\":\"swap_burn_get_amount\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"amounts\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amountIn\",\"type\":\"uint256\"}],\"name\":\"swap_burn_get_amountT\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"amounts\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"factory\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"tokenA\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"tokenB\",\"type\":\"address\"}],\"name\":\"swap_burn_get_getReserves\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"reserveA\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"reserveB\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amountOut\",\"type\":\"uint256\"},{\"internalType\":\"address[]\",\"name\":\"path\",\"type\":\"address[]\"}],\"name\":\"swap_mint_get_amount\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"amounts\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amountIn\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amountOutMin\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"}],\"name\":\"swap_test\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"stateMutability\":\"payable\",\"type\":\"receive\"}]"
 
 // Heco is an auto generated Go binding around an Ethereum contract.
 type Heco struct {
@@ -233,12 +233,12 @@ func (_Heco *HecoCallerSession) Owner() (common.Address, error) {
 	return _Heco.Contract.Owner(&_Heco.CallOpts)
 }
 
-// SwapBurnGetAmount is a free data retrieval call binding the contract method 0x3bc5a841.
+// SwapBurnGetAmount is a free data retrieval call binding the contract method 0xd42c9503.
 //
-// Solidity: function swap_burn_get_amount(uint256 amountIn, address from) view returns(uint256[] amounts)
-func (_Heco *HecoCaller) SwapBurnGetAmount(opts *bind.CallOpts, amountIn *big.Int, from common.Address) ([]*big.Int, error) {
+// Solidity: function swap_burn_get_amount(uint256 amountIn, address[] path) view returns(uint256[] amounts)
+func (_Heco *HecoCaller) SwapBurnGetAmount(opts *bind.CallOpts, amountIn *big.Int, path []common.Address) ([]*big.Int, error) {
 	var out []interface{}
-	err := _Heco.contract.Call(opts, &out, "swap_burn_get_amount", amountIn, from)
+	err := _Heco.contract.Call(opts, &out, "swap_burn_get_amount", amountIn, path)
 
 	if err != nil {
 		return *new([]*big.Int), err
@@ -250,26 +250,26 @@ func (_Heco *HecoCaller) SwapBurnGetAmount(opts *bind.CallOpts, amountIn *big.In
 
 }
 
-// SwapBurnGetAmount is a free data retrieval call binding the contract method 0x3bc5a841.
+// SwapBurnGetAmount is a free data retrieval call binding the contract method 0xd42c9503.
 //
-// Solidity: function swap_burn_get_amount(uint256 amountIn, address from) view returns(uint256[] amounts)
-func (_Heco *HecoSession) SwapBurnGetAmount(amountIn *big.Int, from common.Address) ([]*big.Int, error) {
-	return _Heco.Contract.SwapBurnGetAmount(&_Heco.CallOpts, amountIn, from)
+// Solidity: function swap_burn_get_amount(uint256 amountIn, address[] path) view returns(uint256[] amounts)
+func (_Heco *HecoSession) SwapBurnGetAmount(amountIn *big.Int, path []common.Address) ([]*big.Int, error) {
+	return _Heco.Contract.SwapBurnGetAmount(&_Heco.CallOpts, amountIn, path)
 }
 
-// SwapBurnGetAmount is a free data retrieval call binding the contract method 0x3bc5a841.
+// SwapBurnGetAmount is a free data retrieval call binding the contract method 0xd42c9503.
 //
-// Solidity: function swap_burn_get_amount(uint256 amountIn, address from) view returns(uint256[] amounts)
-func (_Heco *HecoCallerSession) SwapBurnGetAmount(amountIn *big.Int, from common.Address) ([]*big.Int, error) {
-	return _Heco.Contract.SwapBurnGetAmount(&_Heco.CallOpts, amountIn, from)
+// Solidity: function swap_burn_get_amount(uint256 amountIn, address[] path) view returns(uint256[] amounts)
+func (_Heco *HecoCallerSession) SwapBurnGetAmount(amountIn *big.Int, path []common.Address) ([]*big.Int, error) {
+	return _Heco.Contract.SwapBurnGetAmount(&_Heco.CallOpts, amountIn, path)
 }
 
-// SwapMintGetAmount is a free data retrieval call binding the contract method 0xa6baa82b.
+// SwapBurnGetAmountT is a free data retrieval call binding the contract method 0xdb6fba27.
 //
-// Solidity: function swap_mint_get_amount(uint256 amountIn, address to) view returns(uint256[] amounts)
-func (_Heco *HecoCaller) SwapMintGetAmount(opts *bind.CallOpts, amountIn *big.Int, to common.Address) ([]*big.Int, error) {
+// Solidity: function swap_burn_get_amountT(uint256 amountIn) view returns(uint256[] amounts)
+func (_Heco *HecoCaller) SwapBurnGetAmountT(opts *bind.CallOpts, amountIn *big.Int) ([]*big.Int, error) {
 	var out []interface{}
-	err := _Heco.contract.Call(opts, &out, "swap_mint_get_amount", amountIn, to)
+	err := _Heco.contract.Call(opts, &out, "swap_burn_get_amountT", amountIn)
 
 	if err != nil {
 		return *new([]*big.Int), err
@@ -281,39 +281,91 @@ func (_Heco *HecoCaller) SwapMintGetAmount(opts *bind.CallOpts, amountIn *big.In
 
 }
 
-// SwapMintGetAmount is a free data retrieval call binding the contract method 0xa6baa82b.
+// SwapBurnGetAmountT is a free data retrieval call binding the contract method 0xdb6fba27.
 //
-// Solidity: function swap_mint_get_amount(uint256 amountIn, address to) view returns(uint256[] amounts)
-func (_Heco *HecoSession) SwapMintGetAmount(amountIn *big.Int, to common.Address) ([]*big.Int, error) {
-	return _Heco.Contract.SwapMintGetAmount(&_Heco.CallOpts, amountIn, to)
+// Solidity: function swap_burn_get_amountT(uint256 amountIn) view returns(uint256[] amounts)
+func (_Heco *HecoSession) SwapBurnGetAmountT(amountIn *big.Int) ([]*big.Int, error) {
+	return _Heco.Contract.SwapBurnGetAmountT(&_Heco.CallOpts, amountIn)
 }
 
-// SwapMintGetAmount is a free data retrieval call binding the contract method 0xa6baa82b.
+// SwapBurnGetAmountT is a free data retrieval call binding the contract method 0xdb6fba27.
 //
-// Solidity: function swap_mint_get_amount(uint256 amountIn, address to) view returns(uint256[] amounts)
-func (_Heco *HecoCallerSession) SwapMintGetAmount(amountIn *big.Int, to common.Address) ([]*big.Int, error) {
-	return _Heco.Contract.SwapMintGetAmount(&_Heco.CallOpts, amountIn, to)
+// Solidity: function swap_burn_get_amountT(uint256 amountIn) view returns(uint256[] amounts)
+func (_Heco *HecoCallerSession) SwapBurnGetAmountT(amountIn *big.Int) ([]*big.Int, error) {
+	return _Heco.Contract.SwapBurnGetAmountT(&_Heco.CallOpts, amountIn)
 }
 
-// AddLiquidity is a paid mutator transaction binding the contract method 0xca3d6539.
+// SwapBurnGetGetReserves is a free data retrieval call binding the contract method 0x84ec7ee3.
 //
-// Solidity: function addLiquidity(address tokenA, address tokenB, uint256 amountADesired, uint256 amountBDesired, uint256 amountAMin, uint256 amountBMin, address to) returns()
-func (_Heco *HecoTransactor) AddLiquidity(opts *bind.TransactOpts, tokenA common.Address, tokenB common.Address, amountADesired *big.Int, amountBDesired *big.Int, amountAMin *big.Int, amountBMin *big.Int, to common.Address) (*types.Transaction, error) {
-	return _Heco.contract.Transact(opts, "addLiquidity", tokenA, tokenB, amountADesired, amountBDesired, amountAMin, amountBMin, to)
+// Solidity: function swap_burn_get_getReserves(address factory, address tokenA, address tokenB) view returns(uint256 reserveA, uint256 reserveB)
+func (_Heco *HecoCaller) SwapBurnGetGetReserves(opts *bind.CallOpts, factory common.Address, tokenA common.Address, tokenB common.Address) (struct {
+	ReserveA *big.Int
+	ReserveB *big.Int
+}, error) {
+	var out []interface{}
+	err := _Heco.contract.Call(opts, &out, "swap_burn_get_getReserves", factory, tokenA, tokenB)
+
+	outstruct := new(struct {
+		ReserveA *big.Int
+		ReserveB *big.Int
+	})
+
+	outstruct.ReserveA = out[0].(*big.Int)
+	outstruct.ReserveB = out[1].(*big.Int)
+
+	return *outstruct, err
+
 }
 
-// AddLiquidity is a paid mutator transaction binding the contract method 0xca3d6539.
+// SwapBurnGetGetReserves is a free data retrieval call binding the contract method 0x84ec7ee3.
 //
-// Solidity: function addLiquidity(address tokenA, address tokenB, uint256 amountADesired, uint256 amountBDesired, uint256 amountAMin, uint256 amountBMin, address to) returns()
-func (_Heco *HecoSession) AddLiquidity(tokenA common.Address, tokenB common.Address, amountADesired *big.Int, amountBDesired *big.Int, amountAMin *big.Int, amountBMin *big.Int, to common.Address) (*types.Transaction, error) {
-	return _Heco.Contract.AddLiquidity(&_Heco.TransactOpts, tokenA, tokenB, amountADesired, amountBDesired, amountAMin, amountBMin, to)
+// Solidity: function swap_burn_get_getReserves(address factory, address tokenA, address tokenB) view returns(uint256 reserveA, uint256 reserveB)
+func (_Heco *HecoSession) SwapBurnGetGetReserves(factory common.Address, tokenA common.Address, tokenB common.Address) (struct {
+	ReserveA *big.Int
+	ReserveB *big.Int
+}, error) {
+	return _Heco.Contract.SwapBurnGetGetReserves(&_Heco.CallOpts, factory, tokenA, tokenB)
 }
 
-// AddLiquidity is a paid mutator transaction binding the contract method 0xca3d6539.
+// SwapBurnGetGetReserves is a free data retrieval call binding the contract method 0x84ec7ee3.
 //
-// Solidity: function addLiquidity(address tokenA, address tokenB, uint256 amountADesired, uint256 amountBDesired, uint256 amountAMin, uint256 amountBMin, address to) returns()
-func (_Heco *HecoTransactorSession) AddLiquidity(tokenA common.Address, tokenB common.Address, amountADesired *big.Int, amountBDesired *big.Int, amountAMin *big.Int, amountBMin *big.Int, to common.Address) (*types.Transaction, error) {
-	return _Heco.Contract.AddLiquidity(&_Heco.TransactOpts, tokenA, tokenB, amountADesired, amountBDesired, amountAMin, amountBMin, to)
+// Solidity: function swap_burn_get_getReserves(address factory, address tokenA, address tokenB) view returns(uint256 reserveA, uint256 reserveB)
+func (_Heco *HecoCallerSession) SwapBurnGetGetReserves(factory common.Address, tokenA common.Address, tokenB common.Address) (struct {
+	ReserveA *big.Int
+	ReserveB *big.Int
+}, error) {
+	return _Heco.Contract.SwapBurnGetGetReserves(&_Heco.CallOpts, factory, tokenA, tokenB)
+}
+
+// SwapMintGetAmount is a free data retrieval call binding the contract method 0x0a32eeca.
+//
+// Solidity: function swap_mint_get_amount(uint256 amountOut, address[] path) view returns(uint256[] amounts)
+func (_Heco *HecoCaller) SwapMintGetAmount(opts *bind.CallOpts, amountOut *big.Int, path []common.Address) ([]*big.Int, error) {
+	var out []interface{}
+	err := _Heco.contract.Call(opts, &out, "swap_mint_get_amount", amountOut, path)
+
+	if err != nil {
+		return *new([]*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([]*big.Int)).(*[]*big.Int)
+
+	return out0, err
+
+}
+
+// SwapMintGetAmount is a free data retrieval call binding the contract method 0x0a32eeca.
+//
+// Solidity: function swap_mint_get_amount(uint256 amountOut, address[] path) view returns(uint256[] amounts)
+func (_Heco *HecoSession) SwapMintGetAmount(amountOut *big.Int, path []common.Address) ([]*big.Int, error) {
+	return _Heco.Contract.SwapMintGetAmount(&_Heco.CallOpts, amountOut, path)
+}
+
+// SwapMintGetAmount is a free data retrieval call binding the contract method 0x0a32eeca.
+//
+// Solidity: function swap_mint_get_amount(uint256 amountOut, address[] path) view returns(uint256[] amounts)
+func (_Heco *HecoCallerSession) SwapMintGetAmount(amountOut *big.Int, path []common.Address) ([]*big.Int, error) {
+	return _Heco.Contract.SwapMintGetAmount(&_Heco.CallOpts, amountOut, path)
 }
 
 // AddManager is a paid mutator transaction binding the contract method 0x2d06177a.
@@ -463,46 +515,88 @@ func (_Heco *HecoTransactorSession) SwapAndBurn(_amountIn *big.Int, _amountOutMi
 	return _Heco.Contract.SwapAndBurn(&_Heco.TransactOpts, _amountIn, _amountOutMin, fromToken, ntype, toToken)
 }
 
-// SwapAndBurn1 is a paid mutator transaction binding the contract method 0x832f74f7.
+// SwapAndBurnHt is a paid mutator transaction binding the contract method 0x4148bbc8.
 //
-// Solidity: function swapAndBurn1(uint256 _amountIn, uint256 _amountOutMin, address fromToken, uint256 ntype, string toToken) payable returns()
-func (_Heco *HecoTransactor) SwapAndBurn1(opts *bind.TransactOpts, _amountIn *big.Int, _amountOutMin *big.Int, fromToken common.Address, ntype *big.Int, toToken string) (*types.Transaction, error) {
-	return _Heco.contract.Transact(opts, "swapAndBurn1", _amountIn, _amountOutMin, fromToken, ntype, toToken)
+// Solidity: function swapAndBurnHt(uint256 _amountInMin, uint256 ntype, string toToken) payable returns()
+func (_Heco *HecoTransactor) SwapAndBurnHt(opts *bind.TransactOpts, _amountInMin *big.Int, ntype *big.Int, toToken string) (*types.Transaction, error) {
+	return _Heco.contract.Transact(opts, "swapAndBurnHt", _amountInMin, ntype, toToken)
 }
 
-// SwapAndBurn1 is a paid mutator transaction binding the contract method 0x832f74f7.
+// SwapAndBurnHt is a paid mutator transaction binding the contract method 0x4148bbc8.
 //
-// Solidity: function swapAndBurn1(uint256 _amountIn, uint256 _amountOutMin, address fromToken, uint256 ntype, string toToken) payable returns()
-func (_Heco *HecoSession) SwapAndBurn1(_amountIn *big.Int, _amountOutMin *big.Int, fromToken common.Address, ntype *big.Int, toToken string) (*types.Transaction, error) {
-	return _Heco.Contract.SwapAndBurn1(&_Heco.TransactOpts, _amountIn, _amountOutMin, fromToken, ntype, toToken)
+// Solidity: function swapAndBurnHt(uint256 _amountInMin, uint256 ntype, string toToken) payable returns()
+func (_Heco *HecoSession) SwapAndBurnHt(_amountInMin *big.Int, ntype *big.Int, toToken string) (*types.Transaction, error) {
+	return _Heco.Contract.SwapAndBurnHt(&_Heco.TransactOpts, _amountInMin, ntype, toToken)
 }
 
-// SwapAndBurn1 is a paid mutator transaction binding the contract method 0x832f74f7.
+// SwapAndBurnHt is a paid mutator transaction binding the contract method 0x4148bbc8.
 //
-// Solidity: function swapAndBurn1(uint256 _amountIn, uint256 _amountOutMin, address fromToken, uint256 ntype, string toToken) payable returns()
-func (_Heco *HecoTransactorSession) SwapAndBurn1(_amountIn *big.Int, _amountOutMin *big.Int, fromToken common.Address, ntype *big.Int, toToken string) (*types.Transaction, error) {
-	return _Heco.Contract.SwapAndBurn1(&_Heco.TransactOpts, _amountIn, _amountOutMin, fromToken, ntype, toToken)
+// Solidity: function swapAndBurnHt(uint256 _amountInMin, uint256 ntype, string toToken) payable returns()
+func (_Heco *HecoTransactorSession) SwapAndBurnHt(_amountInMin *big.Int, ntype *big.Int, toToken string) (*types.Transaction, error) {
+	return _Heco.Contract.SwapAndBurnHt(&_Heco.TransactOpts, _amountInMin, ntype, toToken)
 }
 
-// SwapAndmint is a paid mutator transaction binding the contract method 0x5c7fa3f5.
+// SwapAndBurnT is a paid mutator transaction binding the contract method 0xdbedb95d.
 //
-// Solidity: function swapAndmint(address _to, uint256 _amountIn, uint256 mid, address toToken) payable returns()
-func (_Heco *HecoTransactor) SwapAndmint(opts *bind.TransactOpts, _to common.Address, _amountIn *big.Int, mid *big.Int, toToken common.Address) (*types.Transaction, error) {
-	return _Heco.contract.Transact(opts, "swapAndmint", _to, _amountIn, mid, toToken)
+// Solidity: function swapAndBurnT(uint256 _amountIn, uint256 _amountOutMin, address fromToken, uint256 ntype, string toToken) payable returns()
+func (_Heco *HecoTransactor) SwapAndBurnT(opts *bind.TransactOpts, _amountIn *big.Int, _amountOutMin *big.Int, fromToken common.Address, ntype *big.Int, toToken string) (*types.Transaction, error) {
+	return _Heco.contract.Transact(opts, "swapAndBurnT", _amountIn, _amountOutMin, fromToken, ntype, toToken)
 }
 
-// SwapAndmint is a paid mutator transaction binding the contract method 0x5c7fa3f5.
+// SwapAndBurnT is a paid mutator transaction binding the contract method 0xdbedb95d.
 //
-// Solidity: function swapAndmint(address _to, uint256 _amountIn, uint256 mid, address toToken) payable returns()
-func (_Heco *HecoSession) SwapAndmint(_to common.Address, _amountIn *big.Int, mid *big.Int, toToken common.Address) (*types.Transaction, error) {
-	return _Heco.Contract.SwapAndmint(&_Heco.TransactOpts, _to, _amountIn, mid, toToken)
+// Solidity: function swapAndBurnT(uint256 _amountIn, uint256 _amountOutMin, address fromToken, uint256 ntype, string toToken) payable returns()
+func (_Heco *HecoSession) SwapAndBurnT(_amountIn *big.Int, _amountOutMin *big.Int, fromToken common.Address, ntype *big.Int, toToken string) (*types.Transaction, error) {
+	return _Heco.Contract.SwapAndBurnT(&_Heco.TransactOpts, _amountIn, _amountOutMin, fromToken, ntype, toToken)
 }
 
-// SwapAndmint is a paid mutator transaction binding the contract method 0x5c7fa3f5.
+// SwapAndBurnT is a paid mutator transaction binding the contract method 0xdbedb95d.
 //
-// Solidity: function swapAndmint(address _to, uint256 _amountIn, uint256 mid, address toToken) payable returns()
-func (_Heco *HecoTransactorSession) SwapAndmint(_to common.Address, _amountIn *big.Int, mid *big.Int, toToken common.Address) (*types.Transaction, error) {
-	return _Heco.Contract.SwapAndmint(&_Heco.TransactOpts, _to, _amountIn, mid, toToken)
+// Solidity: function swapAndBurnT(uint256 _amountIn, uint256 _amountOutMin, address fromToken, uint256 ntype, string toToken) payable returns()
+func (_Heco *HecoTransactorSession) SwapAndBurnT(_amountIn *big.Int, _amountOutMin *big.Int, fromToken common.Address, ntype *big.Int, toToken string) (*types.Transaction, error) {
+	return _Heco.Contract.SwapAndBurnT(&_Heco.TransactOpts, _amountIn, _amountOutMin, fromToken, ntype, toToken)
+}
+
+// SwapToken is a paid mutator transaction binding the contract method 0x5a706197.
+//
+// Solidity: function swapToken(address _to, uint256 _amountIn, uint256 mid, address toToken) payable returns()
+func (_Heco *HecoTransactor) SwapToken(opts *bind.TransactOpts, _to common.Address, _amountIn *big.Int, mid *big.Int, toToken common.Address) (*types.Transaction, error) {
+	return _Heco.contract.Transact(opts, "swapToken", _to, _amountIn, mid, toToken)
+}
+
+// SwapToken is a paid mutator transaction binding the contract method 0x5a706197.
+//
+// Solidity: function swapToken(address _to, uint256 _amountIn, uint256 mid, address toToken) payable returns()
+func (_Heco *HecoSession) SwapToken(_to common.Address, _amountIn *big.Int, mid *big.Int, toToken common.Address) (*types.Transaction, error) {
+	return _Heco.Contract.SwapToken(&_Heco.TransactOpts, _to, _amountIn, mid, toToken)
+}
+
+// SwapToken is a paid mutator transaction binding the contract method 0x5a706197.
+//
+// Solidity: function swapToken(address _to, uint256 _amountIn, uint256 mid, address toToken) payable returns()
+func (_Heco *HecoTransactorSession) SwapToken(_to common.Address, _amountIn *big.Int, mid *big.Int, toToken common.Address) (*types.Transaction, error) {
+	return _Heco.Contract.SwapToken(&_Heco.TransactOpts, _to, _amountIn, mid, toToken)
+}
+
+// SwapTokenForHt is a paid mutator transaction binding the contract method 0x9055101e.
+//
+// Solidity: function swapTokenForHt(address _to, uint256 _amountIn, uint256 mid) payable returns()
+func (_Heco *HecoTransactor) SwapTokenForHt(opts *bind.TransactOpts, _to common.Address, _amountIn *big.Int, mid *big.Int) (*types.Transaction, error) {
+	return _Heco.contract.Transact(opts, "swapTokenForHt", _to, _amountIn, mid)
+}
+
+// SwapTokenForHt is a paid mutator transaction binding the contract method 0x9055101e.
+//
+// Solidity: function swapTokenForHt(address _to, uint256 _amountIn, uint256 mid) payable returns()
+func (_Heco *HecoSession) SwapTokenForHt(_to common.Address, _amountIn *big.Int, mid *big.Int) (*types.Transaction, error) {
+	return _Heco.Contract.SwapTokenForHt(&_Heco.TransactOpts, _to, _amountIn, mid)
+}
+
+// SwapTokenForHt is a paid mutator transaction binding the contract method 0x9055101e.
+//
+// Solidity: function swapTokenForHt(address _to, uint256 _amountIn, uint256 mid) payable returns()
+func (_Heco *HecoTransactorSession) SwapTokenForHt(_to common.Address, _amountIn *big.Int, mid *big.Int) (*types.Transaction, error) {
+	return _Heco.Contract.SwapTokenForHt(&_Heco.TransactOpts, _to, _amountIn, mid)
 }
 
 // SwapTest is a paid mutator transaction binding the contract method 0x064136f5.
