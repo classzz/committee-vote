@@ -37,7 +37,7 @@ func NewClient(c *chains.Config, private_key string) *EthClient {
 // casting
 func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (string, error) {
 
-	address := common.HexToAddress("0x3C46aBF71B7688C65ef3b222902060D7EdB89875")
+	address := common.HexToAddress("0xBdc797c19bD4c2aDFa286bB57254F4397C4E61e7")
 	instance, err := NewEthereum(address, ec.Client)
 	privateKey, err := crypto.HexToECDSA(ec.PrivateKey)
 	if err != nil {

@@ -37,7 +37,7 @@ func NewClient(c *chains.Config, private_key string) *HecoClient {
 // casting
 func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (string, error) {
 
-	address := common.HexToAddress("0x0AeB79f6434db05150824d6b553BD9c245882099")
+	address := common.HexToAddress("0x6EE663201e4acCeD97ccc6A272414b5Ab81A2858")
 	instance, err := NewHeco(address, ec.Client)
 	privateKey, err := crypto.HexToECDSA(ec.PrivateKey)
 	if err != nil {
