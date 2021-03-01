@@ -37,7 +37,7 @@ func NewClient(c *chains.Config, private_key string) *EthClient {
 // casting
 func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (string, error) {
 
-	address := common.HexToAddress("0x1E2E51B940cFB54E6f8F878Dc06eF7A5386364AE")
+	address := common.HexToAddress("0x3C46aBF71B7688C65ef3b222902060D7EdB89875")
 	instance, err := NewEthereum(address, ec.Client)
 	privateKey, err := crypto.HexToECDSA(ec.PrivateKey)
 	if err != nil {
@@ -75,6 +75,16 @@ func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 	toToken := common.HexToAddress(items.ToToken)
 	Amount := big.NewInt(0).Mul(items.Amount, big.NewInt(10000000000))
 
+	amountIn := int64(auth.GasLimit) * gasPrice.Int64()
+	path1 := common.HexToAddress("0xd25b078A0c4B60C52f8f6D5620eeea94284Bef7A")
+	path2 := common.HexToAddress("0x533c65434b96c533ae5A5590516303B8b7A2bB3B")
+	paths := []common.Address{path1, path2}
+
+	ethlist, err := instance.SwapBurnGetAmount(nil, big.NewInt(amountIn), paths)
+	if err != nil {
+		return "", err
+	}
+
 	if items.AssetType == cross.ExpandedTxConvert_Czz {
 		tx, err := instance.Mint(auth, toaddress, Amount)
 		if err != nil {
@@ -85,7 +95,7 @@ func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 		return tx.Hash().Hex(), nil
 	}
 
-	tx, err := instance.SwapToken(auth, toaddress, Amount, big.NewInt(0).Add(items.MID, big.NewInt(1000)), toToken)
+	tx, err := instance.SwapToken(auth, toaddress, Amount, items.MID, toToken, ethlist[1])
 	if err != nil {
 		return "", err
 	}

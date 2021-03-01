@@ -37,7 +37,7 @@ func NewClient(c *chains.Config, private_key string) *HecoClient {
 // casting
 func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (string, error) {
 
-	address := common.HexToAddress("0xb70127f578946a20ECf08aC13712F05e19FDd7b7")
+	address := common.HexToAddress("0x0AeB79f6434db05150824d6b553BD9c245882099")
 	instance, err := NewHeco(address, ec.Client)
 	privateKey, err := crypto.HexToECDSA(ec.PrivateKey)
 	if err != nil {
@@ -66,6 +66,16 @@ func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (string, error)
 	auth.GasLimit = uint64(500000) // in units
 	auth.GasPrice = gasPrice
 
+	amountIn := int64(auth.GasLimit) * gasPrice.Int64()
+	path1 := common.HexToAddress("0xE30d43717DB115D2f205acCfeCedec67aDfDE089")
+	path2 := common.HexToAddress("0x11D89c7966db767F2c933E7F1E009CD740b03677")
+	paths := []common.Address{path1, path2}
+
+	ethlist, err := instance.SwapBurnGetAmount(nil, big.NewInt(amountIn), paths)
+	if err != nil {
+		return "", err
+	}
+
 	toaddresspuk, err := crypto.DecompressPubkey(items.PubKey)
 	if err != nil || toaddresspuk == nil {
 		toaddresspuk, err = crypto.UnmarshalPubkey(items.PubKey)
@@ -88,7 +98,7 @@ func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (string, error)
 		return tx.Hash().Hex(), nil
 	}
 
-	tx, err := instance.SwapToken(auth, toaddress, Amount, big.NewInt(0).Add(items.MID, big.NewInt(1000)), toToken)
+	tx, err := instance.SwapToken(auth, toaddress, Amount, items.MID, toToken, ethlist[1])
 	if err != nil {
 		return "", err
 	}
