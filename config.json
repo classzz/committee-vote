@@ -12,7 +12,7 @@
     "rpc_password": "admin"
   },
   "chains": {
-    "eth_rpc": "http://127.0.0.1:9223",
+    "eth_rpc": "http://121.36.88.105:9223",
     "trx_rpc": "api.shasta.trongrid.io",
     "heco_rpc": "https://http-testnet.hecochain.com"
   },
