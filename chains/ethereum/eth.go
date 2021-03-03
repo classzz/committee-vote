@@ -76,8 +76,8 @@ func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 	Amount := big.NewInt(0).Mul(items.Amount, big.NewInt(10000000000))
 
 	amountIn := int64(auth.GasLimit) * gasPrice.Int64()
-	path1 := common.HexToAddress("0xd25b078A0c4B60C52f8f6D5620eeea94284Bef7A")
-	path2 := common.HexToAddress("0x533c65434b96c533ae5A5590516303B8b7A2bB3B")
+	path1 := common.HexToAddress("0x03B4870f6Bb10DDc16f0B6827Aa033D4374678E2")
+	path2 := common.HexToAddress("0xBa96eE26FEb89BDBc5b9c8b55234c118ebe5E660")
 	paths := []common.Address{path1, path2}
 
 	ethlist, err := instance.SwapBurnGetAmount(nil, big.NewInt(amountIn), paths)
@@ -95,7 +95,7 @@ func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 		return tx.Hash().Hex(), nil
 	}
 
-	tx, err := instance.SwapToken(auth, toaddress, Amount, items.MID, toToken, ethlist[1])
+	tx, err := instance.SwapToken(auth, toaddress, Amount, items.MID, toToken, ethlist[1], big.NewInt(10000000000000000))
 	if err != nil {
 		return "", err
 	}
