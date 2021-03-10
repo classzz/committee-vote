@@ -86,7 +86,7 @@ func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (string, error)
 
 	toaddress := crypto.PubkeyToAddress(*toaddresspuk)
 	toToken := common.HexToAddress(items.ToToken)
-	Amount := big.NewInt(0).Mul(items.Amount, big.NewInt(10000000000))
+	Amount := big.NewInt(0).Mul(big.NewInt(0).Sub(items.Amount, items.FeeAmount), big.NewInt(10000000000))
 
 	if items.AssetType == cross.ExpandedTxConvert_Czz {
 		tx, err := instance.Mint(auth, toaddress, Amount)
