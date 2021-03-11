@@ -3,7 +3,6 @@ package scanning
 import (
 	"fmt"
 	"github.com/classzz/classzz/blockchain"
-	"github.com/classzz/classzz/btcjson"
 	"github.com/classzz/classzz/chaincfg"
 	"github.com/classzz/classzz/cross"
 	"github.com/classzz/classzz/rpcclient"
@@ -136,24 +135,17 @@ func (s *Scanning) ProcessConvert() error {
 		if s.MysqlClient.FindConvertItem(conv.MID) == nil {
 			s.MysqlClient.ConvertItemInstall(conv)
 			if conv.ConvertType == cross.ExpandedTxConvert_ECzz {
-				if txhash, err := s.EthClient.Casting(conv); err != nil {
+				if _, err := s.EthClient.Casting(conv); err != nil {
 					return err
-				} else {
-					s.ConvertConfirm(txhash, conv)
 				}
 			} else if conv.ConvertType == cross.ExpandedTxConvert_HCzz {
-				if txhash, err := s.HecoClient.Casting(conv); err != nil {
+				if _, err := s.HecoClient.Casting(conv); err != nil {
 					return err
-				} else {
-					s.ConvertConfirm(txhash, conv)
 				}
 			}
 		}
 	}
 	return nil
-}
-
-func (s *Scanning) ConvertConfirm(txhash string, items *btcjson.ConvertItemsResult) {
 }
 
 // getDifficultyRatio returns the proof-of-work difficulty as a multiple of the

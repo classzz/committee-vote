@@ -15,6 +15,13 @@ import (
 	"math/big"
 )
 
+var (
+	contractAddress = common.HexToAddress("0xabD6bFC53773603a034b726938b0dfCaC3e645Ab")
+	router          = common.HexToAddress("0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D")
+	weth            = common.HexToAddress("0xc778417E063141139Fce010982780140Aa0cD5Ab")
+	eczz            = common.HexToAddress("0xa0d786dD929e5207045C8F4aeBe2Cdb4F4885beD")
+)
+
 type EthClient struct {
 	Client     *ethclient.Client
 	PrivateKey string
@@ -37,8 +44,7 @@ func NewClient(c *chains.Config, private_key string) *EthClient {
 // casting
 func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (string, error) {
 
-	address := common.HexToAddress("0x69d0904680A1D7142F06321E46fF4d207784562D")
-	instance, err := NewEthereum(address, ec.Client)
+	instance, err := NewEthereum(contractAddress, ec.Client)
 	privateKey, err := crypto.HexToECDSA(ec.PrivateKey)
 	if err != nil {
 		return "", err
@@ -76,11 +82,9 @@ func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 	Amount := big.NewInt(0).Mul(big.NewInt(0).Sub(items.Amount, items.FeeAmount), big.NewInt(10000000000))
 
 	amountIn := int64(auth.GasLimit) * gasPrice.Int64()
-	path1 := common.HexToAddress("0x03B4870f6Bb10DDc16f0B6827Aa033D4374678E2")
-	path2 := common.HexToAddress("0xBa96eE26FEb89BDBc5b9c8b55234c118ebe5E660")
-	paths := []common.Address{path1, path2}
+	paths := []common.Address{weth, eczz}
 
-	ethlist, err := instance.SwapBurnGetAmount(nil, big.NewInt(amountIn), paths)
+	ethlist, err := instance.SwapBurnGetAmount(nil, big.NewInt(amountIn), paths, router)
 	if err != nil {
 		return "", err
 	}
@@ -95,7 +99,7 @@ func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 		return tx.Hash().Hex(), nil
 	}
 
-	tx, err := instance.SwapToken(auth, toaddress, Amount, big.NewInt(0).Add(items.MID, big.NewInt(100000)), toToken, ethlist[1], big.NewInt(10000000000000000))
+	tx, err := instance.SwapToken(auth, toaddress, Amount, big.NewInt(0).Add(items.MID, big.NewInt(100000)), toToken, ethlist[1], router, weth, big.NewInt(10000000000000000))
 	if err != nil {
 		return "", err
 	}

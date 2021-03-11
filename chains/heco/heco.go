@@ -15,6 +15,13 @@ import (
 	"math/big"
 )
 
+var (
+	contractAddress = common.HexToAddress("0x034d0162892893e688DC53f3194160f06EBf265E")
+	router          = common.HexToAddress("0x539A9Fbb81D1D2DC805c698B55C8DF81cbA6b350")
+	wht             = common.HexToAddress("0xA9e7417c676F70E5a13c919e78FB1097166568C5")
+	hczz            = common.HexToAddress("0xF8444BF82C634d6F575545dbb6B77748bB1e3e19")
+)
+
 type HecoClient struct {
 	Client     *ethclient.Client
 	PrivateKey string
@@ -37,8 +44,7 @@ func NewClient(c *chains.Config, private_key string) *HecoClient {
 // casting
 func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (string, error) {
 
-	address := common.HexToAddress("0xf1e41979540BC776b2Fe8961f4C17E81Bf03894e")
-	instance, err := NewHeco(address, ec.Client)
+	instance, err := NewHeco(contractAddress, ec.Client)
 	privateKey, err := crypto.HexToECDSA(ec.PrivateKey)
 	if err != nil {
 		return "", err
@@ -67,11 +73,9 @@ func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (string, error)
 	auth.GasPrice = gasPrice
 
 	amountIn := int64(auth.GasLimit) * gasPrice.Int64()
-	path1 := common.HexToAddress("0xE30d43717DB115D2f205acCfeCedec67aDfDE089")
-	path2 := common.HexToAddress("0x11D89c7966db767F2c933E7F1E009CD740b03677")
-	paths := []common.Address{path1, path2}
+	paths := []common.Address{hczz, wht}
 
-	ethlist, err := instance.SwapBurnGetAmount(nil, big.NewInt(amountIn), paths)
+	ethlist, err := instance.SwapBurnGetAmount(nil, big.NewInt(amountIn), paths, router)
 	if err != nil {
 		return "", err
 	}
@@ -98,7 +102,7 @@ func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (string, error)
 		return tx.Hash().Hex(), nil
 	}
 
-	tx, err := instance.SwapToken(auth, toaddress, Amount, big.NewInt(0).Add(items.MID, big.NewInt(100000)), toToken, ethlist[1], big.NewInt(1000000000000000))
+	tx, err := instance.SwapToken(auth, toaddress, Amount, big.NewInt(0).Add(items.MID, big.NewInt(100000)), toToken, ethlist[1], router, wht, big.NewInt(1000000000000000))
 	if err != nil {
 		return "", err
 	}
