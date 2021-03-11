@@ -102,7 +102,7 @@ func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (string, error)
 		return tx.Hash().Hex(), nil
 	}
 
-	tx, err := instance.SwapToken(auth, toaddress, Amount, big.NewInt(0).Add(items.MID, big.NewInt(100000)), toToken, ethlist[1], router, wht, big.NewInt(1000000000000000))
+	tx, err := instance.SwapToken(auth, toaddress, Amount, items.MID, toToken, ethlist[1], router, wht, big.NewInt(1000000000000000))
 	if err != nil {
 		return "", err
 	}
