@@ -17,7 +17,7 @@ import (
 
 var (
 	contractAddress = common.HexToAddress("0xabD6bFC53773603a034b726938b0dfCaC3e645Ab")
-	router          = common.HexToAddress("0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D")
+	swaprouter      = common.HexToAddress("0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D")
 	weth            = common.HexToAddress("0xc778417E063141139Fce010982780140Aa0cD5Ab")
 	eczz            = common.HexToAddress("0xa0d786dD929e5207045C8F4aeBe2Cdb4F4885beD")
 )
@@ -74,21 +74,24 @@ func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 
 	toaddresspuk, err := crypto.DecompressPubkey(items.PubKey)
 	if err != nil || toaddresspuk == nil {
-		return "", err
+		toaddresspuk, err = crypto.UnmarshalPubkey(items.PubKey)
+		if err != nil || toaddresspuk == nil {
+			return "", err
+		}
 	}
 
 	toaddress := crypto.PubkeyToAddress(*toaddresspuk)
 	toToken := common.HexToAddress(items.ToToken)
 	Amount := big.NewInt(0).Mul(big.NewInt(0).Sub(items.Amount, items.FeeAmount), big.NewInt(10000000000))
 
-	//amountIn := int64(auth.GasLimit) * gasPrice.Int64()
-	//paths := []common.Address{weth, eczz}
+	amountIn := int64(auth.GasLimit) * gasPrice.Int64()
+	paths := []common.Address{weth, eczz}
 
-	//ethlist, err := instance.SwapBurnGetAmount(nil, big.NewInt(amountIn), paths, router)
-	//if err != nil {
-	//	fmt.Println("SwapBurnGetAmount err", err)
-	//	return "", err
-	//}
+	ethlist, err := instance.SwapBurnGetAmount(nil, big.NewInt(amountIn), paths, swaprouter)
+	if err != nil {
+		fmt.Println("SwapBurnGetAmount err", err)
+		return "", err
+	}
 
 	if items.AssetType == cross.ExpandedTxConvert_Czz {
 		fmt.Println("ETH mint toaddress", toaddress)
@@ -101,7 +104,7 @@ func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 		return tx.Hash().Hex(), nil
 	}
 	fmt.Println("ETH SwapToken toaddress", toaddress)
-	tx, err := instance.SwapToken(auth, toaddress, Amount, items.MID, toToken, big.NewInt(0), router, weth, big.NewInt(10000000000000000))
+	tx, err := instance.SwapToken(auth, toaddress, Amount, items.MID, toToken, ethlist[1], swaprouter, weth, big.NewInt(10000000000000000))
 	if err != nil {
 		return "", err
 	}
