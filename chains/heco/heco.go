@@ -93,6 +93,7 @@ func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (string, error)
 	Amount := big.NewInt(0).Mul(big.NewInt(0).Sub(items.Amount, items.FeeAmount), big.NewInt(10000000000))
 
 	if items.AssetType == cross.ExpandedTxConvert_Czz {
+		fmt.Println("HECO mint toaddress", toaddress)
 		tx, err := instance.Mint(auth, toaddress, Amount)
 		if err != nil {
 			return "", err
@@ -101,7 +102,7 @@ func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (string, error)
 		fmt.Printf("tx sent: %s toaddress %s fromaddress %s \r\n", tx.Hash().Hex(), toaddress, fromAddress)
 		return tx.Hash().Hex(), nil
 	}
-
+	fmt.Println("HECO SwapToken toaddress", toaddress)
 	tx, err := instance.SwapToken(auth, toaddress, Amount, items.MID, toToken, ethlist[1], router, wht, big.NewInt(1000000000000000))
 	if err != nil {
 		return "", err
