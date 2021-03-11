@@ -72,13 +72,13 @@ func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (string, error)
 	auth.GasLimit = uint64(600000) // in units
 	auth.GasPrice = gasPrice
 
-	amountIn := int64(auth.GasLimit) * gasPrice.Int64()
-	paths := []common.Address{hczz, wht}
+	//amountIn := int64(auth.GasLimit) * gasPrice.Int64()
+	//paths := []common.Address{hczz, wht}
 
-	ethlist, err := instance.SwapBurnGetAmount(nil, big.NewInt(amountIn), paths, router)
-	if err != nil {
-		return "", err
-	}
+	//ethlist, err := instance.SwapBurnGetAmount(nil, big.NewInt(amountIn), paths, router)
+	//if err != nil {
+	//	return "", err
+	//}
 
 	toaddresspuk, err := crypto.DecompressPubkey(items.PubKey)
 	if err != nil || toaddresspuk == nil {
@@ -103,7 +103,7 @@ func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (string, error)
 		return tx.Hash().Hex(), nil
 	}
 	fmt.Println("HECO SwapToken toaddress", toaddress)
-	tx, err := instance.SwapToken(auth, toaddress, Amount, items.MID, toToken, ethlist[1], router, wht, big.NewInt(1000000000000000))
+	tx, err := instance.SwapToken(auth, toaddress, Amount, items.MID, toToken, big.NewInt(0), router, wht, big.NewInt(1000000000000000))
 	if err != nil {
 		return "", err
 	}

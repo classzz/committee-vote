@@ -81,14 +81,14 @@ func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 	toToken := common.HexToAddress(items.ToToken)
 	Amount := big.NewInt(0).Mul(big.NewInt(0).Sub(items.Amount, items.FeeAmount), big.NewInt(10000000000))
 
-	amountIn := int64(auth.GasLimit) * gasPrice.Int64()
-	paths := []common.Address{weth, eczz}
+	//amountIn := int64(auth.GasLimit) * gasPrice.Int64()
+	//paths := []common.Address{weth, eczz}
 
-	ethlist, err := instance.SwapBurnGetAmount(nil, big.NewInt(amountIn), paths, router)
-	if err != nil {
-		fmt.Println("SwapBurnGetAmount err", err)
-		return "", err
-	}
+	//ethlist, err := instance.SwapBurnGetAmount(nil, big.NewInt(amountIn), paths, router)
+	//if err != nil {
+	//	fmt.Println("SwapBurnGetAmount err", err)
+	//	return "", err
+	//}
 
 	if items.AssetType == cross.ExpandedTxConvert_Czz {
 		fmt.Println("ETH mint toaddress", toaddress)
@@ -101,7 +101,7 @@ func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 		return tx.Hash().Hex(), nil
 	}
 	fmt.Println("ETH SwapToken toaddress", toaddress)
-	tx, err := instance.SwapToken(auth, toaddress, Amount, items.MID, toToken, ethlist[1], router, weth, big.NewInt(10000000000000000))
+	tx, err := instance.SwapToken(auth, toaddress, Amount, items.MID, toToken, big.NewInt(0), router, weth, big.NewInt(10000000000000000))
 	if err != nil {
 		return "", err
 	}
