@@ -86,6 +86,7 @@ func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 
 	ethlist, err := instance.SwapBurnGetAmount(nil, big.NewInt(amountIn), paths, router)
 	if err != nil {
+		fmt.Println("SwapBurnGetAmount err", err)
 		return "", err
 	}
 
