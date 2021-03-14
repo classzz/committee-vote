@@ -82,7 +82,7 @@ func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 
 	toaddress := crypto.PubkeyToAddress(*toaddresspuk)
 	toToken := common.HexToAddress(items.ToToken)
-	Amount := big.NewInt(0).Mul(big.NewInt(0).Sub(items.Amount, items.FeeAmount), big.NewInt(1000000000))
+	Amount := big.NewInt(0).Mul(big.NewInt(0).Sub(items.Amount, items.FeeAmount), big.NewInt(100000000))
 
 	amountIn := int64(auth.GasLimit) * gasPrice.Int64()
 	paths := []common.Address{weth, eczz}
