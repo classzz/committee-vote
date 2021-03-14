@@ -16,7 +16,7 @@ import (
 )
 
 var (
-	startInterval = 10 * time.Second
+	startInterval = 1 * time.Second
 )
 
 type Scanning struct {
