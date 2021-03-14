@@ -92,6 +92,7 @@ func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 		fmt.Println("SwapBurnGetAmount err", err)
 		return "", err
 	}
+	fmt.Println("paths amount", ethlist)
 
 	if items.AssetType == cross.ExpandedTxConvert_Czz {
 		fmt.Println("ETH mint toaddress", toaddress)
@@ -104,7 +105,7 @@ func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 		return tx.Hash().Hex(), nil
 	}
 	fmt.Println("ETH SwapToken toaddress", toaddress)
-	tx, err := instance.SwapToken(auth, toaddress, Amount, items.MID, toToken, ethlist[1], swaprouter, weth, big.NewInt(10000000000000000))
+	tx, err := instance.SwapToken(auth, toaddress, Amount, items.MID, toToken, big.NewInt(0), swaprouter, weth, big.NewInt(10000000000000000))
 	if err != nil {
 		return "", err
 	}

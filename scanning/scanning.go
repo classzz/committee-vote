@@ -24,6 +24,7 @@ type Scanning struct {
 	MysqlClient *storage.MysqlClient
 	EthClient   *ethereum.EthClient
 	HecoClient  *heco.HecoClient
+	MaxHeight   int64
 	CloseCh     chan struct{}
 }
 
@@ -54,6 +55,11 @@ func NewScanning(cfg *Config, client *storage.MysqlClient) *Scanning {
 }
 
 func (s *Scanning) Start() {
+
+	s.MaxHeight = s.MysqlClient.BlockFindMaxHeight()
+	if s.MaxHeight != 0 {
+		s.MaxHeight = s.MaxHeight + 1
+	}
 
 	startTicker := time.NewTicker(startInterval)
 out:
@@ -86,14 +92,11 @@ func (s *Scanning) start() {
 	}
 
 	// Get the maximum
-	MaxHeight := s.MysqlClient.BlockFindMaxHeight()
-	if MaxHeight != 0 {
-		MaxHeight = MaxHeight + 1
-	}
-	fmt.Println("blockCount height", MaxHeight)
-	for ; MaxHeight < blockCount; MaxHeight++ {
 
-		blockHash, err := s.NodeClient.GetBlockHash(MaxHeight)
+	fmt.Println("blockCount height", s.MaxHeight)
+	for ; s.MaxHeight < blockCount; s.MaxHeight++ {
+
+		blockHash, err := s.NodeClient.GetBlockHash(s.MaxHeight)
 		if err != nil {
 			log.Println(err)
 			return
@@ -105,7 +108,7 @@ func (s *Scanning) start() {
 		dblock := &storage.CzzBlocks{
 			PreviousBlockHash: header.PrevBlock.String(),
 			Hash:              block.BlockHash().String(),
-			Height:            MaxHeight,
+			Height:            s.MaxHeight,
 			Version:           header.Version,
 			VersionHex:        fmt.Sprintf("%08x", header.Version),
 			Merkleroot:        header.MerkleRoot.String(),
