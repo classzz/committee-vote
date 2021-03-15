@@ -100,10 +100,20 @@ func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 		if err != nil {
 			return "", err
 		}
-
 		fmt.Printf("tx sent: %s toaddress %s fromaddress %s \r\n", tx.Hash().Hex(), toaddress, fromAddress)
 		return tx.Hash().Hex(), nil
 	}
+
+	if items.ToToken == "0x0" {
+		fmt.Println("ETH SwapTokenForEth toaddress", toaddress)
+		tx, err := instance.SwapTokenForEth(auth, toaddress, Amount, items.MID, big.NewInt(0), swaprouter, weth, big.NewInt(10000000000000000))
+		if err != nil {
+			return "", err
+		}
+		fmt.Printf("tx sent: %s toaddress %s fromaddress %s \r\n", tx.Hash().Hex(), toaddress, fromAddress)
+		return tx.Hash().Hex(), nil
+	}
+
 	fmt.Println("ETH SwapToken toaddress", toaddress)
 	tx, err := instance.SwapToken(auth, toaddress, Amount, items.MID, toToken, big.NewInt(0), swaprouter, weth, big.NewInt(10000000000000000))
 	if err != nil {
