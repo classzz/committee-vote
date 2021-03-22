@@ -9,7 +9,7 @@ import (
 	"github.com/classzz/committee-vote/chains/ethereum"
 	"github.com/classzz/committee-vote/chains/heco"
 	"github.com/classzz/committee-vote/storage"
-	"log"
+	"github.com/ethereum/go-ethereum/log"
 	"math/big"
 	"strconv"
 	"time"
@@ -43,7 +43,7 @@ func NewScanning(cfg *Config, client *storage.MysqlClient) *Scanning {
 	// not supported in HTTP POST mode.
 	rpcClient, err := rpcclient.New(connCfg, nil)
 	if err != nil {
-		log.Println(err)
+		log.Error("err", err)
 	}
 
 	scanning := &Scanning{
@@ -87,7 +87,7 @@ func (s *Scanning) start() {
 	//blockCount := int64(50)
 	blockCount, err := s.NodeClient.GetBlockCount()
 	if err != nil {
-		log.Println(err)
+		log.Error("err", err)
 		return
 	}
 
@@ -98,7 +98,7 @@ func (s *Scanning) start() {
 
 		blockHash, err := s.NodeClient.GetBlockHash(s.MaxHeight)
 		if err != nil {
-			log.Println(err)
+			log.Error("err", err)
 			return
 		}
 
@@ -121,7 +121,7 @@ func (s *Scanning) start() {
 
 		if e := s.MysqlClient.BlockInstall(dblock); e == 0 {
 			if err := s.ProcessConvert(); err != nil {
-				log.Println(err)
+				log.Error("err", err)
 				return
 			}
 		}
