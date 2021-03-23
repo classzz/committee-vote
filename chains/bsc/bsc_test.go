@@ -12,7 +12,7 @@ func TestEthClient_Casting(t *testing.T) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	eth := &HecoClient{Client: client}
+	eth := &BscClient{Client: client}
 	eth.Casting(nil)
 
 }

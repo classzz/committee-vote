@@ -82,16 +82,10 @@ func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 
 	toaddress := crypto.PubkeyToAddress(*toaddresspuk)
 	toToken := common.HexToAddress(items.ToToken)
-	Amount := big.NewInt(0).Mul(big.NewInt(0).Sub(items.Amount, items.FeeAmount), big.NewInt(10000000000))
+	Amount := big.NewInt(0).Sub(items.Amount, items.FeeAmount)
 
 	amountIn := int64(auth.GasLimit) * gasPrice.Int64()
 	paths := []common.Address{weth, eczz}
-
-	ethlist, err := instance.SwapBurnGetAmount(nil, big.NewInt(amountIn), paths, swaprouter)
-	if err != nil {
-		return "", err
-	}
-	log.Info("paths amount", "ethlist", ethlist)
 
 	if items.AssetType == cross.ExpandedTxConvert_Czz {
 		log.Info("ETH mint", "toaddress", toaddress)
@@ -100,17 +94,23 @@ func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 			return "", err
 		}
 
-		log.Info("tx sent", "txhash", tx.Hash().Hex(), "toaddress", toaddress, "fromaddress", fromAddress)
+		log.Warn("tx sent", "txhash", tx.Hash().Hex(), "toaddress", toaddress, "fromaddress", fromAddress)
 		return tx.Hash().Hex(), nil
 	}
 
+	ethlist, err := instance.SwapBurnGetAmount(nil, big.NewInt(amountIn), paths, swaprouter)
+	if err != nil {
+		return "", err
+	}
+
+	log.Info("paths amount", "ethlist", ethlist)
 	if items.ToToken == "0x0" {
 		log.Info("ETH SwapTokenForEth", "toaddress", toaddress)
 		tx, err := instance.SwapTokenForEth(auth, toaddress, Amount, items.MID, big.NewInt(0), swaprouter, weth, big.NewInt(10000000000000000))
 		if err != nil {
 			return "", err
 		}
-		log.Info("tx sent", "txhash", tx.Hash().Hex(), "toaddress", toaddress, "fromaddress", fromAddress)
+		log.Warn("tx sent", "txhash", tx.Hash().Hex(), "toaddress", toaddress, "fromaddress", fromAddress)
 		return tx.Hash().Hex(), nil
 	}
 
@@ -120,6 +120,6 @@ func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 		return "", err
 	}
 
-	log.Info("tx sent", "txhash", tx.Hash().Hex(), "toaddress", toaddress, "fromaddress", fromAddress)
+	log.Warn("tx sent", "txhash", tx.Hash().Hex(), "toaddress", toaddress, "fromaddress", fromAddress)
 	return tx.Hash().Hex(), nil
 }

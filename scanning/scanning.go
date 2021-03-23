@@ -6,6 +6,7 @@ import (
 	"github.com/classzz/classzz/chaincfg"
 	"github.com/classzz/classzz/cross"
 	"github.com/classzz/classzz/rpcclient"
+	"github.com/classzz/committee-vote/chains/bsc"
 	"github.com/classzz/committee-vote/chains/ethereum"
 	"github.com/classzz/committee-vote/chains/heco"
 	"github.com/classzz/committee-vote/storage"
@@ -24,6 +25,7 @@ type Scanning struct {
 	MysqlClient *storage.MysqlClient
 	EthClient   *ethereum.EthClient
 	HecoClient  *heco.HecoClient
+	BscClient   *bsc.BscClient
 	MaxHeight   int64
 	CloseCh     chan struct{}
 }
@@ -92,8 +94,7 @@ func (s *Scanning) start() {
 	}
 
 	// Get the maximum
-
-	fmt.Println("blockCount height", s.MaxHeight)
+	log.Info("blockCount", "height", s.MaxHeight)
 	for ; s.MaxHeight < blockCount; s.MaxHeight++ {
 
 		blockHash, err := s.NodeClient.GetBlockHash(s.MaxHeight)
@@ -143,6 +144,10 @@ func (s *Scanning) ProcessConvert() error {
 				}
 			} else if conv.ConvertType == cross.ExpandedTxConvert_HCzz {
 				if _, err := s.HecoClient.Casting(conv); err != nil {
+					return err
+				}
+			} else if conv.ConvertType == cross.ExpandedTxConvert_BCzz {
+				if _, err := s.BscClient.Casting(conv); err != nil {
 					return err
 				}
 			}

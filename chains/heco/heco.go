@@ -11,7 +11,6 @@ import (
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"golang.org/x/net/context"
-	"log"
 	"math/big"
 )
 
@@ -30,7 +29,7 @@ type HecoClient struct {
 func NewClient(c *chains.Config, private_key string) *HecoClient {
 	client, err := ethclient.Dial(c.HecoRpc)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 
 	ec := &HecoClient{
@@ -82,16 +81,11 @@ func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (string, error)
 
 	toaddress := crypto.PubkeyToAddress(*toaddresspuk)
 	toToken := common.HexToAddress(items.ToToken)
-	Amount := big.NewInt(0).Mul(big.NewInt(0).Sub(items.Amount, items.FeeAmount), big.NewInt(10000000000))
+	Amount := big.NewInt(0).Sub(items.Amount, items.FeeAmount)
 
 	amountIn := int64(auth.GasLimit) * gasPrice.Int64()
 	paths := []common.Address{hczz, wht}
 
-	ethlist, err := instance.SwapBurnGetAmount(nil, big.NewInt(amountIn), paths, swaprouter)
-	if err != nil {
-		return "", err
-	}
-	fmt.Println("paths amount", ethlist)
 	if items.AssetType == cross.ExpandedTxConvert_Czz {
 		fmt.Println("HECO mint toaddress", toaddress)
 		tx, err := instance.Mint(auth, toaddress, Amount)
@@ -102,6 +96,11 @@ func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (string, error)
 		fmt.Printf("tx sent: %s toaddress %s fromaddress %s \r\n", tx.Hash().Hex(), toaddress, fromAddress)
 		return tx.Hash().Hex(), nil
 	}
+	ethlist, err := instance.SwapBurnGetAmount(nil, big.NewInt(amountIn), paths, swaprouter)
+	if err != nil {
+		return "", err
+	}
+	fmt.Println("paths amount", ethlist)
 
 	if items.ToToken == "0x0" {
 		fmt.Println("HECO SwapTokenForHt toaddress", toaddress)

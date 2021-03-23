@@ -17,9 +17,9 @@ import (
 
 var (
 	contractAddress = common.HexToAddress("0x034d0162892893e688DC53f3194160f06EBf265E")
-	swaprouter      = common.HexToAddress("0x539A9Fbb81D1D2DC805c698B55C8DF81cbA6b350")
-	wht             = common.HexToAddress("0xA9e7417c676F70E5a13c919e78FB1097166568C5")
-	hczz            = common.HexToAddress("0xF8444BF82C634d6F575545dbb6B77748bB1e3e19")
+	swaprouter      = common.HexToAddress("0xD99D1c33F9fC3444f8101754aBC46c52416550D1")
+	wbnb            = common.HexToAddress("0x47C77A7959637b7505D15858558e077D601bCA16")
+	bczz            = common.HexToAddress("0xBa96eE26FEb89BDBc5b9c8b55234c118ebe5E660")
 )
 
 type BscClient struct {
@@ -28,7 +28,7 @@ type BscClient struct {
 }
 
 func NewClient(c *chains.Config, private_key string) *BscClient {
-	client, err := ethclient.Dial(c.HecoRpc)
+	client, err := ethclient.Dial(c.BscRpc)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -82,18 +82,12 @@ func (ec *BscClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 
 	toaddress := crypto.PubkeyToAddress(*toaddresspuk)
 	toToken := common.HexToAddress(items.ToToken)
-	Amount := big.NewInt(0).Mul(big.NewInt(0).Sub(items.Amount, items.FeeAmount), big.NewInt(10000000000))
-
+	Amount := big.NewInt(0).Sub(items.Amount, items.FeeAmount)
 	amountIn := int64(auth.GasLimit) * gasPrice.Int64()
-	paths := []common.Address{hczz, wht}
+	paths := []common.Address{bczz, wbnb}
 
-	ethlist, err := instance.SwapBurnGetAmount(nil, big.NewInt(amountIn), paths, swaprouter)
-	if err != nil {
-		return "", err
-	}
-	fmt.Println("paths amount", ethlist)
 	if items.AssetType == cross.ExpandedTxConvert_Czz {
-		fmt.Println("HECO mint toaddress", toaddress)
+		fmt.Println("BSC mint toaddress", toaddress)
 		tx, err := instance.Mint(auth, toaddress, Amount)
 		if err != nil {
 			return "", err
@@ -103,9 +97,15 @@ func (ec *BscClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 		return tx.Hash().Hex(), nil
 	}
 
+	ethlist, err := instance.SwapBurnGetAmount(nil, big.NewInt(amountIn), paths, swaprouter)
+	if err != nil {
+		return "", err
+	}
+	fmt.Println("paths amount", ethlist)
+
 	if items.ToToken == "0x0" {
-		fmt.Println("HECO SwapTokenForHt toaddress", toaddress)
-		tx, err := instance.SwapTokenForEth(auth, toaddress, Amount, items.MID, big.NewInt(0), swaprouter, wht, big.NewInt(10000000000000000))
+		fmt.Println("BSC SwapTokenForHt toaddress", toaddress)
+		tx, err := instance.SwapTokenForEth(auth, toaddress, Amount, items.MID, big.NewInt(0), swaprouter, wbnb, big.NewInt(10000000000000000))
 		if err != nil {
 			return "", err
 		}
@@ -113,8 +113,8 @@ func (ec *BscClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 		return tx.Hash().Hex(), nil
 	}
 
-	fmt.Println("HECO SwapToken toaddress", toaddress)
-	tx, err := instance.SwapToken(auth, toaddress, Amount, items.MID, toToken, big.NewInt(0), swaprouter, wht, big.NewInt(1000000000000000))
+	fmt.Println("BSC SwapToken toaddress", toaddress)
+	tx, err := instance.SwapToken(auth, toaddress, Amount, items.MID, toToken, big.NewInt(0), swaprouter, wbnb, big.NewInt(1000000000000000))
 	if err != nil {
 		return "", err
 	}
