@@ -15,10 +15,10 @@ import (
 )
 
 var (
-	contractAddress = common.HexToAddress("0x034d0162892893e688DC53f3194160f06EBf265E")
+	contractAddress = common.HexToAddress("0x64Dd2D13dA5469a50D747B9CE35a5EcB4865d054")
 	swaprouter      = common.HexToAddress("0x539A9Fbb81D1D2DC805c698B55C8DF81cbA6b350")
 	wht             = common.HexToAddress("0xA9e7417c676F70E5a13c919e78FB1097166568C5")
-	hczz            = common.HexToAddress("0xF8444BF82C634d6F575545dbb6B77748bB1e3e19")
+	hczz            = common.HexToAddress("0x5E8fb243AD8B9c10B2211a8C6d0D21231A3f9039")
 )
 
 type HecoClient struct {
@@ -84,7 +84,7 @@ func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (string, error)
 	Amount := big.NewInt(0).Sub(items.Amount, items.FeeAmount)
 
 	amountIn := int64(auth.GasLimit) * gasPrice.Int64()
-	paths := []common.Address{hczz, wht}
+	paths := []common.Address{wht, hczz}
 
 	if items.AssetType == cross.ExpandedTxConvert_Czz {
 		fmt.Println("HECO mint toaddress", toaddress)
@@ -104,7 +104,7 @@ func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (string, error)
 
 	if items.ToToken == "0x0" {
 		fmt.Println("HECO SwapTokenForHt toaddress", toaddress)
-		tx, err := instance.SwapTokenForHt(auth, toaddress, Amount, items.MID, big.NewInt(0), swaprouter, wht, big.NewInt(10000000000000000))
+		tx, err := instance.SwapTokenForHt(auth, toaddress, Amount, items.MID, ethlist[1], swaprouter, wht, big.NewInt(10000000000000000))
 		if err != nil {
 			return "", err
 		}
@@ -113,7 +113,7 @@ func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (string, error)
 	}
 
 	fmt.Println("HECO SwapToken toaddress", toaddress)
-	tx, err := instance.SwapToken(auth, toaddress, Amount, items.MID, toToken, big.NewInt(0), swaprouter, wht, big.NewInt(1000000000000000))
+	tx, err := instance.SwapToken(auth, toaddress, Amount, items.MID, toToken, ethlist[1], swaprouter, wht, big.NewInt(1000000000000000))
 	if err != nil {
 		return "", err
 	}

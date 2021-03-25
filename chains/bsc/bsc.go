@@ -16,10 +16,10 @@ import (
 )
 
 var (
-	contractAddress = common.HexToAddress("0x034d0162892893e688DC53f3194160f06EBf265E")
+	contractAddress = common.HexToAddress("0xb39E84c6AD0574af30fb5f0185ad2d4f2DBa4262")
 	swaprouter      = common.HexToAddress("0xD99D1c33F9fC3444f8101754aBC46c52416550D1")
-	wbnb            = common.HexToAddress("0x47C77A7959637b7505D15858558e077D601bCA16")
-	bczz            = common.HexToAddress("0xBa96eE26FEb89BDBc5b9c8b55234c118ebe5E660")
+	wbnb            = common.HexToAddress("0xae13d989dac2f0debff460ac112a837c89baa7cd")
+	bczz            = common.HexToAddress("0x507B8283aD724aA06dF09Df3d1D6eb3816EE51d5")
 )
 
 type BscClient struct {
@@ -66,7 +66,7 @@ func (ec *BscClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 		return "", err
 	}
 
-	auth, _ := bind.NewKeyedTransactorWithChainID(privateKey, big.NewInt(256))
+	auth, _ := bind.NewKeyedTransactorWithChainID(privateKey, big.NewInt(97))
 	auth.Nonce = big.NewInt(int64(nonce))
 	auth.Value = big.NewInt(0)     // in wei
 	auth.GasLimit = uint64(800000) // in units
@@ -84,7 +84,7 @@ func (ec *BscClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 	toToken := common.HexToAddress(items.ToToken)
 	Amount := big.NewInt(0).Sub(items.Amount, items.FeeAmount)
 	amountIn := int64(auth.GasLimit) * gasPrice.Int64()
-	paths := []common.Address{bczz, wbnb}
+	paths := []common.Address{wbnb, bczz}
 
 	if items.AssetType == cross.ExpandedTxConvert_Czz {
 		fmt.Println("BSC mint toaddress", toaddress)
@@ -105,7 +105,7 @@ func (ec *BscClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 
 	if items.ToToken == "0x0" {
 		fmt.Println("BSC SwapTokenForHt toaddress", toaddress)
-		tx, err := instance.SwapTokenForEth(auth, toaddress, Amount, items.MID, big.NewInt(0), swaprouter, wbnb, big.NewInt(10000000000000000))
+		tx, err := instance.SwapTokenForBsc(auth, toaddress, Amount, items.MID, big.NewInt(0), swaprouter, wbnb, big.NewInt(10000000000000000))
 		if err != nil {
 			return "", err
 		}

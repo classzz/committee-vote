@@ -16,10 +16,10 @@ import (
 )
 
 var (
-	contractAddress = common.HexToAddress("0x216202E52eF9c9B2616b8a89be753D5a676eb0f2")
+	contractAddress = common.HexToAddress("0x6aE86268312A815831A5cfe35187d1f3D2B6dE76")
 	swaprouter      = common.HexToAddress("0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D")
-	weth            = common.HexToAddress("0xc778417E063141139Fce010982780140Aa0cD5Ab")
-	eczz            = common.HexToAddress("0x2C7Cb26e96FbA2758c794F7bB3c8Bf38243b1586")
+	weth            = common.HexToAddress("0xc778417e063141139fce010982780140aa0cd5ab")
+	eczz            = common.HexToAddress("0x0041a3a63a5844f878b1c08f9d3c28e17f3ce14a")
 )
 
 type EthClient struct {
@@ -106,7 +106,7 @@ func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 	log.Info("paths amount", "ethlist", ethlist)
 	if items.ToToken == "0x0" {
 		log.Info("ETH SwapTokenForEth", "toaddress", toaddress)
-		tx, err := instance.SwapTokenForEth(auth, toaddress, Amount, items.MID, big.NewInt(0), swaprouter, weth, big.NewInt(10000000000000000))
+		tx, err := instance.SwapTokenForEth(auth, toaddress, Amount, items.MID, ethlist[1], swaprouter, weth, big.NewInt(10000000000000000))
 		if err != nil {
 			return "", err
 		}
@@ -115,7 +115,7 @@ func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 	}
 
 	log.Info("ETH SwapToken", "toaddress", toaddress)
-	tx, err := instance.SwapToken(auth, toaddress, Amount, items.MID, toToken, big.NewInt(0), swaprouter, weth, big.NewInt(10000000000000000))
+	tx, err := instance.SwapToken(auth, toaddress, Amount, items.MID, toToken, ethlist[1], swaprouter, weth, big.NewInt(10000000000000000))
 	if err != nil {
 		return "", err
 	}

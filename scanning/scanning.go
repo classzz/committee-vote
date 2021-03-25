@@ -122,7 +122,7 @@ func (s *Scanning) start() {
 
 		if e := s.MysqlClient.BlockInstall(dblock); e == 0 {
 			if err := s.ProcessConvert(); err != nil {
-				log.Error("err", err)
+				log.Error("err", "", err)
 				return
 			}
 		}
