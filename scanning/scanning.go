@@ -16,9 +16,7 @@ import (
 	"time"
 )
 
-var (
-	startInterval = 1 * time.Second
-)
+var startInterval = 1 * time.Second
 
 type Scanning struct {
 	NodeClient  *rpcclient.Client

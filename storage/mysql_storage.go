@@ -91,8 +91,8 @@ func (c *MysqlClient) BlockInstall(block *CzzBlocks) int {
 //);
 
 func (c *MysqlClient) ConvertItemInstall(info *btcjson.ConvertItemsResult) int {
-	insertSQL := "insert into convert_items (mid, asset_type, convert_type, pubkey, `height`, exttxhash, `index_`, `amount`) values (?,?,?,?,?,?,?,?)"
-	_, err := c.mysqlDB.Exec(insertSQL, info.MID.Int64(), info.AssetType, info.ConvertType, hex.EncodeToString(info.PubKey), 0, info.ExtTxHash, 0, info.Amount.Int64())
+	insertSQL := "insert into convert_items (mid, asset_type, convert_type, pubkey, `height`,tx_hash, exttxhash, confirm_ext_tx_hash, `index_`, `amount`) values (?,?,?,?,?,?,?,?,?,?)"
+	_, err := c.mysqlDB.Exec(insertSQL, info.MID.Int64(), info.AssetType, info.ConvertType, hex.EncodeToString(info.PubKey), 0, info.TxHash, info.ExtTxHash, info.ConfirmExtTxHash, 0, info.Amount.Int64())
 	if err != nil {
 		fmt.Printf("Insert failed,err:%v", err)
 		return 1
