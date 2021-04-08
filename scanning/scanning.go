@@ -101,7 +101,7 @@ func (s *Scanning) start() {
 			return
 		}
 
-		block, err := s.NodeClient.GetBlock(blockHash.String())
+		block, err := s.NodeClient.GetBlock(blockHash)
 		header := block.Header
 		params := &chaincfg.MainNetParams
 		dblock := &storage.CzzBlocks{
@@ -136,19 +136,24 @@ func (s *Scanning) ProcessConvert() error {
 	for _, conv := range convs {
 		if s.MysqlClient.FindConvertItem(conv.MID) == nil {
 			s.MysqlClient.ConvertItemInstall(conv)
+			var txhash string
 			if conv.ConvertType == cross.ExpandedTxConvert_ECzz {
-				if _, err := s.EthClient.Casting(conv); err != nil {
+				if txhash, err = s.EthClient.Casting(conv); err != nil {
 					return err
 				}
 			} else if conv.ConvertType == cross.ExpandedTxConvert_HCzz {
-				if _, err := s.HecoClient.Casting(conv); err != nil {
+				if txhash, err = s.HecoClient.Casting(conv); err != nil {
 					return err
 				}
 			} else if conv.ConvertType == cross.ExpandedTxConvert_BCzz {
-				if _, err := s.BscClient.Casting(conv); err != nil {
+				if txhash, err = s.BscClient.Casting(conv); err != nil {
 					return err
 				}
 			}
+			if txhash != "" {
+				s.MysqlClient.UpdateItem(conv, txhash)
+			}
+
 		}
 	}
 	return nil
