@@ -6,6 +6,7 @@ import (
 	"github.com/classzz/classzz/btcjson"
 	"github.com/classzz/classzz/cross"
 	"github.com/classzz/committee-vote/chains"
+	common3 "github.com/classzz/committee-vote/chains/common"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
@@ -44,7 +45,7 @@ func NewClient(c *chains.Config, private_key string) *EthClient {
 // casting
 func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (string, error) {
 
-	instance, err := NewEthereum(contractAddress, ec.Client)
+	instance, err := common3.NewCommon(contractAddress, ec.Client)
 	privateKey, err := crypto.HexToECDSA(ec.PrivateKey)
 	if err != nil {
 		return "", err
@@ -104,7 +105,7 @@ func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 	}
 
 	log.Info("paths amount", "ethlist", ethlist)
-	if items.ToToken == "0x0" {
+	if items.ToToken == "0x00" {
 		log.Info("ETH SwapTokenForEth", "toaddress", toaddress)
 		tx, err := instance.SwapTokenForEth(auth, toaddress, Amount, items.MID, ethlist[1], swaprouter, weth, big.NewInt(10000000000000000))
 		if err != nil {

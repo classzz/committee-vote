@@ -6,6 +6,7 @@ import (
 	"github.com/classzz/classzz/btcjson"
 	"github.com/classzz/classzz/cross"
 	"github.com/classzz/committee-vote/chains"
+	common3 "github.com/classzz/committee-vote/chains/common"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
@@ -44,7 +45,7 @@ func NewClient(c *chains.Config, private_key string) *BscClient {
 // casting
 func (ec *BscClient) Casting(items *btcjson.ConvertItemsResult) (string, error) {
 
-	instance, err := NewBsc(contractAddress, ec.Client)
+	instance, err := common3.NewCommon(contractAddress, ec.Client)
 	privateKey, err := crypto.HexToECDSA(ec.PrivateKey)
 	if err != nil {
 		return "", err
@@ -103,9 +104,9 @@ func (ec *BscClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 	}
 	fmt.Println("paths amount", ethlist)
 
-	if items.ToToken == "0x0" {
+	if items.ToToken == "0x00" {
 		fmt.Println("BSC SwapTokenForHt toaddress", toaddress)
-		tx, err := instance.SwapTokenForBsc(auth, toaddress, Amount, items.MID, big.NewInt(0), swaprouter, wbnb, big.NewInt(10000000000000000))
+		tx, err := instance.SwapTokenForEth(auth, toaddress, Amount, items.MID, big.NewInt(0), swaprouter, wbnb, big.NewInt(10000000000000000))
 		if err != nil {
 			return "", err
 		}
