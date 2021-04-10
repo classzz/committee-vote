@@ -105,7 +105,7 @@ func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 	}
 
 	log.Info("paths amount", "ethlist", ethlist)
-	if items.ToToken == "0x00" {
+	if items.ToToken == "0x0000000000000000000000000000000000000000" {
 		log.Info("ETH SwapTokenForEth", "toaddress", toaddress)
 		tx, err := instance.SwapTokenForEth(auth, toaddress, Amount, items.MID, ethlist[1], swaprouter, weth, big.NewInt(10000000000000000))
 		if err != nil {
