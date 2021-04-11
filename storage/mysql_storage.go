@@ -101,8 +101,8 @@ func (c *MysqlClient) ConvertItemInstall(info *btcjson.ConvertItemsResult) int {
 }
 
 func (c *MysqlClient) UpdateItem(info *btcjson.ConvertItemsResult, txhash string) int {
-	insertSQL := "UPDATE convert_items SET mid=? WHERE confirm_ext_tx_hash = ? "
-	_, err := c.mysqlDB.Exec(insertSQL, info.MID.Int64(), txhash)
+	insertSQL := "UPDATE convert_items SET confirm_ext_tx_hash=? WHERE mid = ? "
+	_, err := c.mysqlDB.Exec(insertSQL, txhash, info.MID.Int64())
 	if err != nil {
 		fmt.Printf("Insert failed,err:%v", err)
 		return 1
