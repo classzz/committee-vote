@@ -90,7 +90,7 @@ func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 
 	if items.AssetType == cross.ExpandedTxConvert_Czz {
 		log.Info("ETH mint", "toaddress", toaddress)
-		tx, err := instance.Mint(auth, toaddress, Amount)
+		tx, err := instance.Mint(auth, items.MID, toaddress, Amount)
 		if err != nil {
 			return "", err
 		}
