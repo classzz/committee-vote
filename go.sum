@@ -68,8 +68,8 @@ github.com/cespare/xxhash/v2 v2.1.1 h1:6MnRN8NT7+YBpUIWxHtefFZOKTAPgGjpQSxqLNn0+
 github.com/cespare/xxhash/v2 v2.1.1/go.mod h1:VGX0DQ3Q6kWi7AoAeZDth3/j3BFtOZR5XLFGgcrjCOs=
 github.com/classzz/classzz v0.0.0-20210304084432-0bda4791a5e8/go.mod h1:uk7oD3/0Oo9/iblZ7P1iIdD5r+x3iQ4rkkdrkMq6Dsk=
 github.com/classzz/classzz v0.0.0-20210331044259-ceeaaf4b9226/go.mod h1:jxxHunaZ7mh8sT+bd9KiJTqoSbYXi/H5Bm7tJPMh3V0=
-github.com/classzz/classzz v1.0.7-0.20210331073148-757c4acd164d h1:3HKKhbtRF9pmMc6UjzuAMXKrAP+EuAVBNbeWj2/hkmI=
-github.com/classzz/classzz v1.0.7-0.20210331073148-757c4acd164d/go.mod h1:0tMV+5aiO9ZLoFkwkon5US3bTQHIpKsImOKzKBnRES0=
+github.com/classzz/classzz v1.0.7-0.20210412063931-14ecf7b9d80e h1:jX4QF1kSD/m+1zl7j7mOLPx782ciNR33esAcZ8Oy23Q=
+github.com/classzz/classzz v1.0.7-0.20210412063931-14ecf7b9d80e/go.mod h1:0tMV+5aiO9ZLoFkwkon5US3bTQHIpKsImOKzKBnRES0=
 github.com/classzz/czzlog v0.0.0-20190701134521-659346cb927a h1:e41Y/x9AX3JUT3285Pyd+DD52k3161MY3s4+PyRb69M=
 github.com/classzz/czzlog v0.0.0-20190701134521-659346cb927a/go.mod h1:n7gXMvIOF9qH5iyYbEdIdJkbwBDk8jkm+/Ftpczy9ME=
 github.com/classzz/czzutil v0.0.0-20200714085554-7e5f543670fb h1:yVksZl/2NZpYWoHRueyIzOvKx3FV33ygP2ef11TrNaQ=

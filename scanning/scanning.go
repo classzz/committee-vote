@@ -101,7 +101,7 @@ func (s *Scanning) start() {
 			return
 		}
 
-		block, err := s.NodeClient.GetBlock(blockHash)
+		block, err := s.NodeClient.GetBlock(blockHash.String())
 		header := block.Header
 		params := &chaincfg.MainNetParams
 		dblock := &storage.CzzBlocks{
