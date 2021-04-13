@@ -68,8 +68,8 @@ func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (string, error)
 
 	auth, _ := bind.NewKeyedTransactorWithChainID(privateKey, big.NewInt(256))
 	auth.Nonce = big.NewInt(int64(nonce))
-	auth.Value = big.NewInt(0)     // in wei
-	auth.GasLimit = uint64(800000) // in units
+	auth.Value = big.NewInt(0)      // in wei
+	auth.GasLimit = uint64(1000000) // in units
 	auth.GasPrice = gasPrice
 
 	toaddresspuk, err := crypto.DecompressPubkey(items.PubKey)
