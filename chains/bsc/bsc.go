@@ -84,7 +84,7 @@ func (ec *BscClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 	toaddress := crypto.PubkeyToAddress(*toaddresspuk)
 	toToken := common.HexToAddress(items.ToToken)
 	Amount := big.NewInt(0).Sub(items.Amount, items.FeeAmount)
-	amountIn := int64(auth.GasLimit) * gasPrice.Int64()
+	amountIn := int64(uint64(800000)) * gasPrice.Int64()
 	paths := []common.Address{wbnb, bczz}
 
 	if items.AssetType == cross.ExpandedTxConvert_Czz {

@@ -84,7 +84,7 @@ func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (string, error)
 	toToken := common.HexToAddress(items.ToToken)
 	Amount := big.NewInt(0).Sub(items.Amount, items.FeeAmount)
 
-	amountIn := int64(auth.GasLimit) * gasPrice.Int64()
+	amountIn := int64(uint64(800000)) * gasPrice.Int64()
 	paths := []common.Address{wht, hczz}
 
 	if items.AssetType == cross.ExpandedTxConvert_Czz {
