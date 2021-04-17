@@ -67,7 +67,7 @@ func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 		return "", err
 	}
 
-	auth, err := bind.NewKeyedTransactorWithChainID(privateKey, big.NewInt(3))
+	auth, err := bind.NewKeyedTransactorWithChainID(privateKey, big.NewInt(1))
 	auth.Nonce = big.NewInt(int64(nonce))
 	auth.Value = big.NewInt(0) // in wei
 	//auth.GasLimit = uint64(800000) // in units
