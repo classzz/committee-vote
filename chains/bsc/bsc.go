@@ -17,10 +17,10 @@ import (
 )
 
 var (
-	contractAddress = common.HexToAddress("0x7c1DD2600F4A72f5D05b73444397795522e1B685")
-	swaprouter      = common.HexToAddress("0xD99D1c33F9fC3444f8101754aBC46c52416550D1")
-	wbnb            = common.HexToAddress("0xae13d989dac2f0debff460ac112a837c89baa7cd")
-	bczz            = common.HexToAddress("0x507B8283aD724aA06dF09Df3d1D6eb3816EE51d5")
+	contractAddress = common.HexToAddress("0x007c98F9f2c70746a64572E67FBCc41a2b8bba18")
+	swaprouter      = common.HexToAddress("0x05fF2B0DB69458A0750badebc4f9e13aDd608C7F")
+	wbnb            = common.HexToAddress("0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c")
+	bczz            = common.HexToAddress("0x2Fb9376cFf6fb7f5fe99665aE1Ec2FdDD5099134")
 )
 
 type BscClient struct {

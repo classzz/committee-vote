@@ -17,10 +17,10 @@ import (
 )
 
 var (
-	contractAddress = common.HexToAddress("0x04e683b0ba2531c80ECf996DE7Ce34c10d190976")
+	contractAddress = common.HexToAddress("0x9AC88c5136240312f8817dBB99497aCe62b03F12")
 	swaprouter      = common.HexToAddress("0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D")
-	weth            = common.HexToAddress("0xc778417e063141139fce010982780140aa0cd5ab")
-	eczz            = common.HexToAddress("0x0041a3a63a5844f878b1c08f9d3c28e17f3ce14a")
+	weth            = common.HexToAddress("0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2")
+	eczz            = common.HexToAddress("0x150BbCfF6b1B4D528b48f1A300585Dea0b6490B6")
 )
 
 type EthClient struct {

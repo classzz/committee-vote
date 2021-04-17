@@ -16,10 +16,10 @@ import (
 )
 
 var (
-	contractAddress = common.HexToAddress("0xD1DD6AC27E805c8DE76e30dec1142d023F4e45A6")
-	swaprouter      = common.HexToAddress("0x539A9Fbb81D1D2DC805c698B55C8DF81cbA6b350")
-	wht             = common.HexToAddress("0xA9e7417c676F70E5a13c919e78FB1097166568C5")
-	hczz            = common.HexToAddress("0x5E8fb243AD8B9c10B2211a8C6d0D21231A3f9039")
+	contractAddress = common.HexToAddress("0x711D839CD1E6E81B971F5b6bBB4a6BD7C4B60Ac6")
+	swaprouter      = common.HexToAddress("0xED7d5F38C79115ca12fe6C0041abb22F0A06C300")
+	wht             = common.HexToAddress("0x5545153ccfca01fbd7dd11c0b23ba694d9509a6f")
+	hczz            = common.HexToAddress("0x112489c758D405874e9Ece0586FD50B315216fcA")
 )
 
 type HecoClient struct {
