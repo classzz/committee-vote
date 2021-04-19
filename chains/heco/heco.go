@@ -16,7 +16,7 @@ import (
 )
 
 var (
-	contractAddress = common.HexToAddress("0x711D839CD1E6E81B971F5b6bBB4a6BD7C4B60Ac6")
+	contractAddress = common.HexToAddress("0xdc3013FcF6A748c6b468de21b8A1680dbcb979ca")
 	swaprouter      = common.HexToAddress("0xED7d5F38C79115ca12fe6C0041abb22F0A06C300")
 	wht             = common.HexToAddress("0x5545153ccfca01fbd7dd11c0b23ba694d9509a6f")
 	hczz            = common.HexToAddress("0x112489c758D405874e9Ece0586FD50B315216fcA")
