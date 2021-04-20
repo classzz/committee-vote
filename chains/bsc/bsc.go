@@ -106,7 +106,7 @@ func (ec *BscClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 
 	if items.ToToken == "0x0000000000000000000000000000000000000000" {
 		fmt.Println("BSC SwapTokenForHt toaddress", toaddress)
-		tx, err := instance.SwapTokenForEth(auth, toaddress, Amount, items.MID, big.NewInt(0), swaprouter, wbnb, big.NewInt(10000000000000000))
+		tx, err := instance.SwapTokenForEth(auth, toaddress, Amount, items.MID, ethlist[1], swaprouter, wbnb, big.NewInt(10000000000000000))
 		if err != nil {
 			return "", err
 		}
@@ -115,7 +115,7 @@ func (ec *BscClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 	}
 
 	fmt.Println("BSC SwapToken toaddress", toaddress)
-	tx, err := instance.SwapToken(auth, toaddress, Amount, items.MID, toToken, big.NewInt(0), swaprouter, wbnb, big.NewInt(1000000000000000))
+	tx, err := instance.SwapToken(auth, toaddress, Amount, items.MID, toToken, ethlist[1], swaprouter, wbnb, big.NewInt(1000000000000000))
 	if err != nil {
 		return "", err
 	}
