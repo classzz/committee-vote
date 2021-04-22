@@ -28,7 +28,7 @@ func main() {
 	glogger.Verbosity(log.Lvl(cfg.DebugLevel))
 	log.Root().SetHandler(glogger)
 
-	db, err = leveldb.OpenFile("data/", nil)
+	db, err = leveldb.OpenFile("data/db", nil)
 	if err != nil {
 		panic(fmt.Sprintf("Leveldb err %s", err))
 	}

@@ -71,7 +71,7 @@ func (ec *BscClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 	auth.Nonce = big.NewInt(int64(nonce))
 	auth.Value = big.NewInt(0) // in wei
 	//auth.GasLimit = uint64(1200000) // in units
-	auth.GasPrice = gasPrice
+	//auth.GasPrice = gasPrice
 
 	toaddresspuk, err := crypto.DecompressPubkey(items.PubKey)
 	if err != nil || toaddresspuk == nil {

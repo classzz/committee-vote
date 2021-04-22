@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/classzz/classzz/blockchain"
 	"github.com/classzz/classzz/chaincfg"
+	"github.com/classzz/classzz/cross"
 	"github.com/classzz/classzz/rpcclient"
 	"github.com/classzz/committee-vote/chains/bsc"
 	"github.com/classzz/committee-vote/chains/ethereum"
@@ -56,18 +57,11 @@ func NewScanning(cfg *Config, rawdb *storage.RawDB) *Scanning {
 func (s *Scanning) Start() {
 	CurrentHeight, err := s.RawDB.CurrentHeight()
 	if err != nil {
-		panic(fmt.Sprintf(""))
-	}
-
-	if CurrentHeight == nil {
+		s.RawDB.SetCurrentHeight(0)
 		CurrentHeight = big.NewInt(0)
 	}
 
 	s.MaxHeight = CurrentHeight.Int64()
-	if s.MaxHeight != 0 {
-		s.MaxHeight = s.MaxHeight + 1
-	}
-
 	startTicker := time.NewTicker(startInterval)
 out:
 	for {
@@ -91,7 +85,6 @@ func (s *Scanning) Stop() {
 func (s *Scanning) start() {
 
 	// Get the latest height
-	//blockCount := int64(50)
 	blockCount, err := s.NodeClient.GetBlockCount()
 	if err != nil {
 		log.Error("err", err)
@@ -100,20 +93,14 @@ func (s *Scanning) start() {
 
 	// Get the maximum
 	log.Info("blockCount", "height", s.MaxHeight)
-	for ; s.MaxHeight < blockCount; s.MaxHeight++ {
-
-		blockHash, err := s.NodeClient.GetBlockHash(s.MaxHeight)
+	if s.MaxHeight < blockCount {
+		blockHash, err := s.NodeClient.GetBlockHash(blockCount)
 		if err != nil {
 			log.Error("err", err)
 			return
 		}
 
-		if blockHash != nil {
-			return
-		}
-
-		if err := s.RawDB.SetCurrentHeight(s.MaxHeight); err != nil {
-			log.Error("err", err)
+		if blockHash == nil {
 			return
 		}
 
@@ -121,38 +108,50 @@ func (s *Scanning) start() {
 			log.Error("err", "", err)
 			return
 		}
+
+		s.MaxHeight = blockCount
+		if err := s.RawDB.SetCurrentHeight(blockCount); err != nil {
+			log.Error("err", err)
+			return
+		}
 	}
 }
 
 func (s *Scanning) ProcessConvert() error {
-	//convs, err := s.NodeClient.GetConvertItems(nil, nil)
-	//if err != nil {
-	//	return err
-	//}
+	convs, err := s.NodeClient.GetConvertItems(nil, nil)
+	if err != nil {
+		return err
+	}
 
-	//for _, conv := range convs {
-	//	if s.MysqlClient.FindConvertItem(conv.MID) == nil {
-	//		s.MysqlClient.ConvertItemInstall(conv)
-	//		var txhash string
-	//		if conv.ConvertType == cross.ExpandedTxConvert_ECzz {
-	//			if txhash, err = s.EthClient.Casting(conv); err != nil {
-	//				return err
-	//			}
-	//		} else if conv.ConvertType == cross.ExpandedTxConvert_HCzz {
-	//			if txhash, err = s.HecoClient.Casting(conv); err != nil {
-	//				return err
-	//			}
-	//		} else if conv.ConvertType == cross.ExpandedTxConvert_BCzz {
-	//			if txhash, err = s.BscClient.Casting(conv); err != nil {
-	//				return err
-	//			}
-	//		}
-	//		if txhash != "" {
-	//			s.MysqlClient.UpdateItem(conv, txhash)
-	//		}
-	//
-	//	}
-	//}
+	for _, conv := range convs {
+		fmt.Println(conv)
+		if item, err := s.RawDB.FindConvertItem(conv.MID); item == nil {
+			if err := s.RawDB.ConvertItemInstall(conv); err != nil {
+				return err
+			}
+			var txhash string
+			if conv.ConvertType == cross.ExpandedTxConvert_ECzz {
+				if txhash, err = s.EthClient.Casting(conv); err != nil {
+					return err
+				}
+			} else if conv.ConvertType == cross.ExpandedTxConvert_HCzz {
+				if txhash, err = s.HecoClient.Casting(conv); err != nil {
+					return err
+				}
+			} else if conv.ConvertType == cross.ExpandedTxConvert_BCzz {
+				if txhash, err = s.BscClient.Casting(conv); err != nil {
+					return err
+				}
+			}
+			fmt.Println(txhash)
+			if txhash != "" {
+				conv.ConfirmExtTxHash = txhash
+				if err := s.RawDB.ConvertItemInstall(conv); err != nil {
+					return err
+				}
+			}
+		}
+	}
 	return nil
 }
 

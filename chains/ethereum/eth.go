@@ -17,10 +17,10 @@ import (
 )
 
 var (
-	contractAddress = common.HexToAddress("0xB2451147c6154659c350EaC39ED37599bff4d32e")
+	contractAddress = common.HexToAddress("0xE75b15C1ffA62C20d750594E61Ad703f8a4324C3")
 	swaprouter      = common.HexToAddress("0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D")
-	weth            = common.HexToAddress("0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2")
-	eczz            = common.HexToAddress("0x150BbCfF6b1B4D528b48f1A300585Dea0b6490B6")
+	weth            = common.HexToAddress("0xc778417E063141139Fce010982780140Aa0cD5Ab")
+	eczz            = common.HexToAddress("0x03B4870f6Bb10DDc16f0B6827Aa033D4374678E2")
 )
 
 type EthClient struct {
@@ -67,10 +67,9 @@ func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 		return "", err
 	}
 
-	auth, err := bind.NewKeyedTransactorWithChainID(privateKey, big.NewInt(1))
+	auth, err := bind.NewKeyedTransactorWithChainID(privateKey, big.NewInt(3))
 	auth.Nonce = big.NewInt(int64(nonce))
 	auth.Value = big.NewInt(0) // in wei
-	//auth.GasLimit = uint64(800000) // in units
 	auth.GasPrice = gasPrice
 
 	toaddresspuk, err := crypto.DecompressPubkey(items.PubKey)
@@ -85,8 +84,8 @@ func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 	toToken := common.HexToAddress(items.ToToken)
 	Amount := big.NewInt(0).Sub(items.Amount, items.FeeAmount)
 
-	amountIn := int64(uint64(800000)) * gasPrice.Int64()
-	paths := []common.Address{weth, eczz}
+	//amountIn := int64(uint64(800000)) * gasPrice.Int64()
+	//paths := []common.Address{weth, eczz}
 
 	if items.AssetType == cross.ExpandedTxConvert_Czz {
 		log.Info("ETH mint", "toaddress", toaddress)
@@ -99,15 +98,15 @@ func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 		return tx.Hash().Hex(), nil
 	}
 
-	ethlist, err := instance.SwapBurnGetAmount(nil, big.NewInt(amountIn), paths, swaprouter)
-	if err != nil {
-		return "", err
-	}
-
-	log.Info("paths amount", "ethlist", ethlist)
+	//ethlist, err := instance.SwapBurnGetAmount(nil, big.NewInt(amountIn), paths, swaprouter)
+	//if err != nil {
+	//	return "", err
+	//}
+	//
+	//log.Info("paths amount", "ethlist", ethlist)
 	if items.ToToken == "0x0000000000000000000000000000000000000000" {
 		log.Info("ETH SwapTokenForEth", "toaddress", toaddress)
-		tx, err := instance.SwapTokenForEth(auth, toaddress, Amount, items.MID, ethlist[1], swaprouter, weth, big.NewInt(10000000000000000))
+		tx, err := instance.SwapTokenForEth(auth, toaddress, Amount, items.MID, big.NewInt(0), swaprouter, weth, big.NewInt(10000000000000000))
 		if err != nil {
 			return "", err
 		}
@@ -116,7 +115,7 @@ func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 	}
 
 	log.Info("ETH SwapToken", "toaddress", toaddress)
-	tx, err := instance.SwapToken(auth, toaddress, Amount, items.MID, toToken, ethlist[1], swaprouter, weth, big.NewInt(10000000000000000))
+	tx, err := instance.SwapToken(auth, toaddress, Amount, items.MID, toToken, big.NewInt(0), swaprouter, weth, big.NewInt(10000000000000000))
 	if err != nil {
 		return "", err
 	}

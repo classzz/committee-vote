@@ -1,12 +1,16 @@
 package storage
 
 import (
+	"fmt"
+	"github.com/classzz/classzz/btcjson"
+	"github.com/classzz/classzz/rlp"
 	"github.com/syndtr/goleveldb/leveldb"
 	"math/big"
 )
 
 var (
 	currentHeight = "CurrentHeight"
+	Mid           = "mid-"
 )
 
 type RawDB struct {
@@ -31,4 +35,29 @@ func (d RawDB) SetCurrentHeight(height int64) error {
 		return err
 	}
 	return nil
+}
+
+func (d RawDB) ConvertItemInstall(item *btcjson.ConvertItemsResult) error {
+	key := []byte(Mid + item.MID.String())
+	value, err := rlp.EncodeToBytes(item)
+	if err != nil {
+		return err
+	}
+	if err := d.DB.Put(key, value, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (d RawDB) FindConvertItem(mid *big.Int) (*btcjson.ConvertItemsResult, error) {
+	fmt.Println("mid.String()", mid.String())
+	if data, err := d.DB.Get([]byte(Mid+mid.String()), nil); err != nil {
+		return nil, err
+	} else {
+		item := &btcjson.ConvertItemsResult{}
+		if err := rlp.DecodeBytes(data, item); err != nil {
+			return nil, err
+		}
+		return item, nil
+	}
 }
