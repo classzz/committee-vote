@@ -1,0 +1,21 @@
+{
+  "mysql": {
+    "server": "localhost",
+    "port": 3306,
+    "user_name": "root",
+    "pass_word": "root",
+    "database": "committee_vote"
+  },
+  "block": {
+    "rpc_host": "127.0.0.1:8334",
+    "rpc_username":"root",
+    "rpc_password": "admin"
+  },
+  "chains": {
+    "eth_rpc": "http://127.0.0.1:9223",
+    "trx_rpc": "api.shasta.trongrid.io",
+    "heco_rpc": "https://http-testnet.hecochain.com"
+  },
+  "private_key": "43672a3e17a02afcc2a8a0f42dfcefb86d89179fbf8926d76af81996427ed372",
+  "debug_level": 3
+}

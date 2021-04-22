@@ -15,6 +15,7 @@ type Config struct {
 	Block      scanning.Config     `json:"block"`
 	Chains     chains.Config       `json:"chains"`
 	PrivateKey string              `json:"private_key"`
+	DebugLevel int                 `json:"debug_level"`
 }
 
 func LoadConfig(cfg *Config) {
