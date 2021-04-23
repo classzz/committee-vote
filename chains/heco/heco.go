@@ -6,7 +6,7 @@ import (
 	"github.com/classzz/classzz/btcjson"
 	"github.com/classzz/classzz/cross"
 	"github.com/classzz/committee-vote/chains"
-	common3 "github.com/classzz/committee-vote/chains/common"
+	"github.com/classzz/committee-vote/chains/ethereum"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
@@ -15,27 +15,21 @@ import (
 	"math/big"
 )
 
-var (
-	contractAddress = common.HexToAddress("0xdc3013FcF6A748c6b468de21b8A1680dbcb979ca")
-	swaprouter      = common.HexToAddress("0xED7d5F38C79115ca12fe6C0041abb22F0A06C300")
-	wht             = common.HexToAddress("0x5545153ccfca01fbd7dd11c0b23ba694d9509a6f")
-	hczz            = common.HexToAddress("0x112489c758D405874e9Ece0586FD50B315216fcA")
-)
-
 type HecoClient struct {
+	Cfg        *chains.ClientInfo
 	Client     *ethclient.Client
 	PrivateKey string
 }
 
-func NewClient(c *chains.Config, private_key string) *HecoClient {
-	client, err := ethclient.Dial(c.HecoRpc)
+func NewClient(c *chains.ClientInfo, privateKey string) *HecoClient {
+	client, err := ethclient.Dial(c.RpcHost)
 	if err != nil {
 		fmt.Println(err)
 	}
 
 	ec := &HecoClient{
 		Client:     client,
-		PrivateKey: private_key,
+		PrivateKey: privateKey,
 	}
 
 	return ec
@@ -44,7 +38,7 @@ func NewClient(c *chains.Config, private_key string) *HecoClient {
 // casting
 func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (string, error) {
 
-	instance, err := common3.NewCommon(contractAddress, ec.Client)
+	instance, err := ethereum.NewCommon(contractAddress, ec.Client)
 	privateKey, err := crypto.HexToECDSA(ec.PrivateKey)
 	if err != nil {
 		return "", err

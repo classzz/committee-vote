@@ -6,7 +6,7 @@ import (
 	"github.com/classzz/classzz/btcjson"
 	"github.com/classzz/classzz/cross"
 	"github.com/classzz/committee-vote/chains"
-	common3 "github.com/classzz/committee-vote/chains/common"
+	"github.com/classzz/committee-vote/chains/ethereum"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
@@ -24,19 +24,20 @@ var (
 )
 
 type BscClient struct {
+	Cfg        *chains.ClientInfo
 	Client     *ethclient.Client
 	PrivateKey string
 }
 
-func NewClient(c *chains.Config, private_key string) *BscClient {
-	client, err := ethclient.Dial(c.BscRpc)
+func NewClient(c *chains.ClientInfo, privateKey string) *BscClient {
+	client, err := ethclient.Dial(c.RpcHost)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	ec := &BscClient{
 		Client:     client,
-		PrivateKey: private_key,
+		PrivateKey: privateKey,
 	}
 
 	return ec
@@ -45,7 +46,7 @@ func NewClient(c *chains.Config, private_key string) *BscClient {
 // casting
 func (ec *BscClient) Casting(items *btcjson.ConvertItemsResult) (string, error) {
 
-	instance, err := common3.NewCommon(contractAddress, ec.Client)
+	instance, err := ethereum.NewCommon(contractAddress, ec.Client)
 	privateKey, err := crypto.HexToECDSA(ec.PrivateKey)
 	if err != nil {
 		return "", err

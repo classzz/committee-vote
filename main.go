@@ -10,6 +10,9 @@ import (
 	"github.com/classzz/committee-vote/storage"
 	"github.com/ethereum/go-ethereum/log"
 	"github.com/syndtr/goleveldb/leveldb"
+	"net"
+	"net/rpc"
+	"net/rpc/jsonrpc"
 	"os"
 )
 
@@ -35,7 +38,7 @@ func main() {
 	defer db.Close()
 
 	eth := ethereum.NewClient(&cfg.Chains, cfg.PrivateKey)
-	heco := heco.NewClient(&cfg.Chains, cfg.PrivateKey)
+	heco := heco.NewClient(&cfg.Chains.HecoClient, cfg.PrivateKey)
 	bsc := bsc.NewClient(&cfg.Chains, cfg.PrivateKey)
 	rawdb := &storage.RawDB{DB: db}
 
@@ -50,5 +53,17 @@ func main() {
 	go scanning.Start()
 	defer scanning.Stop()
 
-	select {}
+	rpc.Register(new(RPCService))
+	sock, err := net.Listen("tcp", ":8080")
+	if err != nil {
+		log.Error("listen error:", err)
+	}
+
+	for {
+		conn, err := sock.Accept()
+		if err != nil {
+			continue
+		}
+		go jsonrpc.ServeConn(conn)
+	}
 }
