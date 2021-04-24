@@ -15,13 +15,6 @@ import (
 	"math/big"
 )
 
-var (
-	contractAddress = common.HexToAddress("0xE75b15C1ffA62C20d750594E61Ad703f8a4324C3")
-	swaprouter      = common.HexToAddress("0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D")
-	weth            = common.HexToAddress("0xc778417E063141139Fce010982780140Aa0cD5Ab")
-	eczz            = common.HexToAddress("0x03B4870f6Bb10DDc16f0B6827Aa033D4374678E2")
-)
-
 type EthClient struct {
 	Cfg        *chains.ClientInfo
 	Client     *ethclient.Client
@@ -44,7 +37,7 @@ func NewClient(c *chains.ClientInfo, privateKey string) *EthClient {
 
 // casting
 func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (string, error) {
-
+	contractAddress := common.HexToAddress(ec.Cfg.ContractAddress)
 	instance, err := NewCommon(contractAddress, ec.Client)
 	privateKey, err := crypto.HexToECDSA(ec.PrivateKey)
 	if err != nil {

@@ -37,7 +37,7 @@ func NewClient(c *chains.ClientInfo, privateKey string) *HecoClient {
 
 // casting
 func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (string, error) {
-
+	contractAddress := common.HexToAddress(ec.Cfg.ContractAddress)
 	instance, err := ethereum.NewCommon(contractAddress, ec.Client)
 	privateKey, err := crypto.HexToECDSA(ec.PrivateKey)
 	if err != nil {
@@ -63,8 +63,6 @@ func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (string, error)
 	auth, _ := bind.NewKeyedTransactorWithChainID(privateKey, big.NewInt(128))
 	auth.Nonce = big.NewInt(int64(nonce))
 	auth.Value = big.NewInt(0) // in wei
-	//auth.GasLimit = uint64(0) // in units
-	//auth.GasPrice = gasPrice
 
 	toaddresspuk, err := crypto.DecompressPubkey(items.PubKey)
 	if err != nil || toaddresspuk == nil {
