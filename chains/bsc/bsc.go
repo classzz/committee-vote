@@ -9,10 +9,11 @@ import (
 	"github.com/classzz/committee-vote/chains/ethereum"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
+	"github.com/ethereum/go-ethereum/log"
 	"golang.org/x/net/context"
-	"log"
 	"math/big"
 )
 
@@ -32,7 +33,7 @@ type BscClient struct {
 func NewClient(c *chains.ClientInfo, privateKey string) *BscClient {
 	client, err := ethclient.Dial(c.RpcHost)
 	if err != nil {
-		log.Fatal(err)
+		log.Error("NewClient", "err", err)
 	}
 
 	ec := &BscClient{
@@ -44,28 +45,28 @@ func NewClient(c *chains.ClientInfo, privateKey string) *BscClient {
 }
 
 // casting
-func (ec *BscClient) Casting(items *btcjson.ConvertItemsResult) (string, error) {
+func (ec *BscClient) Casting(items *btcjson.ConvertItemsResult) (*types.Transaction, error) {
 
 	instance, err := ethereum.NewCommon(contractAddress, ec.Client)
 	privateKey, err := crypto.HexToECDSA(ec.PrivateKey)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
 	publicKey := privateKey.Public()
 	publicKeyECDSA, ok := publicKey.(*ecdsa.PublicKey)
 	if !ok {
-		return "", fmt.Errorf("error casting public key to ECDSA")
+		return nil, fmt.Errorf("error casting public key to ECDSA")
 	}
 	fromAddress := crypto.PubkeyToAddress(*publicKeyECDSA)
 	nonce, err := ec.Client.PendingNonceAt(context.Background(), fromAddress)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
 	gasPrice, err := ec.Client.SuggestGasPrice(context.Background())
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
 	auth, _ := bind.NewKeyedTransactorWithChainID(privateKey, big.NewInt(56))
@@ -78,7 +79,7 @@ func (ec *BscClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 	if err != nil || toaddresspuk == nil {
 		toaddresspuk, err = crypto.UnmarshalPubkey(items.PubKey)
 		if err != nil || toaddresspuk == nil {
-			return "", err
+			return nil, err
 		}
 	}
 
@@ -92,16 +93,16 @@ func (ec *BscClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 		fmt.Println("BSC mint toaddress", toaddress)
 		tx, err := instance.Mint(auth, items.MID, toaddress, Amount)
 		if err != nil {
-			return "", err
+			return nil, err
 		}
 
 		fmt.Printf("tx sent: %s toaddress %s fromaddress %s \r\n", tx.Hash().Hex(), toaddress, fromAddress)
-		return tx.Hash().Hex(), nil
+		return tx, nil
 	}
 
 	ethlist, err := instance.SwapBurnGetAmount(nil, big.NewInt(amountIn), paths, swaprouter)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	fmt.Println("paths amount", ethlist)
 
@@ -109,17 +110,27 @@ func (ec *BscClient) Casting(items *btcjson.ConvertItemsResult) (string, error) 
 		fmt.Println("BSC SwapTokenForHt toaddress", toaddress)
 		tx, err := instance.SwapTokenForEth(auth, toaddress, Amount, items.MID, ethlist[1], swaprouter, wbnb, big.NewInt(10000000000000000))
 		if err != nil {
-			return "", err
+			return nil, err
 		}
 		fmt.Printf("tx sent: %s toaddress %s fromaddress %s \r\n", tx.Hash().Hex(), toaddress, fromAddress)
-		return tx.Hash().Hex(), nil
+		return tx, nil
+	}
+
+	if items.ToToken == ec.Cfg.Czz {
+		log.Info("BSC Mint", "toaddress", toaddress)
+		tx, err := instance.Mint(auth, items.MID, toaddress, Amount)
+		if err != nil {
+			return nil, err
+		}
+		log.Warn("BSC tx sent", "txhash", tx.Hash().Hex(), "toaddress", toaddress, "fromaddress", fromAddress)
+		return tx, nil
 	}
 
 	fmt.Println("BSC SwapToken toaddress", toaddress)
 	tx, err := instance.SwapToken(auth, toaddress, Amount, items.MID, toToken, ethlist[1], swaprouter, wbnb, big.NewInt(1000000000000000))
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	fmt.Printf("tx sent: %s toaddress %s fromaddress %s \r\n", tx.Hash().Hex(), toaddress, fromAddress)
-	return tx.Hash().Hex(), nil
+	return tx, nil
 }

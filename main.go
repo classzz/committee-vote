@@ -37,9 +37,9 @@ func main() {
 	}
 	defer db.Close()
 
-	eth := ethereum.NewClient(&cfg.Chains, cfg.PrivateKey)
+	eth := ethereum.NewClient(&cfg.Chains.EthClient, cfg.PrivateKey)
 	heco := heco.NewClient(&cfg.Chains.HecoClient, cfg.PrivateKey)
-	bsc := bsc.NewClient(&cfg.Chains, cfg.PrivateKey)
+	bsc := bsc.NewClient(&cfg.Chains.BscClient, cfg.PrivateKey)
 	rawdb := &storage.RawDB{DB: db}
 
 	scanning := scanning.NewScanning(&cfg.Block, rawdb)

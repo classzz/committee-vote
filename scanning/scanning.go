@@ -1,7 +1,6 @@
 package scanning
 
 import (
-	"fmt"
 	"github.com/classzz/classzz/blockchain"
 	"github.com/classzz/classzz/chaincfg"
 	"github.com/classzz/classzz/cross"
@@ -10,6 +9,7 @@ import (
 	"github.com/classzz/committee-vote/chains/ethereum"
 	"github.com/classzz/committee-vote/chains/heco"
 	"github.com/classzz/committee-vote/storage"
+	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/log"
 	"math/big"
 	"strconv"
@@ -43,7 +43,7 @@ func NewScanning(cfg *Config, rawdb *storage.RawDB) *Scanning {
 	// not supported in HTTP POST mode.
 	rpcClient, err := rpcclient.New(connCfg, nil)
 	if err != nil {
-		log.Error("err", err)
+		log.Error("rpcclient.New", "err", err)
 	}
 
 	scanning := &Scanning{
@@ -87,7 +87,7 @@ func (s *Scanning) start() {
 	// Get the latest height
 	blockCount, err := s.NodeClient.GetBlockCount()
 	if err != nil {
-		log.Error("err", err)
+		log.Error("GetBlockCount", "err", err)
 		return
 	}
 
@@ -96,7 +96,7 @@ func (s *Scanning) start() {
 	if s.MaxHeight < blockCount {
 		blockHash, err := s.NodeClient.GetBlockHash(blockCount)
 		if err != nil {
-			log.Error("err", err)
+			log.Error("GetBlockHash", "err", err)
 			return
 		}
 
@@ -105,13 +105,13 @@ func (s *Scanning) start() {
 		}
 
 		if err := s.ProcessConvert(); err != nil {
-			log.Error("err", "", err)
+			log.Error("ProcessConvert", "err", err)
 			return
 		}
 
 		s.MaxHeight = blockCount
 		if err := s.RawDB.SetCurrentHeight(blockCount); err != nil {
-			log.Error("err", err)
+			log.Error("SetCurrentHeight", "err", err)
 			return
 		}
 	}
@@ -124,29 +124,31 @@ func (s *Scanning) ProcessConvert() error {
 	}
 
 	for _, conv := range convs {
-		fmt.Println(conv)
-		if item, err := s.RawDB.FindConvertItem(conv.MID); item == nil {
-			if err := s.RawDB.ConvertItemInstall(conv); err != nil {
+		if item, err := s.RawDB.GetConvertItem(conv.MID); item == nil {
+			if err := s.RawDB.SetConvertItem(conv); err != nil {
 				return err
 			}
-			var txhash string
+			var exttx *types.Transaction
 			if conv.ConvertType == cross.ExpandedTxConvert_ECzz {
-				if txhash, err = s.EthClient.Casting(conv); err != nil {
+				if exttx, err = s.EthClient.Casting(conv); err != nil {
 					return err
 				}
 			} else if conv.ConvertType == cross.ExpandedTxConvert_HCzz {
-				if txhash, err = s.HecoClient.Casting(conv); err != nil {
+				if exttx, err = s.HecoClient.Casting(conv); err != nil {
 					return err
 				}
 			} else if conv.ConvertType == cross.ExpandedTxConvert_BCzz {
-				if txhash, err = s.BscClient.Casting(conv); err != nil {
+				if exttx, err = s.BscClient.Casting(conv); err != nil {
 					return err
 				}
 			}
-			fmt.Println(txhash)
-			if txhash != "" {
-				conv.ConfirmExtTxHash = txhash
-				if err := s.RawDB.ConvertItemInstall(conv); err != nil {
+			if exttx != nil {
+				conv.ConfirmExtTxHash = exttx.Hash().Hex()
+				if err := s.RawDB.SetConvertItem(conv); err != nil {
+					return err
+				}
+
+				if err := s.RawDB.SetExtTx(exttx); err != nil {
 					return err
 				}
 			}
