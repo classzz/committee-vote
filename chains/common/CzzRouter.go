@@ -27,7 +27,7 @@ var (
 )
 
 // CommonABI is the input ABI used to generate the binding from.
-const CommonABI = "[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_czzSecurityPoolPoolAddr\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"ntype\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"toToken\",\"type\":\"string\"}],\"name\":\"BurnToken\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"mId\",\"type\":\"uint256\"}],\"name\":\"MintItemCreated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"mid\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amountIn\",\"type\":\"uint256\"}],\"name\":\"MintToken\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"mid\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amountIn\",\"type\":\"uint256\"}],\"name\":\"OrderCancel\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"mid\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amountIn\",\"type\":\"uint256\"}],\"name\":\"SubmitOrder\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"inAmount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"outAmount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"flag\",\"type\":\"string\"}],\"name\":\"SwapToken\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"TransferToken\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"manager\",\"type\":\"address\"}],\"name\":\"addManager\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_amountIn\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"ntype\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"toToken\",\"type\":\"string\"}],\"name\":\"burn\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getCzzSecurityPoolPoolAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getCzzTonkenAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getMinSignatures\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"mid\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"fromToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amountIn\",\"type\":\"uint256\"}],\"name\":\"mint\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"mid\",\"type\":\"uint256\"}],\"name\":\"mintAndTransfer\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"mid\",\"type\":\"uint256\"}],\"name\":\"mintAndTransferEth\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"mid\",\"type\":\"uint256\"},{\"internalType\":\"address[]\",\"name\":\"path\",\"type\":\"address[]\"},{\"internalType\":\"address\",\"name\":\"routerAddr\",\"type\":\"address\"}],\"name\":\"orderCancelWithPath\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"manager\",\"type\":\"address\"}],\"name\":\"removeManager\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"}],\"name\":\"setCzzSecurityPoolPoolAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"}],\"name\":\"setCzzTonkenAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint8\",\"name\":\"value\",\"type\":\"uint8\"}],\"name\":\"setMinSignatures\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amountIn\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"mid\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"gas\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"routerAddr\",\"type\":\"address\"},{\"internalType\":\"address[]\",\"name\":\"userPath\",\"type\":\"address[]\"},{\"internalType\":\"uint256\",\"name\":\"deadline\",\"type\":\"uint256\"}],\"name\":\"submitOrderEthWithPath\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amountIn\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"mid\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"gas\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"routerAddr\",\"type\":\"address\"},{\"internalType\":\"address[]\",\"name\":\"userPath\",\"type\":\"address[]\"},{\"internalType\":\"address[]\",\"name\":\"gasPath\",\"type\":\"address[]\"},{\"internalType\":\"uint256\",\"name\":\"deadline\",\"type\":\"uint256\"}],\"name\":\"submitOrderWithPath\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_amountInMin\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"ntype\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"toToken\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"routerAddr\",\"type\":\"address\"},{\"internalType\":\"address[]\",\"name\":\"path\",\"type\":\"address[]\"},{\"internalType\":\"uint256\",\"name\":\"deadline\",\"type\":\"uint256\"}],\"name\":\"swapAndBurnEthWithPath\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_amountIn\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_amountOutMin\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"ntype\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"toToken\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"routerAddr\",\"type\":\"address\"},{\"internalType\":\"address[]\",\"name\":\"path\",\"type\":\"address[]\"},{\"internalType\":\"uint256\",\"name\":\"deadline\",\"type\":\"uint256\"}],\"name\":\"swapAndBurnWithPath\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amountIn\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"mid\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"gas\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"routerAddr\",\"type\":\"address\"},{\"internalType\":\"address[]\",\"name\":\"path\",\"type\":\"address[]\"},{\"internalType\":\"uint256\",\"name\":\"deadline\",\"type\":\"uint256\"}],\"name\":\"swapTokenForEthWithPath\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amountIn\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"mid\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"gas\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"routerAddr\",\"type\":\"address\"},{\"internalType\":\"address[]\",\"name\":\"userPath\",\"type\":\"address[]\"},{\"internalType\":\"address[]\",\"name\":\"gasPath\",\"type\":\"address[]\"},{\"internalType\":\"uint256\",\"name\":\"deadline\",\"type\":\"uint256\"}],\"name\":\"swapTokenWithPath\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amountIn\",\"type\":\"uint256\"},{\"internalType\":\"address[]\",\"name\":\"path\",\"type\":\"address[]\"},{\"internalType\":\"address\",\"name\":\"routerAddr\",\"type\":\"address\"}],\"name\":\"swap_burn_get_amount\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"amounts\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"factory\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"tokenA\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"tokenB\",\"type\":\"address\"}],\"name\":\"swap_burn_get_getReserves\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"reserveA\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"reserveB\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amountOut\",\"type\":\"uint256\"},{\"internalType\":\"address[]\",\"name\":\"path\",\"type\":\"address[]\"},{\"internalType\":\"address\",\"name\":\"routerAddr\",\"type\":\"address\"}],\"name\":\"swap_mint_get_amount\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"amounts\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"stateMutability\":\"payable\",\"type\":\"receive\"}]"
+const CommonABI = "[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"ntype\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"toToken\",\"type\":\"string\"}],\"name\":\"BurnToken\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"mId\",\"type\":\"uint256\"}],\"name\":\"MintItemCreated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"mid\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amountIn\",\"type\":\"uint256\"}],\"name\":\"MintToken\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"inAmount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"outAmount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"flag\",\"type\":\"string\"}],\"name\":\"SwapToken\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"TransferToken\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"manager\",\"type\":\"address\"}],\"name\":\"addManager\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"routerAddr\",\"type\":\"address\"}],\"name\":\"addRouterAddr\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_amountIn\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"ntype\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"toToken\",\"type\":\"string\"}],\"name\":\"burn\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getCzzTonkenAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getMinSignatures\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"routerAddr\",\"type\":\"address\"}],\"name\":\"getRegistedRouteraddress\",\"outputs\":[{\"internalType\":\"uint8\",\"name\":\"\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"mid\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amountIn\",\"type\":\"uint256\"}],\"name\":\"mint\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"mid\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amountIn\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"gas\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"routerAddr\",\"type\":\"address\"},{\"internalType\":\"address[]\",\"name\":\"gasPath\",\"type\":\"address[]\"},{\"internalType\":\"uint256\",\"name\":\"deadline\",\"type\":\"uint256\"}],\"name\":\"mintWithGas\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"manager\",\"type\":\"address\"}],\"name\":\"removeManager\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"routerAddr\",\"type\":\"address\"}],\"name\":\"removeRouterAddr\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"}],\"name\":\"setCzzTonkenAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint8\",\"name\":\"value\",\"type\":\"uint8\"}],\"name\":\"setMinSignatures\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_amountInMin\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"ntype\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"toToken\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"routerAddr\",\"type\":\"address\"},{\"internalType\":\"address[]\",\"name\":\"path\",\"type\":\"address[]\"},{\"internalType\":\"uint256\",\"name\":\"deadline\",\"type\":\"uint256\"}],\"name\":\"swapAndBurnEthWithPath\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_amountIn\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_amountOutMin\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"ntype\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"toToken\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"routerAddr\",\"type\":\"address\"},{\"internalType\":\"address[]\",\"name\":\"path\",\"type\":\"address[]\"},{\"internalType\":\"uint256\",\"name\":\"deadline\",\"type\":\"uint256\"}],\"name\":\"swapAndBurnWithPath\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amountIn\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"mid\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"gas\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"routerAddr\",\"type\":\"address\"},{\"internalType\":\"address[]\",\"name\":\"path\",\"type\":\"address[]\"},{\"internalType\":\"uint256\",\"name\":\"deadline\",\"type\":\"uint256\"}],\"name\":\"swapTokenForEthWithPath\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amountIn\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"mid\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"gas\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"routerAddr\",\"type\":\"address\"},{\"internalType\":\"address[]\",\"name\":\"userPath\",\"type\":\"address[]\"},{\"internalType\":\"address[]\",\"name\":\"gasPath\",\"type\":\"address[]\"},{\"internalType\":\"uint256\",\"name\":\"deadline\",\"type\":\"uint256\"}],\"name\":\"swapTokenWithPath\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amountIn\",\"type\":\"uint256\"},{\"internalType\":\"address[]\",\"name\":\"path\",\"type\":\"address[]\"},{\"internalType\":\"address\",\"name\":\"routerAddr\",\"type\":\"address\"}],\"name\":\"swap_burn_get_amount\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"amounts\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"factory\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"tokenA\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"tokenB\",\"type\":\"address\"}],\"name\":\"swap_burn_get_getReserves\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"reserveA\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"reserveB\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amountOut\",\"type\":\"uint256\"},{\"internalType\":\"address[]\",\"name\":\"path\",\"type\":\"address[]\"},{\"internalType\":\"address\",\"name\":\"routerAddr\",\"type\":\"address\"}],\"name\":\"swap_mint_get_amount\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"amounts\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"stateMutability\":\"payable\",\"type\":\"receive\"}]"
 
 // Common is an auto generated Go binding around an Ethereum contract.
 type Common struct {
@@ -171,37 +171,6 @@ func (_Common *CommonTransactorRaw) Transact(opts *bind.TransactOpts, method str
 	return _Common.Contract.contract.Transact(opts, method, params...)
 }
 
-// GetCzzSecurityPoolPoolAddress is a free data retrieval call binding the contract method 0x5ab774bc.
-//
-// Solidity: function getCzzSecurityPoolPoolAddress() view returns(address)
-func (_Common *CommonCaller) GetCzzSecurityPoolPoolAddress(opts *bind.CallOpts) (common.Address, error) {
-	var out []interface{}
-	err := _Common.contract.Call(opts, &out, "getCzzSecurityPoolPoolAddress")
-
-	if err != nil {
-		return *new(common.Address), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
-
-	return out0, err
-
-}
-
-// GetCzzSecurityPoolPoolAddress is a free data retrieval call binding the contract method 0x5ab774bc.
-//
-// Solidity: function getCzzSecurityPoolPoolAddress() view returns(address)
-func (_Common *CommonSession) GetCzzSecurityPoolPoolAddress() (common.Address, error) {
-	return _Common.Contract.GetCzzSecurityPoolPoolAddress(&_Common.CallOpts)
-}
-
-// GetCzzSecurityPoolPoolAddress is a free data retrieval call binding the contract method 0x5ab774bc.
-//
-// Solidity: function getCzzSecurityPoolPoolAddress() view returns(address)
-func (_Common *CommonCallerSession) GetCzzSecurityPoolPoolAddress() (common.Address, error) {
-	return _Common.Contract.GetCzzSecurityPoolPoolAddress(&_Common.CallOpts)
-}
-
 // GetCzzTonkenAddress is a free data retrieval call binding the contract method 0x9078f506.
 //
 // Solidity: function getCzzTonkenAddress() view returns(address)
@@ -262,6 +231,37 @@ func (_Common *CommonSession) GetMinSignatures() (*big.Int, error) {
 // Solidity: function getMinSignatures() view returns(uint256)
 func (_Common *CommonCallerSession) GetMinSignatures() (*big.Int, error) {
 	return _Common.Contract.GetMinSignatures(&_Common.CallOpts)
+}
+
+// GetRegistedRouteraddress is a free data retrieval call binding the contract method 0xfbb42211.
+//
+// Solidity: function getRegistedRouteraddress(address routerAddr) view returns(uint8)
+func (_Common *CommonCaller) GetRegistedRouteraddress(opts *bind.CallOpts, routerAddr common.Address) (uint8, error) {
+	var out []interface{}
+	err := _Common.contract.Call(opts, &out, "getRegistedRouteraddress", routerAddr)
+
+	if err != nil {
+		return *new(uint8), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(uint8)).(*uint8)
+
+	return out0, err
+
+}
+
+// GetRegistedRouteraddress is a free data retrieval call binding the contract method 0xfbb42211.
+//
+// Solidity: function getRegistedRouteraddress(address routerAddr) view returns(uint8)
+func (_Common *CommonSession) GetRegistedRouteraddress(routerAddr common.Address) (uint8, error) {
+	return _Common.Contract.GetRegistedRouteraddress(&_Common.CallOpts, routerAddr)
+}
+
+// GetRegistedRouteraddress is a free data retrieval call binding the contract method 0xfbb42211.
+//
+// Solidity: function getRegistedRouteraddress(address routerAddr) view returns(uint8)
+func (_Common *CommonCallerSession) GetRegistedRouteraddress(routerAddr common.Address) (uint8, error) {
+	return _Common.Contract.GetRegistedRouteraddress(&_Common.CallOpts, routerAddr)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
@@ -423,6 +423,27 @@ func (_Common *CommonTransactorSession) AddManager(manager common.Address) (*typ
 	return _Common.Contract.AddManager(&_Common.TransactOpts, manager)
 }
 
+// AddRouterAddr is a paid mutator transaction binding the contract method 0xe7251518.
+//
+// Solidity: function addRouterAddr(address routerAddr) returns()
+func (_Common *CommonTransactor) AddRouterAddr(opts *bind.TransactOpts, routerAddr common.Address) (*types.Transaction, error) {
+	return _Common.contract.Transact(opts, "addRouterAddr", routerAddr)
+}
+
+// AddRouterAddr is a paid mutator transaction binding the contract method 0xe7251518.
+//
+// Solidity: function addRouterAddr(address routerAddr) returns()
+func (_Common *CommonSession) AddRouterAddr(routerAddr common.Address) (*types.Transaction, error) {
+	return _Common.Contract.AddRouterAddr(&_Common.TransactOpts, routerAddr)
+}
+
+// AddRouterAddr is a paid mutator transaction binding the contract method 0xe7251518.
+//
+// Solidity: function addRouterAddr(address routerAddr) returns()
+func (_Common *CommonTransactorSession) AddRouterAddr(routerAddr common.Address) (*types.Transaction, error) {
+	return _Common.Contract.AddRouterAddr(&_Common.TransactOpts, routerAddr)
+}
+
 // Approve is a paid mutator transaction binding the contract method 0xe1f21c67.
 //
 // Solidity: function approve(address token, address spender, uint256 _amount) returns(bool)
@@ -467,86 +488,44 @@ func (_Common *CommonTransactorSession) Burn(_amountIn *big.Int, ntype *big.Int,
 
 // Mint is a paid mutator transaction binding the contract method 0x836a1040.
 //
-// Solidity: function mint(uint256 mid, address fromToken, uint256 _amountIn) payable returns()
-func (_Common *CommonTransactor) Mint(opts *bind.TransactOpts, mid *big.Int, fromToken common.Address, _amountIn *big.Int) (*types.Transaction, error) {
-	return _Common.contract.Transact(opts, "mint", mid, fromToken, _amountIn)
+// Solidity: function mint(uint256 mid, address _to, uint256 _amountIn) payable returns()
+func (_Common *CommonTransactor) Mint(opts *bind.TransactOpts, mid *big.Int, _to common.Address, _amountIn *big.Int) (*types.Transaction, error) {
+	return _Common.contract.Transact(opts, "mint", mid, _to, _amountIn)
 }
 
 // Mint is a paid mutator transaction binding the contract method 0x836a1040.
 //
-// Solidity: function mint(uint256 mid, address fromToken, uint256 _amountIn) payable returns()
-func (_Common *CommonSession) Mint(mid *big.Int, fromToken common.Address, _amountIn *big.Int) (*types.Transaction, error) {
-	return _Common.Contract.Mint(&_Common.TransactOpts, mid, fromToken, _amountIn)
+// Solidity: function mint(uint256 mid, address _to, uint256 _amountIn) payable returns()
+func (_Common *CommonSession) Mint(mid *big.Int, _to common.Address, _amountIn *big.Int) (*types.Transaction, error) {
+	return _Common.Contract.Mint(&_Common.TransactOpts, mid, _to, _amountIn)
 }
 
 // Mint is a paid mutator transaction binding the contract method 0x836a1040.
 //
-// Solidity: function mint(uint256 mid, address fromToken, uint256 _amountIn) payable returns()
-func (_Common *CommonTransactorSession) Mint(mid *big.Int, fromToken common.Address, _amountIn *big.Int) (*types.Transaction, error) {
-	return _Common.Contract.Mint(&_Common.TransactOpts, mid, fromToken, _amountIn)
+// Solidity: function mint(uint256 mid, address _to, uint256 _amountIn) payable returns()
+func (_Common *CommonTransactorSession) Mint(mid *big.Int, _to common.Address, _amountIn *big.Int) (*types.Transaction, error) {
+	return _Common.Contract.Mint(&_Common.TransactOpts, mid, _to, _amountIn)
 }
 
-// MintAndTransfer is a paid mutator transaction binding the contract method 0x8a83fbeb.
+// MintWithGas is a paid mutator transaction binding the contract method 0xaad3bf3b.
 //
-// Solidity: function mintAndTransfer(uint256 mid) returns()
-func (_Common *CommonTransactor) MintAndTransfer(opts *bind.TransactOpts, mid *big.Int) (*types.Transaction, error) {
-	return _Common.contract.Transact(opts, "mintAndTransfer", mid)
+// Solidity: function mintWithGas(uint256 mid, address _to, uint256 _amountIn, uint256 gas, address routerAddr, address[] gasPath, uint256 deadline) payable returns()
+func (_Common *CommonTransactor) MintWithGas(opts *bind.TransactOpts, mid *big.Int, _to common.Address, _amountIn *big.Int, gas *big.Int, routerAddr common.Address, gasPath []common.Address, deadline *big.Int) (*types.Transaction, error) {
+	return _Common.contract.Transact(opts, "mintWithGas", mid, _to, _amountIn, gas, routerAddr, gasPath, deadline)
 }
 
-// MintAndTransfer is a paid mutator transaction binding the contract method 0x8a83fbeb.
+// MintWithGas is a paid mutator transaction binding the contract method 0xaad3bf3b.
 //
-// Solidity: function mintAndTransfer(uint256 mid) returns()
-func (_Common *CommonSession) MintAndTransfer(mid *big.Int) (*types.Transaction, error) {
-	return _Common.Contract.MintAndTransfer(&_Common.TransactOpts, mid)
+// Solidity: function mintWithGas(uint256 mid, address _to, uint256 _amountIn, uint256 gas, address routerAddr, address[] gasPath, uint256 deadline) payable returns()
+func (_Common *CommonSession) MintWithGas(mid *big.Int, _to common.Address, _amountIn *big.Int, gas *big.Int, routerAddr common.Address, gasPath []common.Address, deadline *big.Int) (*types.Transaction, error) {
+	return _Common.Contract.MintWithGas(&_Common.TransactOpts, mid, _to, _amountIn, gas, routerAddr, gasPath, deadline)
 }
 
-// MintAndTransfer is a paid mutator transaction binding the contract method 0x8a83fbeb.
+// MintWithGas is a paid mutator transaction binding the contract method 0xaad3bf3b.
 //
-// Solidity: function mintAndTransfer(uint256 mid) returns()
-func (_Common *CommonTransactorSession) MintAndTransfer(mid *big.Int) (*types.Transaction, error) {
-	return _Common.Contract.MintAndTransfer(&_Common.TransactOpts, mid)
-}
-
-// MintAndTransferEth is a paid mutator transaction binding the contract method 0xcb300069.
-//
-// Solidity: function mintAndTransferEth(uint256 mid) returns()
-func (_Common *CommonTransactor) MintAndTransferEth(opts *bind.TransactOpts, mid *big.Int) (*types.Transaction, error) {
-	return _Common.contract.Transact(opts, "mintAndTransferEth", mid)
-}
-
-// MintAndTransferEth is a paid mutator transaction binding the contract method 0xcb300069.
-//
-// Solidity: function mintAndTransferEth(uint256 mid) returns()
-func (_Common *CommonSession) MintAndTransferEth(mid *big.Int) (*types.Transaction, error) {
-	return _Common.Contract.MintAndTransferEth(&_Common.TransactOpts, mid)
-}
-
-// MintAndTransferEth is a paid mutator transaction binding the contract method 0xcb300069.
-//
-// Solidity: function mintAndTransferEth(uint256 mid) returns()
-func (_Common *CommonTransactorSession) MintAndTransferEth(mid *big.Int) (*types.Transaction, error) {
-	return _Common.Contract.MintAndTransferEth(&_Common.TransactOpts, mid)
-}
-
-// OrderCancelWithPath is a paid mutator transaction binding the contract method 0xe05418c1.
-//
-// Solidity: function orderCancelWithPath(uint256 mid, address[] path, address routerAddr) returns()
-func (_Common *CommonTransactor) OrderCancelWithPath(opts *bind.TransactOpts, mid *big.Int, path []common.Address, routerAddr common.Address) (*types.Transaction, error) {
-	return _Common.contract.Transact(opts, "orderCancelWithPath", mid, path, routerAddr)
-}
-
-// OrderCancelWithPath is a paid mutator transaction binding the contract method 0xe05418c1.
-//
-// Solidity: function orderCancelWithPath(uint256 mid, address[] path, address routerAddr) returns()
-func (_Common *CommonSession) OrderCancelWithPath(mid *big.Int, path []common.Address, routerAddr common.Address) (*types.Transaction, error) {
-	return _Common.Contract.OrderCancelWithPath(&_Common.TransactOpts, mid, path, routerAddr)
-}
-
-// OrderCancelWithPath is a paid mutator transaction binding the contract method 0xe05418c1.
-//
-// Solidity: function orderCancelWithPath(uint256 mid, address[] path, address routerAddr) returns()
-func (_Common *CommonTransactorSession) OrderCancelWithPath(mid *big.Int, path []common.Address, routerAddr common.Address) (*types.Transaction, error) {
-	return _Common.Contract.OrderCancelWithPath(&_Common.TransactOpts, mid, path, routerAddr)
+// Solidity: function mintWithGas(uint256 mid, address _to, uint256 _amountIn, uint256 gas, address routerAddr, address[] gasPath, uint256 deadline) payable returns()
+func (_Common *CommonTransactorSession) MintWithGas(mid *big.Int, _to common.Address, _amountIn *big.Int, gas *big.Int, routerAddr common.Address, gasPath []common.Address, deadline *big.Int) (*types.Transaction, error) {
+	return _Common.Contract.MintWithGas(&_Common.TransactOpts, mid, _to, _amountIn, gas, routerAddr, gasPath, deadline)
 }
 
 // RemoveManager is a paid mutator transaction binding the contract method 0xac18de43.
@@ -570,6 +549,27 @@ func (_Common *CommonTransactorSession) RemoveManager(manager common.Address) (*
 	return _Common.Contract.RemoveManager(&_Common.TransactOpts, manager)
 }
 
+// RemoveRouterAddr is a paid mutator transaction binding the contract method 0xb072dfa3.
+//
+// Solidity: function removeRouterAddr(address routerAddr) returns()
+func (_Common *CommonTransactor) RemoveRouterAddr(opts *bind.TransactOpts, routerAddr common.Address) (*types.Transaction, error) {
+	return _Common.contract.Transact(opts, "removeRouterAddr", routerAddr)
+}
+
+// RemoveRouterAddr is a paid mutator transaction binding the contract method 0xb072dfa3.
+//
+// Solidity: function removeRouterAddr(address routerAddr) returns()
+func (_Common *CommonSession) RemoveRouterAddr(routerAddr common.Address) (*types.Transaction, error) {
+	return _Common.Contract.RemoveRouterAddr(&_Common.TransactOpts, routerAddr)
+}
+
+// RemoveRouterAddr is a paid mutator transaction binding the contract method 0xb072dfa3.
+//
+// Solidity: function removeRouterAddr(address routerAddr) returns()
+func (_Common *CommonTransactorSession) RemoveRouterAddr(routerAddr common.Address) (*types.Transaction, error) {
+	return _Common.Contract.RemoveRouterAddr(&_Common.TransactOpts, routerAddr)
+}
+
 // RenounceOwnership is a paid mutator transaction binding the contract method 0x715018a6.
 //
 // Solidity: function renounceOwnership() returns()
@@ -589,27 +589,6 @@ func (_Common *CommonSession) RenounceOwnership() (*types.Transaction, error) {
 // Solidity: function renounceOwnership() returns()
 func (_Common *CommonTransactorSession) RenounceOwnership() (*types.Transaction, error) {
 	return _Common.Contract.RenounceOwnership(&_Common.TransactOpts)
-}
-
-// SetCzzSecurityPoolPoolAddress is a paid mutator transaction binding the contract method 0x26563301.
-//
-// Solidity: function setCzzSecurityPoolPoolAddress(address addr) returns()
-func (_Common *CommonTransactor) SetCzzSecurityPoolPoolAddress(opts *bind.TransactOpts, addr common.Address) (*types.Transaction, error) {
-	return _Common.contract.Transact(opts, "setCzzSecurityPoolPoolAddress", addr)
-}
-
-// SetCzzSecurityPoolPoolAddress is a paid mutator transaction binding the contract method 0x26563301.
-//
-// Solidity: function setCzzSecurityPoolPoolAddress(address addr) returns()
-func (_Common *CommonSession) SetCzzSecurityPoolPoolAddress(addr common.Address) (*types.Transaction, error) {
-	return _Common.Contract.SetCzzSecurityPoolPoolAddress(&_Common.TransactOpts, addr)
-}
-
-// SetCzzSecurityPoolPoolAddress is a paid mutator transaction binding the contract method 0x26563301.
-//
-// Solidity: function setCzzSecurityPoolPoolAddress(address addr) returns()
-func (_Common *CommonTransactorSession) SetCzzSecurityPoolPoolAddress(addr common.Address) (*types.Transaction, error) {
-	return _Common.Contract.SetCzzSecurityPoolPoolAddress(&_Common.TransactOpts, addr)
 }
 
 // SetCzzTonkenAddress is a paid mutator transaction binding the contract method 0x44ad1e3d.
@@ -652,48 +631,6 @@ func (_Common *CommonSession) SetMinSignatures(value uint8) (*types.Transaction,
 // Solidity: function setMinSignatures(uint8 value) returns()
 func (_Common *CommonTransactorSession) SetMinSignatures(value uint8) (*types.Transaction, error) {
 	return _Common.Contract.SetMinSignatures(&_Common.TransactOpts, value)
-}
-
-// SubmitOrderEthWithPath is a paid mutator transaction binding the contract method 0xaecf09b5.
-//
-// Solidity: function submitOrderEthWithPath(address _to, uint256 _amountIn, uint256 mid, uint256 gas, address routerAddr, address[] userPath, uint256 deadline) returns()
-func (_Common *CommonTransactor) SubmitOrderEthWithPath(opts *bind.TransactOpts, _to common.Address, _amountIn *big.Int, mid *big.Int, gas *big.Int, routerAddr common.Address, userPath []common.Address, deadline *big.Int) (*types.Transaction, error) {
-	return _Common.contract.Transact(opts, "submitOrderEthWithPath", _to, _amountIn, mid, gas, routerAddr, userPath, deadline)
-}
-
-// SubmitOrderEthWithPath is a paid mutator transaction binding the contract method 0xaecf09b5.
-//
-// Solidity: function submitOrderEthWithPath(address _to, uint256 _amountIn, uint256 mid, uint256 gas, address routerAddr, address[] userPath, uint256 deadline) returns()
-func (_Common *CommonSession) SubmitOrderEthWithPath(_to common.Address, _amountIn *big.Int, mid *big.Int, gas *big.Int, routerAddr common.Address, userPath []common.Address, deadline *big.Int) (*types.Transaction, error) {
-	return _Common.Contract.SubmitOrderEthWithPath(&_Common.TransactOpts, _to, _amountIn, mid, gas, routerAddr, userPath, deadline)
-}
-
-// SubmitOrderEthWithPath is a paid mutator transaction binding the contract method 0xaecf09b5.
-//
-// Solidity: function submitOrderEthWithPath(address _to, uint256 _amountIn, uint256 mid, uint256 gas, address routerAddr, address[] userPath, uint256 deadline) returns()
-func (_Common *CommonTransactorSession) SubmitOrderEthWithPath(_to common.Address, _amountIn *big.Int, mid *big.Int, gas *big.Int, routerAddr common.Address, userPath []common.Address, deadline *big.Int) (*types.Transaction, error) {
-	return _Common.Contract.SubmitOrderEthWithPath(&_Common.TransactOpts, _to, _amountIn, mid, gas, routerAddr, userPath, deadline)
-}
-
-// SubmitOrderWithPath is a paid mutator transaction binding the contract method 0x655d44dd.
-//
-// Solidity: function submitOrderWithPath(address _to, uint256 _amountIn, uint256 mid, uint256 gas, address routerAddr, address[] userPath, address[] gasPath, uint256 deadline) returns()
-func (_Common *CommonTransactor) SubmitOrderWithPath(opts *bind.TransactOpts, _to common.Address, _amountIn *big.Int, mid *big.Int, gas *big.Int, routerAddr common.Address, userPath []common.Address, gasPath []common.Address, deadline *big.Int) (*types.Transaction, error) {
-	return _Common.contract.Transact(opts, "submitOrderWithPath", _to, _amountIn, mid, gas, routerAddr, userPath, gasPath, deadline)
-}
-
-// SubmitOrderWithPath is a paid mutator transaction binding the contract method 0x655d44dd.
-//
-// Solidity: function submitOrderWithPath(address _to, uint256 _amountIn, uint256 mid, uint256 gas, address routerAddr, address[] userPath, address[] gasPath, uint256 deadline) returns()
-func (_Common *CommonSession) SubmitOrderWithPath(_to common.Address, _amountIn *big.Int, mid *big.Int, gas *big.Int, routerAddr common.Address, userPath []common.Address, gasPath []common.Address, deadline *big.Int) (*types.Transaction, error) {
-	return _Common.Contract.SubmitOrderWithPath(&_Common.TransactOpts, _to, _amountIn, mid, gas, routerAddr, userPath, gasPath, deadline)
-}
-
-// SubmitOrderWithPath is a paid mutator transaction binding the contract method 0x655d44dd.
-//
-// Solidity: function submitOrderWithPath(address _to, uint256 _amountIn, uint256 mid, uint256 gas, address routerAddr, address[] userPath, address[] gasPath, uint256 deadline) returns()
-func (_Common *CommonTransactorSession) SubmitOrderWithPath(_to common.Address, _amountIn *big.Int, mid *big.Int, gas *big.Int, routerAddr common.Address, userPath []common.Address, gasPath []common.Address, deadline *big.Int) (*types.Transaction, error) {
-	return _Common.Contract.SubmitOrderWithPath(&_Common.TransactOpts, _to, _amountIn, mid, gas, routerAddr, userPath, gasPath, deadline)
 }
 
 // SwapAndBurnEthWithPath is a paid mutator transaction binding the contract method 0x22e1e609.
@@ -1263,153 +1200,6 @@ func (_Common *CommonFilterer) ParseMintToken(log types.Log) (*CommonMintToken, 
 	return event, nil
 }
 
-// CommonOrderCancelIterator is returned from FilterOrderCancel and is used to iterate over the raw logs and unpacked data for OrderCancel events raised by the Common contract.
-type CommonOrderCancelIterator struct {
-	Event *CommonOrderCancel // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *CommonOrderCancelIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(CommonOrderCancel)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(CommonOrderCancel)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *CommonOrderCancelIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *CommonOrderCancelIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// CommonOrderCancel represents a OrderCancel event raised by the Common contract.
-type CommonOrderCancel struct {
-	To       common.Address
-	Amount   *big.Int
-	Mid      *big.Int
-	AmountIn *big.Int
-	Raw      types.Log // Blockchain specific contextual infos
-}
-
-// FilterOrderCancel is a free log retrieval operation binding the contract event 0x6068e9a11e52c5cf6a0ddc3fd9184bbd8e535327b201cd8c78be20bb901c622b.
-//
-// Solidity: event OrderCancel(address indexed to, uint256 amount, uint256 mid, uint256 amountIn)
-func (_Common *CommonFilterer) FilterOrderCancel(opts *bind.FilterOpts, to []common.Address) (*CommonOrderCancelIterator, error) {
-
-	var toRule []interface{}
-	for _, toItem := range to {
-		toRule = append(toRule, toItem)
-	}
-
-	logs, sub, err := _Common.contract.FilterLogs(opts, "OrderCancel", toRule)
-	if err != nil {
-		return nil, err
-	}
-	return &CommonOrderCancelIterator{contract: _Common.contract, event: "OrderCancel", logs: logs, sub: sub}, nil
-}
-
-// WatchOrderCancel is a free log subscription operation binding the contract event 0x6068e9a11e52c5cf6a0ddc3fd9184bbd8e535327b201cd8c78be20bb901c622b.
-//
-// Solidity: event OrderCancel(address indexed to, uint256 amount, uint256 mid, uint256 amountIn)
-func (_Common *CommonFilterer) WatchOrderCancel(opts *bind.WatchOpts, sink chan<- *CommonOrderCancel, to []common.Address) (event.Subscription, error) {
-
-	var toRule []interface{}
-	for _, toItem := range to {
-		toRule = append(toRule, toItem)
-	}
-
-	logs, sub, err := _Common.contract.WatchLogs(opts, "OrderCancel", toRule)
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(CommonOrderCancel)
-				if err := _Common.contract.UnpackLog(event, "OrderCancel", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseOrderCancel is a log parse operation binding the contract event 0x6068e9a11e52c5cf6a0ddc3fd9184bbd8e535327b201cd8c78be20bb901c622b.
-//
-// Solidity: event OrderCancel(address indexed to, uint256 amount, uint256 mid, uint256 amountIn)
-func (_Common *CommonFilterer) ParseOrderCancel(log types.Log) (*CommonOrderCancel, error) {
-	event := new(CommonOrderCancel)
-	if err := _Common.contract.UnpackLog(event, "OrderCancel", log); err != nil {
-		return nil, err
-	}
-	event.Raw = log
-	return event, nil
-}
-
 // CommonOwnershipTransferredIterator is returned from FilterOwnershipTransferred and is used to iterate over the raw logs and unpacked data for OwnershipTransferred events raised by the Common contract.
 type CommonOwnershipTransferredIterator struct {
 	Event *CommonOwnershipTransferred // Event containing the contract specifics and raw log
@@ -1557,153 +1347,6 @@ func (_Common *CommonFilterer) WatchOwnershipTransferred(opts *bind.WatchOpts, s
 func (_Common *CommonFilterer) ParseOwnershipTransferred(log types.Log) (*CommonOwnershipTransferred, error) {
 	event := new(CommonOwnershipTransferred)
 	if err := _Common.contract.UnpackLog(event, "OwnershipTransferred", log); err != nil {
-		return nil, err
-	}
-	event.Raw = log
-	return event, nil
-}
-
-// CommonSubmitOrderIterator is returned from FilterSubmitOrder and is used to iterate over the raw logs and unpacked data for SubmitOrder events raised by the Common contract.
-type CommonSubmitOrderIterator struct {
-	Event *CommonSubmitOrder // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *CommonSubmitOrderIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(CommonSubmitOrder)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(CommonSubmitOrder)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *CommonSubmitOrderIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *CommonSubmitOrderIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// CommonSubmitOrder represents a SubmitOrder event raised by the Common contract.
-type CommonSubmitOrder struct {
-	To       common.Address
-	Amount   *big.Int
-	Mid      *big.Int
-	AmountIn *big.Int
-	Raw      types.Log // Blockchain specific contextual infos
-}
-
-// FilterSubmitOrder is a free log retrieval operation binding the contract event 0x5dc70b2c7bf5231c04c08d1a971c64c097d777dd94d3a7af8b001ae7f893b838.
-//
-// Solidity: event SubmitOrder(address indexed to, uint256 amount, uint256 mid, uint256 amountIn)
-func (_Common *CommonFilterer) FilterSubmitOrder(opts *bind.FilterOpts, to []common.Address) (*CommonSubmitOrderIterator, error) {
-
-	var toRule []interface{}
-	for _, toItem := range to {
-		toRule = append(toRule, toItem)
-	}
-
-	logs, sub, err := _Common.contract.FilterLogs(opts, "SubmitOrder", toRule)
-	if err != nil {
-		return nil, err
-	}
-	return &CommonSubmitOrderIterator{contract: _Common.contract, event: "SubmitOrder", logs: logs, sub: sub}, nil
-}
-
-// WatchSubmitOrder is a free log subscription operation binding the contract event 0x5dc70b2c7bf5231c04c08d1a971c64c097d777dd94d3a7af8b001ae7f893b838.
-//
-// Solidity: event SubmitOrder(address indexed to, uint256 amount, uint256 mid, uint256 amountIn)
-func (_Common *CommonFilterer) WatchSubmitOrder(opts *bind.WatchOpts, sink chan<- *CommonSubmitOrder, to []common.Address) (event.Subscription, error) {
-
-	var toRule []interface{}
-	for _, toItem := range to {
-		toRule = append(toRule, toItem)
-	}
-
-	logs, sub, err := _Common.contract.WatchLogs(opts, "SubmitOrder", toRule)
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(CommonSubmitOrder)
-				if err := _Common.contract.UnpackLog(event, "SubmitOrder", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseSubmitOrder is a log parse operation binding the contract event 0x5dc70b2c7bf5231c04c08d1a971c64c097d777dd94d3a7af8b001ae7f893b838.
-//
-// Solidity: event SubmitOrder(address indexed to, uint256 amount, uint256 mid, uint256 amountIn)
-func (_Common *CommonFilterer) ParseSubmitOrder(log types.Log) (*CommonSubmitOrder, error) {
-	event := new(CommonSubmitOrder)
-	if err := _Common.contract.UnpackLog(event, "SubmitOrder", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log

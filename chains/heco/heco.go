@@ -6,7 +6,6 @@ import (
 	"github.com/classzz/classzz/btcjson"
 	"github.com/classzz/classzz/cross"
 	"github.com/classzz/committee-vote/chains"
-	"github.com/classzz/committee-vote/chains/ethereum"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
@@ -44,7 +43,7 @@ func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (*types.Transac
 	weth := common.HexToAddress(ec.Cfg.Eth)
 	czz := common.HexToAddress(ec.Cfg.Czz)
 
-	instance, err := ethereum.NewCommon(contractAddress, ec.Client)
+	instance, err := common.NewCommon(contractAddress, ec.Client)
 	privateKey, err := crypto.HexToECDSA(ec.PrivateKey)
 	if err != nil {
 		return nil, err
