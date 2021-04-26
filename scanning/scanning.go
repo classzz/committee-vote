@@ -121,7 +121,7 @@ func (s *Scanning) ProcessConvert() error {
 	}
 
 	for _, conv := range convs {
-		if item, err := s.RawDB.GetConvertItem(conv.MID); item == nil || conv.MID.Int64() == 44 {
+		if item, err := s.RawDB.GetConvertItem(conv.MID); item == nil {
 			if err = s.RawDB.SetConvertItem(conv); err != nil {
 				return err
 			}
