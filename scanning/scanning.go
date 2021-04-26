@@ -1,7 +1,6 @@
 package scanning
 
 import (
-	"github.com/classzz/classzz/cross"
 	"github.com/classzz/classzz/rpcclient"
 	"github.com/classzz/committee-vote/chains/bsc"
 	"github.com/classzz/committee-vote/chains/ethereum"
@@ -126,31 +125,31 @@ func (s *Scanning) ProcessConvert() error {
 				return err
 			}
 			var exttx *types.Transaction
-			if conv.ConvertType == cross.ExpandedTxConvert_ECzz {
-				if exttx, err = s.EthClient.Casting(conv); err != nil {
-					conv.TxInfo = err.Error()
-					if err := s.RawDB.SetConvertItem(conv); err != nil {
-						return err
-					}
-					continue
-				}
-			} else if conv.ConvertType == cross.ExpandedTxConvert_HCzz {
-				if exttx, err = s.HecoClient.Casting(conv); err != nil {
-					conv.TxInfo = err.Error()
-					if err := s.RawDB.SetConvertItem(conv); err != nil {
-						return err
-					}
-					continue
-				}
-			} else if conv.ConvertType == cross.ExpandedTxConvert_BCzz {
-				if exttx, err = s.BscClient.Casting(conv); err != nil {
-					conv.TxInfo = err.Error()
-					if err := s.RawDB.SetConvertItem(conv); err != nil {
-						return err
-					}
-					continue
-				}
-			}
+			//if conv.ConvertType == cross.ExpandedTxConvert_ECzz {
+			//	if exttx, err = s.EthClient.Casting(conv); err != nil {
+			//		conv.TxInfo = err.Error()
+			//		if err := s.RawDB.SetConvertItem(conv); err != nil {
+			//			return err
+			//		}
+			//		continue
+			//	}
+			//} else if conv.ConvertType == cross.ExpandedTxConvert_HCzz {
+			//	if exttx, err = s.HecoClient.Casting(conv); err != nil {
+			//		conv.TxInfo = err.Error()
+			//		if err := s.RawDB.SetConvertItem(conv); err != nil {
+			//			return err
+			//		}
+			//		continue
+			//	}
+			//} else if conv.ConvertType == cross.ExpandedTxConvert_BCzz {
+			//	if exttx, err = s.BscClient.Casting(conv); err != nil {
+			//		conv.TxInfo = err.Error()
+			//		if err := s.RawDB.SetConvertItem(conv); err != nil {
+			//			return err
+			//		}
+			//		continue
+			//	}
+			//}
 			if exttx != nil {
 				conv.ConfirmExtTxHash = exttx.Hash().Hex()
 				if err := s.RawDB.SetConvertItem(conv); err != nil {
