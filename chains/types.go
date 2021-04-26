@@ -12,4 +12,5 @@ type ClientInfo struct {
 	SwapRouter      string `json:"swap_router"`
 	Eth             string `json:"eth"`
 	Czz             string `json:"czz"`
+	Current         string `json:"current"`
 }

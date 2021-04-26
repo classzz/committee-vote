@@ -4,18 +4,23 @@ import (
 	"encoding/json"
 	"github.com/classzz/committee-vote/chains"
 	"github.com/classzz/committee-vote/scanning"
-	"github.com/classzz/committee-vote/storage"
 	"log"
 	"os"
 	"path/filepath"
 )
 
+type HttpConfig struct {
+	Server   string `json:"server"`
+	UserName string `json:"user_name"`
+	PassWord string `json:"pass_word"`
+}
+
 type Config struct {
-	Mysql      storage.MysqlConfig `json:"mysql"`
-	Block      scanning.Config     `json:"block"`
-	Chains     chains.Config       `json:"chains"`
-	PrivateKey string              `json:"private_key"`
-	DebugLevel int                 `json:"debug_level"`
+	HttpServer HttpConfig      `json:"http_server"`
+	Block      scanning.Config `json:"block"`
+	Chains     chains.Config   `json:"chains"`
+	PrivateKey string          `json:"private_key"`
+	DebugLevel int             `json:"debug_level"`
 }
 
 func LoadConfig(cfg *Config) {

@@ -1,11 +1,11 @@
 package storage
 
 import (
-	"fmt"
 	"github.com/classzz/classzz/btcjson"
 	"github.com/classzz/classzz/rlp"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/syndtr/goleveldb/leveldb"
+	"github.com/syndtr/goleveldb/leveldb/util"
 	"math/big"
 )
 
@@ -40,7 +40,6 @@ func (d RawDB) SetCurrentHeight(height int64) error {
 }
 
 func (d RawDB) GetConvertItem(mid *big.Int) (*btcjson.ConvertItemsResult, error) {
-	fmt.Println("mid.String()", mid.String())
 	if data, err := d.DB.Get([]byte(Mid+mid.String()), nil); err != nil {
 		return nil, err
 	} else {
@@ -50,6 +49,25 @@ func (d RawDB) GetConvertItem(mid *big.Int) (*btcjson.ConvertItemsResult, error)
 		}
 		return item, nil
 	}
+}
+
+func (d RawDB) GetConvertItemAll() ([]*btcjson.ConvertItemsResult, error) {
+
+	iter := d.DB.NewIterator(util.BytesPrefix([]byte(Mid)), nil)
+	list := make([]*btcjson.ConvertItemsResult, 0, 0)
+	for iter.Next() {
+		value := iter.Value()
+		item := &btcjson.ConvertItemsResult{}
+		if err := rlp.DecodeBytes(value, item); err != nil {
+			return nil, err
+		}
+		list = append(list, item)
+	}
+	iter.Release()
+	if err := iter.Error(); err != nil {
+		return nil, err
+	}
+	return list, nil
 }
 
 func (d RawDB) SetConvertItem(item *btcjson.ConvertItemsResult) error {

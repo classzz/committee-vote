@@ -6,7 +6,7 @@ import (
 	"github.com/classzz/classzz/btcjson"
 	"github.com/classzz/classzz/cross"
 	"github.com/classzz/committee-vote/chains"
-	"github.com/classzz/committee-vote/chains/ethereum"
+	common2 "github.com/classzz/committee-vote/chains/common"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
@@ -23,6 +23,7 @@ var (
 	wbnb            = common.HexToAddress("0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c")
 	bczz            = common.HexToAddress("0x2Fb9376cFf6fb7f5fe99665aE1Ec2FdDD5099134")
 )
+var ChainName = "BSC"
 
 type BscClient struct {
 	Cfg        *chains.ClientInfo
@@ -46,8 +47,13 @@ func NewClient(c *chains.ClientInfo, privateKey string) *BscClient {
 
 // casting
 func (ec *BscClient) Casting(items *btcjson.ConvertItemsResult) (*types.Transaction, error) {
+	contractAddress := common.HexToAddress(ec.Cfg.ContractAddress)
+	swaprouter := common.HexToAddress(ec.Cfg.SwapRouter)
+	eth := common.HexToAddress(ec.Cfg.Eth)
+	current := common.HexToAddress(ec.Cfg.Current)
+	czz := common.HexToAddress(ec.Cfg.Czz)
 
-	instance, err := ethereum.NewCommon(contractAddress, ec.Client)
+	instance, err := common2.NewCommon(contractAddress, ec.Client)
 	privateKey, err := crypto.HexToECDSA(ec.PrivateKey)
 	if err != nil {
 		return nil, err
@@ -69,11 +75,9 @@ func (ec *BscClient) Casting(items *btcjson.ConvertItemsResult) (*types.Transact
 		return nil, err
 	}
 
-	auth, _ := bind.NewKeyedTransactorWithChainID(privateKey, big.NewInt(56))
+	auth, _ := bind.NewKeyedTransactorWithChainID(privateKey, big.NewInt(128))
 	auth.Nonce = big.NewInt(int64(nonce))
 	auth.Value = big.NewInt(0) // in wei
-	//auth.GasLimit = uint64(1200000) // in units
-	//auth.GasPrice = gasPrice
 
 	toaddresspuk, err := crypto.DecompressPubkey(items.PubKey)
 	if err != nil || toaddresspuk == nil {
@@ -86,51 +90,49 @@ func (ec *BscClient) Casting(items *btcjson.ConvertItemsResult) (*types.Transact
 	toaddress := crypto.PubkeyToAddress(*toaddresspuk)
 	toToken := common.HexToAddress(items.ToToken)
 	Amount := big.NewInt(0).Sub(items.Amount, items.FeeAmount)
+
 	amountIn := int64(uint64(800000)) * gasPrice.Int64()
-	paths := []common.Address{wbnb, bczz}
-
-	if items.AssetType == cross.ExpandedTxConvert_Czz {
-		fmt.Println("BSC mint toaddress", toaddress)
-		tx, err := instance.Mint(auth, items.MID, toaddress, Amount)
-		if err != nil {
-			return nil, err
-		}
-
-		fmt.Printf("tx sent: %s toaddress %s fromaddress %s \r\n", tx.Hash().Hex(), toaddress, fromAddress)
-		return tx, nil
-	}
-
+	paths := []common.Address{current, czz}
 	ethlist, err := instance.SwapBurnGetAmount(nil, big.NewInt(amountIn), paths, swaprouter)
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("paths amount", ethlist)
 
-	if items.ToToken == "0x0000000000000000000000000000000000000000" {
-		fmt.Println("BSC SwapTokenForHt toaddress", toaddress)
-		tx, err := instance.SwapTokenForEth(auth, toaddress, Amount, items.MID, ethlist[1], swaprouter, wbnb, big.NewInt(10000000000000000))
+	log.Info(ChainName, "paths amount ethlist", ethlist)
+	log.Info(ChainName, "mint fromAddress", fromAddress, "toaddress", toaddress)
+	gaspaths := []common.Address{czz, eth, current}
+	if items.AssetType == cross.ExpandedTxConvert_Czz {
+		tx, err := instance.MintWithGas(auth, items.MID, toaddress, Amount, ethlist[1], swaprouter, gaspaths, big.NewInt(10000000000000000))
 		if err != nil {
 			return nil, err
 		}
-		fmt.Printf("tx sent: %s toaddress %s fromaddress %s \r\n", tx.Hash().Hex(), toaddress, fromAddress)
+		log.Info(ChainName, "tx hash ", tx.Hash().Hex())
+		return tx, nil
+	}
+
+	if items.ToToken == "0x0000000000000000000000000000000000000000" {
+		tx, err := instance.SwapTokenForEthWithPath(auth, toaddress, Amount, items.MID, ethlist[1], swaprouter, gaspaths, big.NewInt(10000000000000000))
+		if err != nil {
+			return nil, err
+		}
+		log.Info(ChainName, "tx hash ", tx.Hash().Hex())
 		return tx, nil
 	}
 
 	if items.ToToken == ec.Cfg.Czz {
-		log.Info("BSC Mint", "toaddress", toaddress)
-		tx, err := instance.Mint(auth, items.MID, toaddress, Amount)
+		tx, err := instance.MintWithGas(auth, items.MID, toaddress, Amount, ethlist[1], swaprouter, gaspaths, big.NewInt(10000000000000000))
 		if err != nil {
 			return nil, err
 		}
-		log.Warn("BSC tx sent", "txhash", tx.Hash().Hex(), "toaddress", toaddress, "fromaddress", fromAddress)
+		log.Info(ChainName, "tx hash ", tx.Hash().Hex())
 		return tx, nil
 	}
 
-	fmt.Println("BSC SwapToken toaddress", toaddress)
-	tx, err := instance.SwapToken(auth, toaddress, Amount, items.MID, toToken, ethlist[1], swaprouter, wbnb, big.NewInt(1000000000000000))
+	userPath := []common.Address{czz, eth, current, toToken}
+	tx, err := instance.SwapTokenWithPath(auth, toaddress, Amount, items.MID, ethlist[1], swaprouter, userPath, gaspaths, big.NewInt(1000000000000000))
 	if err != nil {
 		return nil, err
 	}
-	fmt.Printf("tx sent: %s toaddress %s fromaddress %s \r\n", tx.Hash().Hex(), toaddress, fromAddress)
+	log.Info(ChainName, "tx hash ", tx.Hash().Hex())
 	return tx, nil
 }

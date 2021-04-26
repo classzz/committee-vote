@@ -6,6 +6,7 @@ import (
 	"github.com/classzz/classzz/btcjson"
 	"github.com/classzz/classzz/cross"
 	"github.com/classzz/committee-vote/chains"
+	common2 "github.com/classzz/committee-vote/chains/common"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
@@ -15,6 +16,8 @@ import (
 	"golang.org/x/net/context"
 	"math/big"
 )
+
+var ChainName = "HECO"
 
 type HecoClient struct {
 	Cfg        *chains.ClientInfo
@@ -40,10 +43,11 @@ func NewClient(c *chains.ClientInfo, privateKey string) *HecoClient {
 func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (*types.Transaction, error) {
 	contractAddress := common.HexToAddress(ec.Cfg.ContractAddress)
 	swaprouter := common.HexToAddress(ec.Cfg.SwapRouter)
-	weth := common.HexToAddress(ec.Cfg.Eth)
+	eth := common.HexToAddress(ec.Cfg.Eth)
+	current := common.HexToAddress(ec.Cfg.Current)
 	czz := common.HexToAddress(ec.Cfg.Czz)
 
-	instance, err := common.NewCommon(contractAddress, ec.Client)
+	instance, err := common2.NewCommon(contractAddress, ec.Client)
 	privateKey, err := crypto.HexToECDSA(ec.PrivateKey)
 	if err != nil {
 		return nil, err
@@ -82,49 +86,47 @@ func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (*types.Transac
 	Amount := big.NewInt(0).Sub(items.Amount, items.FeeAmount)
 
 	amountIn := int64(uint64(800000)) * gasPrice.Int64()
-	paths := []common.Address{weth, czz}
-
-	if items.AssetType == cross.ExpandedTxConvert_Czz {
-		fmt.Println("HECO mint toaddress", toaddress)
-		tx, err := instance.Mint(auth, items.MID, toaddress, Amount)
-		if err != nil {
-			return nil, err
-		}
-
-		fmt.Printf("tx sent: %s toaddress %s fromaddress %s \r\n", tx.Hash().Hex(), toaddress, fromAddress)
-		return tx, nil
-	}
+	paths := []common.Address{current, czz}
 	ethlist, err := instance.SwapBurnGetAmount(nil, big.NewInt(amountIn), paths, swaprouter)
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("paths amount", ethlist)
 
-	if items.ToToken == "0x0000000000000000000000000000000000000000" {
-		fmt.Println("HECO SwapTokenForHt toaddress", toaddress)
-		tx, err := instance.SwapTokenForEth(auth, toaddress, Amount, items.MID, ethlist[1], swaprouter, weth, big.NewInt(10000000000000000))
+	log.Info(ChainName, "paths amount ethlist", ethlist)
+	log.Info(ChainName, "mint fromAddress", fromAddress, "toaddress", toaddress)
+	gaspaths := []common.Address{czz, eth, current}
+	if items.AssetType == cross.ExpandedTxConvert_Czz {
+		tx, err := instance.MintWithGas(auth, items.MID, toaddress, Amount, ethlist[1], swaprouter, gaspaths, big.NewInt(10000000000000000))
 		if err != nil {
 			return nil, err
 		}
-		fmt.Printf("tx sent: %s toaddress %s fromaddress %s \r\n", tx.Hash().Hex(), toaddress, fromAddress)
+		log.Info(ChainName, "tx hash ", tx.Hash().Hex())
+		return tx, nil
+	}
+
+	if items.ToToken == "0x0000000000000000000000000000000000000000" {
+		tx, err := instance.SwapTokenForEthWithPath(auth, toaddress, Amount, items.MID, ethlist[1], swaprouter, gaspaths, big.NewInt(10000000000000000))
+		if err != nil {
+			return nil, err
+		}
+		log.Info(ChainName, "tx hash ", tx.Hash().Hex())
 		return tx, nil
 	}
 
 	if items.ToToken == ec.Cfg.Czz {
-		log.Info("HECO Mint", "toaddress", toaddress)
-		tx, err := instance.Mint(auth, items.MID, toaddress, Amount)
+		tx, err := instance.MintWithGas(auth, items.MID, toaddress, Amount, ethlist[1], swaprouter, gaspaths, big.NewInt(10000000000000000))
 		if err != nil {
 			return nil, err
 		}
-		log.Warn("HECO tx sent", "txhash", tx.Hash().Hex(), "toaddress", toaddress, "fromaddress", fromAddress)
+		log.Info(ChainName, "tx hash ", tx.Hash().Hex())
 		return tx, nil
 	}
 
-	fmt.Println("HECO SwapToken toaddress", toaddress)
-	tx, err := instance.SwapToken(auth, toaddress, Amount, items.MID, toToken, ethlist[1], swaprouter, weth, big.NewInt(1000000000000000))
+	userPath := []common.Address{czz, eth, current, toToken}
+	tx, err := instance.SwapTokenWithPath(auth, toaddress, Amount, items.MID, ethlist[1], swaprouter, userPath, gaspaths, big.NewInt(1000000000000000))
 	if err != nil {
 		return nil, err
 	}
-	fmt.Printf("tx sent: %s toaddress %s fromaddress %s \r\n", tx.Hash().Hex(), toaddress, fromAddress)
+	log.Info(ChainName, "tx hash ", tx.Hash().Hex())
 	return tx, nil
 }

@@ -1,9 +1,6 @@
 package scanning
 
 import (
-	"github.com/classzz/classzz/blockchain"
-	"github.com/classzz/classzz/chaincfg"
-	"github.com/classzz/classzz/cross"
 	"github.com/classzz/classzz/rpcclient"
 	"github.com/classzz/committee-vote/chains/bsc"
 	"github.com/classzz/committee-vote/chains/ethereum"
@@ -12,7 +9,6 @@ import (
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/log"
 	"math/big"
-	"strconv"
 	"time"
 )
 
@@ -125,23 +121,23 @@ func (s *Scanning) ProcessConvert() error {
 
 	for _, conv := range convs {
 		if item, err := s.RawDB.GetConvertItem(conv.MID); item == nil {
-			if err := s.RawDB.SetConvertItem(conv); err != nil {
+			if err = s.RawDB.SetConvertItem(conv); err != nil {
 				return err
 			}
 			var exttx *types.Transaction
-			if conv.ConvertType == cross.ExpandedTxConvert_ECzz {
-				if exttx, err = s.EthClient.Casting(conv); err != nil {
-					return err
-				}
-			} else if conv.ConvertType == cross.ExpandedTxConvert_HCzz {
-				if exttx, err = s.HecoClient.Casting(conv); err != nil {
-					return err
-				}
-			} else if conv.ConvertType == cross.ExpandedTxConvert_BCzz {
-				if exttx, err = s.BscClient.Casting(conv); err != nil {
-					return err
-				}
-			}
+			//if conv.ConvertType == cross.ExpandedTxConvert_ECzz {
+			//	if exttx, err = s.EthClient.Casting(conv); err != nil {
+			//		return err
+			//	}
+			//} else if conv.ConvertType == cross.ExpandedTxConvert_HCzz {
+			//	if exttx, err = s.HecoClient.Casting(conv); err != nil {
+			//		return err
+			//	}
+			//} else if conv.ConvertType == cross.ExpandedTxConvert_BCzz {
+			//	if exttx, err = s.BscClient.Casting(conv); err != nil {
+			//		return err
+			//	}
+			//}
 			if exttx != nil {
 				conv.ConfirmExtTxHash = exttx.Hash().Hex()
 				if err := s.RawDB.SetConvertItem(conv); err != nil {
@@ -155,23 +151,4 @@ func (s *Scanning) ProcessConvert() error {
 		}
 	}
 	return nil
-}
-
-// getDifficultyRatio returns the proof-of-work difficulty as a multiple of the
-// minimum difficulty using the passed bits field from the header of a block.
-func getDifficultyRatio(bits uint32, params *chaincfg.Params) float64 {
-	// The minimum difficulty is the max possible proof-of-work limit bits
-	// converted back to a number.  Note this is not the same as the proof of
-	// work limit directly because the block difficulty is encoded in a block
-	// with the compact form which loses precision.
-	max := blockchain.CompactToBig(params.PowLimitBits)
-	target := blockchain.CompactToBig(bits)
-
-	difficulty := new(big.Rat).SetFrac(max, target)
-	outString := difficulty.FloatString(8)
-	diff, err := strconv.ParseFloat(outString, 64)
-	if err != nil {
-		return 0
-	}
-	return diff
 }

@@ -9,17 +9,31 @@ import (
 	"github.com/classzz/committee-vote/scanning"
 	"github.com/classzz/committee-vote/storage"
 	"github.com/ethereum/go-ethereum/log"
+	"github.com/gin-gonic/gin"
 	"github.com/syndtr/goleveldb/leveldb"
-	"net"
-	"net/rpc"
-	"net/rpc/jsonrpc"
 	"os"
 )
 
 var (
-	cfg common.Config
-	db  *leveldb.DB
+	cfg   common.Config
+	RawDB *storage.RawDB
 )
+
+// 处理跨域请求,支持options访问
+func CORSMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With, Token, UserName")
+		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST")
+
+		if c.Request.Method == "OPTIONS" {
+			c.AbortWithStatus(204)
+			return
+		}
+		c.Next()
+	}
+}
 
 func main() {
 
@@ -31,7 +45,7 @@ func main() {
 	glogger.Verbosity(log.Lvl(cfg.DebugLevel))
 	log.Root().SetHandler(glogger)
 
-	db, err = leveldb.OpenFile("data/db", nil)
+	db, err := leveldb.OpenFile("data/db", nil)
 	if err != nil {
 		panic(fmt.Sprintf("Leveldb err %s", err))
 	}
@@ -40,9 +54,9 @@ func main() {
 	eth := ethereum.NewClient(&cfg.Chains.EthClient, cfg.PrivateKey)
 	heco := heco.NewClient(&cfg.Chains.HecoClient, cfg.PrivateKey)
 	bsc := bsc.NewClient(&cfg.Chains.BscClient, cfg.PrivateKey)
-	rawdb := &storage.RawDB{DB: db}
+	RawDB = &storage.RawDB{DB: db}
 
-	scanning := scanning.NewScanning(&cfg.Block, rawdb)
+	scanning := scanning.NewScanning(&cfg.Block, RawDB)
 
 	if scanning == nil {
 		return
@@ -53,17 +67,18 @@ func main() {
 	go scanning.Start()
 	defer scanning.Stop()
 
-	rpc.Register(new(RPCService))
-	sock, err := net.Listen("tcp", ":8080")
-	if err != nil {
-		log.Error("listen error:", err)
+	route := gin.Default()
+
+	// 允许使用跨域请求  全局中间件
+	route.Use(CORSMiddleware())
+	v1 := route.Group("/v1/")
+	{
+		v1.POST("/currentheight", CurrentHeight)             //设置访问的路由
+		v1.POST("/getconvertitemall", GetConvertItemAll)     //设置访问的路由
+		v1.POST("/getconvertitembymid", GetConvertItemByMid) //设置访问的路由
 	}
 
-	for {
-		conn, err := sock.Accept()
-		if err != nil {
-			continue
-		}
-		go jsonrpc.ServeConn(conn)
+	if err := route.Run(cfg.HttpServer.Server); err != nil {
+		panic("err:" + err.Error())
 	}
 }
