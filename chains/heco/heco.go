@@ -100,7 +100,7 @@ func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (*types.Transac
 	log.Info(ChainName, "mint fromAddress", fromAddress, "toaddress", toaddress)
 	gaspaths := []common.Address{czz, eth, current}
 	if items.AssetType == cross.ExpandedTxConvert_Czz {
-		tx, err := instance.MintWithGas(auth, items.MID, toaddress, Amount, ethlist[1], swaprouter, gaspaths, big.NewInt(10000000000000000))
+		tx, err := instance.MintWithGas(auth, items.MID, toaddress, Amount, ethlist[len(ethlist)-1], swaprouter, gaspaths, big.NewInt(10000000000000000))
 		if err != nil {
 			return nil, err
 		}
@@ -109,7 +109,7 @@ func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (*types.Transac
 	}
 
 	if items.ToToken == "0x0000000000000000000000000000000000000000" {
-		tx, err := instance.SwapTokenForEthWithPath(auth, toaddress, Amount, items.MID, ethlist[1], swaprouter, gaspaths, big.NewInt(10000000000000000))
+		tx, err := instance.SwapTokenForEthWithPath(auth, toaddress, Amount, items.MID, ethlist[len(ethlist)-1], swaprouter, gaspaths, big.NewInt(10000000000000000))
 		if err != nil {
 			return nil, err
 		}
@@ -118,7 +118,7 @@ func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (*types.Transac
 	}
 
 	if items.ToToken == ec.Cfg.Czz {
-		tx, err := instance.MintWithGas(auth, items.MID, toaddress, Amount, ethlist[1], swaprouter, gaspaths, big.NewInt(10000000000000000))
+		tx, err := instance.MintWithGas(auth, items.MID, toaddress, Amount, ethlist[len(ethlist)-1], swaprouter, gaspaths, big.NewInt(10000000000000000))
 		if err != nil {
 			return nil, err
 		}
@@ -127,7 +127,7 @@ func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (*types.Transac
 	}
 
 	userPath := []common.Address{czz, eth, current, toToken}
-	tx, err := instance.SwapTokenWithPath(auth, toaddress, Amount, items.MID, ethlist[1], swaprouter, userPath, gaspaths, big.NewInt(1000000000000000))
+	tx, err := instance.SwapTokenWithPath(auth, toaddress, Amount, items.MID, ethlist[len(ethlist)-1], swaprouter, userPath, gaspaths, big.NewInt(1000000000000000))
 	if err != nil {
 		return nil, err
 	}

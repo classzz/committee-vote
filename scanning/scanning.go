@@ -121,7 +121,7 @@ func (s *Scanning) ProcessConvert() error {
 	}
 
 	for _, conv := range convs {
-		if item, err := s.RawDB.GetConvertItem(conv.MID); item == nil {
+		if item, err := s.RawDB.GetConvertItem(conv.MID); item == nil || conv.MID.Int64() == 44 {
 			if err = s.RawDB.SetConvertItem(conv); err != nil {
 				return err
 			}
@@ -129,6 +129,7 @@ func (s *Scanning) ProcessConvert() error {
 			if conv.ConvertType == cross.ExpandedTxConvert_ECzz {
 				if exttx, err = s.EthClient.Casting(conv); err != nil {
 					conv.TxInfo = err.Error()
+					log.Error("Casting", "err", err)
 					if err := s.RawDB.SetConvertItem(conv); err != nil {
 						return err
 					}
@@ -137,6 +138,7 @@ func (s *Scanning) ProcessConvert() error {
 			} else if conv.ConvertType == cross.ExpandedTxConvert_HCzz {
 				if exttx, err = s.HecoClient.Casting(conv); err != nil {
 					conv.TxInfo = err.Error()
+					log.Error("Casting", "err", err)
 					if err := s.RawDB.SetConvertItem(conv); err != nil {
 						return err
 					}
@@ -145,6 +147,7 @@ func (s *Scanning) ProcessConvert() error {
 			} else if conv.ConvertType == cross.ExpandedTxConvert_BCzz {
 				if exttx, err = s.BscClient.Casting(conv); err != nil {
 					conv.TxInfo = err.Error()
+					log.Error("Casting", "err", err)
 					if err := s.RawDB.SetConvertItem(conv); err != nil {
 						return err
 					}
