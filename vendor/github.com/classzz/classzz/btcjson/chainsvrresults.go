@@ -509,6 +509,7 @@ type ConvertItemsResult struct {
 	Amount           *big.Int `json:"amount"`
 	FeeAmount        *big.Int `json:"fee_amount"`
 	ToToken          string   `json:"to_token"`
+	TxInfo 		     string   `json:"tx_info"`
 }
 
 type ConvertItemsSort []*ConvertItemsResult

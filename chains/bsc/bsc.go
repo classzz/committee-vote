@@ -18,12 +18,9 @@ import (
 )
 
 var (
-	contractAddress = common.HexToAddress("0x711D839CD1E6E81B971F5b6bBB4a6BD7C4B60Ac6")
-	swaprouter      = common.HexToAddress("0x05fF2B0DB69458A0750badebc4f9e13aDd608C7F")
-	wbnb            = common.HexToAddress("0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c")
-	bczz            = common.HexToAddress("0x2Fb9376cFf6fb7f5fe99665aE1Ec2FdDD5099134")
+	ChainName = "BSC"
+	ChainID   = big.NewInt(56)
 )
-var ChainName = "BSC"
 
 type BscClient struct {
 	Cfg        *chains.ClientInfo
@@ -40,6 +37,7 @@ func NewClient(c *chains.ClientInfo, privateKey string) *BscClient {
 	ec := &BscClient{
 		Client:     client,
 		PrivateKey: privateKey,
+		Cfg:        c,
 	}
 
 	return ec
@@ -75,7 +73,7 @@ func (ec *BscClient) Casting(items *btcjson.ConvertItemsResult) (*types.Transact
 		return nil, err
 	}
 
-	auth, _ := bind.NewKeyedTransactorWithChainID(privateKey, big.NewInt(128))
+	auth, _ := bind.NewKeyedTransactorWithChainID(privateKey, ChainID)
 	auth.Nonce = big.NewInt(int64(nonce))
 	auth.Value = big.NewInt(0) // in wei
 

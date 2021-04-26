@@ -17,7 +17,10 @@ import (
 	"math/big"
 )
 
-var ChainName = "ETH"
+var (
+	ChainName = "ETH"
+	ChainID   = big.NewInt(1)
+)
 
 type EthClient struct {
 	Cfg        *chains.ClientInfo
@@ -34,6 +37,7 @@ func NewClient(c *chains.ClientInfo, privateKey string) *EthClient {
 	ec := &EthClient{
 		Client:     client,
 		PrivateKey: privateKey,
+		Cfg:        c,
 	}
 
 	return ec
@@ -68,7 +72,7 @@ func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (*types.Transact
 		return nil, err
 	}
 
-	auth, _ := bind.NewKeyedTransactorWithChainID(privateKey, big.NewInt(128))
+	auth, _ := bind.NewKeyedTransactorWithChainID(privateKey, ChainID)
 	auth.Nonce = big.NewInt(int64(nonce))
 	auth.Value = big.NewInt(0) // in wei
 
