@@ -90,7 +90,7 @@ func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (*types.Transac
 	Amount := big.NewInt(0).Sub(items.Amount, items.FeeAmount)
 
 	amountIn := int64(uint64(800000)) * gasPrice.Int64()
-	paths := []common.Address{current, czz}
+	paths := []common.Address{current, eth, czz}
 	ethlist, err := instance.SwapBurnGetAmount(nil, big.NewInt(amountIn), paths, swaprouter)
 	if err != nil {
 		return nil, err
