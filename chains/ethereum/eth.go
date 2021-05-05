@@ -118,7 +118,7 @@ func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (*types.Transact
 		return tx, nil
 	}
 
-	if items.ToToken == "0x0000000000000000000000000000000000000000" {
+	if countSplit[0] == "0x0000000000000000000000000000000000000000" {
 		tx, err := instance.SwapTokenForEthWithPath(auth, toaddress, Amount, items.MID, ethlist[len(ethlist)-1], swaprouter, gaspaths, big.NewInt(10000000000000000))
 		if err != nil {
 			return nil, err
@@ -127,7 +127,7 @@ func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (*types.Transact
 		return tx, nil
 	}
 
-	if items.ToToken == ec.Cfg.Czz {
+	if countSplit[0] == ec.Cfg.Czz {
 		tx, err := instance.MintWithGas(auth, items.MID, toaddress, Amount, ethlist[len(ethlist)-1], swaprouter, gaspaths, big.NewInt(10000000000000000))
 		if err != nil {
 			return nil, err
