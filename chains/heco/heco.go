@@ -15,6 +15,7 @@ import (
 	"github.com/ethereum/go-ethereum/log"
 	"golang.org/x/net/context"
 	"math/big"
+	"strings"
 )
 
 var (
@@ -45,8 +46,17 @@ func NewClient(c *chains.ClientInfo, privateKey string) *HecoClient {
 
 // casting
 func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (*types.Transaction, error) {
+	countSplit := strings.Split(items.ToToken, "#")
+	if len(countSplit) < 1 {
+		return nil, fmt.Errorf("countSplit err %s", countSplit)
+	}
+
+	if !strings.Contains(ec.Cfg.SwapRouter, countSplit[1]) {
+		return nil, fmt.Errorf("SwapRouter err %s", countSplit)
+	}
+
 	contractAddress := common.HexToAddress(ec.Cfg.ContractAddress)
-	swaprouter := common.HexToAddress(ec.Cfg.SwapRouter)
+	swaprouter := common.HexToAddress(countSplit[1])
 	eth := common.HexToAddress(ec.Cfg.Eth)
 	current := common.HexToAddress(ec.Cfg.Current)
 	czz := common.HexToAddress(ec.Cfg.Czz)
