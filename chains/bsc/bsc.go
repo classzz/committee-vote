@@ -96,7 +96,7 @@ func (ec *BscClient) Casting(items *btcjson.ConvertItemsResult) (*types.Transact
 	}
 
 	toaddress := crypto.PubkeyToAddress(*toaddresspuk)
-	toToken := common.HexToAddress(items.ToToken)
+	toToken := common.HexToAddress(countSplit[0])
 	Amount := big.NewInt(0).Sub(items.Amount, items.FeeAmount)
 
 	amountIn := int64(uint64(800000)) * gasPrice.Int64()
