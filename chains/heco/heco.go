@@ -47,14 +47,18 @@ func NewClient(c *chains.ClientInfo, privateKey string) *HecoClient {
 // casting
 func (ec *HecoClient) Casting(items *btcjson.ConvertItemsResult) (*types.Transaction, error) {
 	countSplit := strings.Split(items.ToToken, "#")
-	if len(countSplit) < 1 {
-		return nil, fmt.Errorf("countSplit err %s", countSplit)
-	}
+	if items.AssetType != cross.ExpandedTxConvert_Czz {
+		if len(countSplit) < 1 {
+			return nil, fmt.Errorf("countSplit err %s", countSplit)
+		}
 
-	if !strings.Contains(ec.Cfg.SwapRouter, countSplit[1]) {
-		return nil, fmt.Errorf("SwapRouter err %s", countSplit)
+		if !strings.Contains(ec.Cfg.SwapRouter, countSplit[1]) {
+			return nil, fmt.Errorf("SwapRouter err %s", countSplit)
+		}
+	} else {
+		countSplit[0] = ""
+		countSplit[1] = "0xED7d5F38C79115ca12fe6C0041abb22F0A06C300"
 	}
-
 	contractAddress := common.HexToAddress(ec.Cfg.ContractAddress)
 	swaprouter := common.HexToAddress(countSplit[1])
 	eth := common.HexToAddress(ec.Cfg.Eth)
