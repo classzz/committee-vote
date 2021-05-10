@@ -48,14 +48,18 @@ func NewClient(c *chains.ClientInfo, privateKey string) *EthClient {
 func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (*types.Transaction, error) {
 
 	countSplit := strings.Split(items.ToToken, "#")
-	if len(countSplit) < 1 {
-		return nil, fmt.Errorf("countSplit err %s", countSplit)
-	}
+	if items.AssetType != cross.ExpandedTxConvert_Czz {
+		if len(countSplit) < 1 {
+			return nil, fmt.Errorf("countSplit err %s", countSplit)
+		}
 
-	if !strings.Contains(ec.Cfg.SwapRouter, countSplit[1]) {
-		return nil, fmt.Errorf("SwapRouter err %s", countSplit)
+		if !strings.Contains(ec.Cfg.SwapRouter, countSplit[1]) {
+			return nil, fmt.Errorf("SwapRouter err %s", countSplit)
+		}
+	} else {
+		countSplit[0] = ""
+		countSplit = append(countSplit, "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D")
 	}
-
 	contractAddress := common.HexToAddress(ec.Cfg.ContractAddress)
 	swaprouter := common.HexToAddress(countSplit[1])
 	current := common.HexToAddress(ec.Cfg.Current)
