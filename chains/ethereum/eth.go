@@ -87,9 +87,11 @@ func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (*types.Transact
 		return nil, err
 	}
 
+	gasPrice = big.NewInt(0).Add(gasPrice, big.NewInt(gasPrice.Int64()/10))
 	auth, _ := bind.NewKeyedTransactorWithChainID(privateKey, ChainID)
 	auth.Nonce = big.NewInt(int64(nonce))
 	auth.Value = big.NewInt(0) // in wei
+	auth.GasPrice = gasPrice   // in wei
 
 	toaddresspuk, err := crypto.DecompressPubkey(items.PubKey)
 	if err != nil || toaddresspuk == nil {
