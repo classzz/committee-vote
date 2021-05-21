@@ -26,7 +26,19 @@ var (
 type EthClient struct {
 	Cfg        *chains.ClientInfo
 	Client     *ethclient.Client
+	Tracker    *common2.GasTracker
 	PrivateKey string
+}
+
+func (ec *EthClient) SyncTracker() {
+	for {
+		if Tracker, err := common2.GetGasTracker(); err != nil {
+			log.Error("ETh SyncTracker", "err", err)
+			continue
+		} else {
+			ec.Tracker = Tracker
+		}
+	}
 }
 
 func NewClient(c *chains.ClientInfo, privateKey string) *EthClient {
@@ -40,7 +52,7 @@ func NewClient(c *chains.ClientInfo, privateKey string) *EthClient {
 		PrivateKey: privateKey,
 		Cfg:        c,
 	}
-
+	go ec.SyncTracker()
 	return ec
 }
 
@@ -82,12 +94,12 @@ func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (*types.Transact
 		return nil, err
 	}
 
-	gasPrice, err := ec.Client.SuggestGasPrice(context.Background())
-	if err != nil {
-		return nil, err
-	}
+	//gasPrice, err := ec.Client.SuggestGasPrice(context.Background())
+	//if err != nil {
+	//	return nil, err
+	//}
 
-	gasPrice = big.NewInt(0).Add(gasPrice, big.NewInt(gasPrice.Int64()/10))
+	gasPrice := big.NewInt(ec.Tracker.Data.Fast)
 	auth, _ := bind.NewKeyedTransactorWithChainID(privateKey, ChainID)
 	auth.Nonce = big.NewInt(int64(nonce))
 	auth.Value = big.NewInt(0) // in wei
@@ -112,8 +124,7 @@ func (ec *EthClient) Casting(items *btcjson.ConvertItemsResult) (*types.Transact
 		return nil, err
 	}
 
-	log.Info(ChainName, "paths amount ethlist", ethlist)
-	log.Info(ChainName, "mint fromAddress", fromAddress, "toaddress", toaddress)
+	log.Info(ChainName, "gasprice", gasPrice, "ethlist", ethlist, "mint fromAddress", fromAddress, "toaddress", toaddress)
 	gaspaths := []common.Address{czz, current}
 	if items.AssetType == cross.ExpandedTxConvert_Czz {
 		tx, err := instance.MintWithGas(auth, items.MID, toaddress, Amount, ethlist[len(ethlist)-1], swaprouter, gaspaths, big.NewInt(10000000000000000))
