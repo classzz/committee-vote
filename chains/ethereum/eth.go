@@ -16,6 +16,7 @@ import (
 	"golang.org/x/net/context"
 	"math/big"
 	"strings"
+	"time"
 )
 
 var (
@@ -34,10 +35,10 @@ func (ec *EthClient) SyncTracker() {
 	for {
 		if Tracker, err := common2.GetGasTracker(); err != nil {
 			log.Error("ETh SyncTracker", "err", err)
-			continue
 		} else {
 			ec.Tracker = Tracker
 		}
+		time.Sleep(15 * time.Second)
 	}
 }
 
