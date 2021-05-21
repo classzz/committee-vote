@@ -38,7 +38,7 @@ func (ec *EthClient) SyncTracker() {
 		} else {
 			ec.Tracker = Tracker
 		}
-		time.Sleep(15 * time.Second)
+		time.Sleep(16 * time.Second)
 	}
 }
 
