@@ -19,7 +19,7 @@ var (
 	RawDB *storage.RawDB
 )
 
-// 处理跨域请求,支持options访问
+//
 func CORSMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
@@ -69,13 +69,13 @@ func main() {
 
 	route := gin.Default()
 
-	// 允许使用跨域请求  全局中间件
+	//
 	route.Use(CORSMiddleware())
 	v1 := route.Group("/v1/")
 	{
-		v1.POST("/currentheight", CurrentHeight)             //设置访问的路由
-		v1.POST("/getconvertitemall", GetConvertItemAll)     //设置访问的路由
-		v1.POST("/getconvertitembymid", GetConvertItemByMid) //设置访问的路由
+		v1.POST("/currentheight", CurrentHeight)             //
+		v1.POST("/getconvertitemall", GetConvertItemAll)     //
+		v1.POST("/getconvertitembymid", GetConvertItemByMid) //
 	}
 
 	if err := route.Run(cfg.HttpServer.Server); err != nil {
